@@ -1,9 +1,9 @@
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-X.....X......X.....XX..XX....X
-XX..XXX.XXX..XX....XX..XX....X
-XX..X...X....XXX...XX..XX....X
-XX..X...X....XXX...XX..XX....X
-XX..X...X....XXX...XX..XX....X
+X...X.X......X.....XX..XX....X
+X...XXX.XXX..XX....XX..XX....X
+X...X...X....XXX...XX..XX....X
+X...X...X....XXX...XX..XX....X
+XXXXX...X....XXX...XX..XX....X
 X.....X......X.....XX..XX....X
 XX..XXX.XXX..XX....XX..XX....X
 XX..X...X....XXX...XX..XX....X

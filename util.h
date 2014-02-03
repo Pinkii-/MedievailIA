@@ -1,9 +1,36 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-int redUP(float n) {
-    if (n == int(n)) return int(n);
-    else return int(n) + 1;
-}
+#define WIDTH 1000
+#define HEIGHT 500
+
+#define ROWS 30
+#define COLS 30
+
+#define TILE_SIZE 40
+
+#define NTEXTURES 3
+
+enum Typo { //Terrain
+    None, Rock, Wood
+};
+
+enum Direction {
+    Up, Right, Down, Left
+};
+
+//struct Way {
+//    Direction d;
+//    int distancia;
+//};
+
+struct HitBox {
+    int minX, maxX, minY, maxY;
+};
+
+enum texturas {
+    tNone, tRock, tNpc
+};
+
 
 #endif // UTIL_H

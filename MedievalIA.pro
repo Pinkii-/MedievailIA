@@ -25,4 +25,5 @@ HEADERS += \
     tile.h \
     terrain.h \
     npc.h \
-    display.h
+    display.h \
+    util.h

@@ -2,11 +2,7 @@
 #define TERRAIN_H
 
 #include "tile.h"
-
-enum Typo {
-    None, Rock, Wood
-};
-
+#include "util.h"
 
 class Terrain : public Tile
 {

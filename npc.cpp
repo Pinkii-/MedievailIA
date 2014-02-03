@@ -11,7 +11,9 @@ Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size, HitBox h) {
 
     box = h;
 
-    speed = sf::Vector2f(5.0,5.0);
+    waiting = true;
+
+    speed = sf::Vector2f(3.0,3.0);
 
 }
 
@@ -30,3 +32,16 @@ sf::Vector2f Npc::getSpeed() {
 HitBox Npc::getHitBox() {
     return box;
 }
+
+//void Npc::update(Map<Terrain> &m) {
+//    while (waiting) {
+//        Direction dir = Direction(std::rand()%4);
+//        switch (dir) {
+//        case Up:
+//            if ()
+//            break;
+//        default:
+//            break;
+//        }
+//    }
+//}

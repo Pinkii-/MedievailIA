@@ -11,10 +11,11 @@ class Npc : public Tile
 {
 private:
     sf::Vector2f posMatrix;
-    sf::Vector2f speed;
+    float speed;
     HitBox box;
 
     bool waiting;
+    sf::Vector2i posDestino;
     Direction dir;
 public:
     Npc();
@@ -23,10 +24,11 @@ public:
     void setMatPosition(sf::Vector2f pos);
 
     sf::Vector2f getMatPosition();
-    sf::Vector2f getSpeed();
+    float getSpeed();
     HitBox getHitBox();
 
-    //void update(Map<Terrain> &m);
+
+    void update(float delta, Map &m);
 };
 
 #endif // NPC_H

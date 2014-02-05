@@ -13,7 +13,7 @@ public:
     Terrain();
     Terrain(Typo tipo, sf::Texture* texturas, int size);
 
-    Typo getTypo();
+    Typo getTypo() override; //Override mis cojones
 };
 
 #endif // TERRAIN_H

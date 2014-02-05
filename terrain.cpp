@@ -1,5 +1,4 @@
 #include "terrain.h"
-#include <iostream>
 
 Terrain::Terrain()
 {

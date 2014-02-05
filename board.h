@@ -12,7 +12,7 @@
 class Board : public sf::Drawable
 {
 private:
-    Map<Terrain> matrix;
+    Map matrix;
     std::vector<Npc> npcs;
     //Map<Map<Way> > npcsCamino;
     std::vector<sf::Texture> texturas;

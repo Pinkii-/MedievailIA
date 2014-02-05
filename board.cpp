@@ -11,12 +11,10 @@ void Board::init() {
     texturas = std::vector<sf::Texture> (NTEXTURES);
     loadTextures();
     // creacion de estructuras de datos
-    matrix = Map<Terrain>(COLS,ROWS, &texturas);
+    matrix = Map(COLS,ROWS, &texturas);
     npcs = std::vector<Npc> (0);
     // inicializaciones de estructuras de datos
-    std::cout << "GenerateMap" << std::endl;
     matrix.generateMap();
-    std::cout << "-GenerateMap" << std::endl;
     displais.init();
     npcInit();
     updateCamera(0,sf::Vector2f(0,0)); //despues de dibujar todo
@@ -25,18 +23,15 @@ void Board::init() {
 }
 
 void Board::loadTextures() {
-    std::cout << "Load Textures" << std::endl;
     //Terrain Textures
     texturas[tNone].loadFromFile("Resources/pruebaTile.png");
     texturas[tRock].loadFromFile("Resources/pruebaTile2.png");
 
     //NPC Textures
     texturas[tNpc].loadFromFile("Resources/npc.png");
-    std::cout << "-Load Textures" << std::endl;
 }
 
 void Board::npcInit() {
-    std::cout << "npcInit" << std::endl;
     //TODO Inicializacion de los npcs de cada jugador
     sf::Texture* text = &texturas[tNpc];
     sf::Vector2f pos = sf::Vector2f(3.0,3.0);
@@ -47,7 +42,6 @@ void Board::npcInit() {
     b.maxY = 36;
     Npc beta(text,pos,TILE_SIZE, b);
     npcs.push_back(beta);
-    std::cout << "-npcInit" << std::endl;
 }
 
 sf::Vector2f Board::calculateColision(Npc n, float dt, sf::Vector2f dir) {
@@ -55,9 +49,9 @@ sf::Vector2f Board::calculateColision(Npc n, float dt, sf::Vector2f dir) {
     /* This shit should work, but by now it doesnt. So let's try to not look at it (/-_-)/ */
 
     sf::Vector2f pos = n.getMatPosition();
-    sf::Vector2f speed = n.getSpeed();
-    pos.x += dir.x*speed.x*dt;
-    pos.y += dir.y*speed.y*dt;
+    float speed = n.getSpeed();
+    pos.x += dir.x*speed*dt;
+    pos.y += dir.y*speed*dt;
 
     bool MatPos= false;
     const sf::Vector2f constposAux = n.getMatPosition();
@@ -128,7 +122,7 @@ void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 void Board::update(float deltaTime) {
     matrix.updateDraw(cameraPos);
     displais.update(deltaTime,cameraPos,npcs[0].getPosition());
-    //npcs[0].update(matrix);
+    npcs[0].update(deltaTime,matrix);
 
     // COLOCAR EN SU SITIO
     float sizex = WIDTH/TILE_SIZE;

@@ -3,19 +3,18 @@
 
 #include "map.h"
 #include "util.h"
-#include "terrain.h"
 
-template<class T>
-Map<T>::Map() {}
 
-template<class T>
-Map<T>::Map(int cols, int rows, std::vector<sf::Texture> *text) {
-    matrix = std::vector<std::vector<T> > (cols, (std::vector<T> (rows)));
+
+Map::Map() {}
+
+
+Map::Map(int cols, int rows, std::vector<sf::Texture> *text) {
+    matrix = std::vector<std::vector<Terrain> > (cols, (std::vector<Terrain> (rows)));
     texturas = *text;
 }
 
-template<class Tile>
-void Map<Tile>::generateMap() {
+void Map::generateMap() {
 //    for (unsigned int i = 0; i < matrix.size(); ++i) {
 //        for (unsigned int j = 0; j < matrix[0].size(); ++j) {
 //            Typo p;
@@ -29,8 +28,7 @@ void Map<Tile>::generateMap() {
     loadMap();
 }
 
-template<class Tile>
-void Map<Tile>::loadMap() {
+void Map::loadMap() {
 
 
     std::string map = "mapa";
@@ -71,24 +69,24 @@ void Map<Tile>::loadMap() {
     myfile.close();
 }
 
-template<class T>
-bool Map<T>::isWalkeable(sf::Vector2f pos) {
+
+bool Map::isWalkeable(sf::Vector2f pos) {
     int x = pos.x;
     int y = pos.y;
 
-//    std::cout << pos.x << " " << x << std::endl;
+    //if (x >= ROWS or y >= COLS or x < 0 or y < 0) return false;
 
     if (matrix[x][y].getTypo() == None) return true;
     else return false;
 }
 
-template<class T>
-void Map<T>::update(float deltaTime) {
 
-}
+//void Map::update(float deltaTime) {
 
-template<class T>
-sf::Vector2f Map<T>::updateCamera(float deltaTime, sf::Vector2f dir, sf::Vector2f cameraPos, sf::Vector2f cameraVel) {
+//}
+
+
+sf::Vector2f Map::updateCamera(float deltaTime, sf::Vector2f dir, sf::Vector2f cameraPos, sf::Vector2f cameraVel) {
     cameraPos.x += dir.x*cameraVel.x*deltaTime;
     cameraPos.y += dir.y*cameraVel.y*deltaTime;
     float sizex = WIDTH/TILE_SIZE;
@@ -100,8 +98,8 @@ sf::Vector2f Map<T>::updateCamera(float deltaTime, sf::Vector2f dir, sf::Vector2
     return cameraPos;
 }
 
-template<class T>
-void Map<T>::updateDraw(sf::Vector2f cameraPos) {
+
+void Map::updateDraw(sf::Vector2f cameraPos) {
     int sizei = matrix.size();
     int sizej = matrix[0].size();
 
@@ -129,8 +127,7 @@ void Map<T>::updateDraw(sf::Vector2f cameraPos) {
 
 }
 
-template<class Tile>
-void Map<Tile>::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     int sizei = matrix.size();
     int sizej = matrix[0].size();
     for (int i = 0; i < sizei; ++i) {

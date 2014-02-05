@@ -1,6 +1,6 @@
 #include "display.h"
 #include <string>
-#include<sstream>
+#include <sstream>
 
 Display::Display()
 {

@@ -9,7 +9,8 @@ SOURCES += \
     tile.cpp \
     terrain.cpp \
     npc.cpp \
-    display.cpp
+    display.cpp \
+    util.cpp
 
 OTHER_FILES += \
     Resources/mapa.txt \

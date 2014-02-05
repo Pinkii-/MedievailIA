@@ -3,13 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "tile.h"
+#include "terrain.h"
 
-
-template<class T>
 class Map : public sf::Drawable
 {
 private:
-    std::vector<std::vector<T> > matrix;
+    std::vector<std::vector<Terrain> > matrix;
     std::vector<sf::Texture> texturas;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:

@@ -11,6 +11,7 @@ Map::Map() {}
 
 Map::Map(int cols, int rows, std::vector<sf::Texture> *text) {
     matrix = std::vector<std::vector<Terrain> > (cols, (std::vector<Terrain> (rows)));
+    bfs = std::vector<std::vector<Way> > (cols, (std::vector<Way> (rows)));
     texturas = *text;
 }
 
@@ -69,12 +70,15 @@ void Map::loadMap() {
     myfile.close();
 }
 
+void Map::generateBfs() {
+    //TODO
+}
 
 bool Map::isWalkeable(sf::Vector2f pos) {
     int x = pos.x;
     int y = pos.y;
 
-    //if (x >= ROWS or y >= COLS or x < 0 or y < 0) return false;
+    if (x >= ROWS or y >= COLS or x < 0 or y < 0) return false;
 
     if (matrix[x][y].getTypo() == None) return true;
     else return false;
@@ -117,8 +121,8 @@ void Map::updateDraw(sf::Vector2f cameraPos) {
                 matrix[i][j].setPosition(position);
                 matrix[i][j].setPrinted(true);
                 //Intercalando colores para apreciar mejor el movimiento
-                if ((j + i)%2 == 0) matrix[i][j].setColor(sf::Color(125,125,125,255));
-                else matrix[i][j].setColor(sf::Color(0,255,0,255));
+//                if ((j + i)%2 == 0) matrix[i][j].setColor(sf::Color(125,125,125,255));
+//                else matrix[i][j].setColor(sf::Color(0,255,0,255));
             }
             else matrix[i][j].setPrinted(false);
         }

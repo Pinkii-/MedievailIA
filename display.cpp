@@ -13,7 +13,7 @@ void Display::init() {
     for (unsigned int i = 0; i < textos.size();++i) {
         textos[i].setFont(*aux);
         textos[i].setCharacterSize(25);
-        textos[i].setColor(sf::Color::White);
+        textos[i].setColor(sf::Color::Blue);
         textos[i].setStyle(sf::Text::Bold);
     }
 

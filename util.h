@@ -11,7 +11,7 @@
 
 #define TILE_SIZE 40
 
-#define NTEXTURES 3
+#define NTEXTURES 4
 
 enum Typo { //Terrain
     None, Rock, Wood
@@ -31,7 +31,7 @@ struct HitBox {
 };
 
 enum texturas {
-    tNone, tRock, tNpc
+    tNone, tRock, tNpc, tStar
 };
 
 sf::Vector2f dirToVec(Direction dir);
@@ -39,9 +39,13 @@ sf::Vector2f dirToVec(Direction dir);
 sf::Vector2f dirNormaliced (sf::Vector2f dir);
 
 sf::Vector2i vecfToVeci(sf::Vector2f vc);
+sf::Vector2f absoluteValue(sf::Vector2f v);
 
 bool changingNumber(float antes, float despues);
 
 sf::Vector2f vecfTrunc(sf::Vector2f vec);
+
+sf::Vector2f operator + (sf::Vector2f vec, Direction d);
+sf::Vector2f operator - (sf::Vector2f vec, Direction d);
 
 #endif // UTIL_H

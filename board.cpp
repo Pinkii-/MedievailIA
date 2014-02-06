@@ -15,6 +15,7 @@ void Board::init() {
     npcs = std::vector<Npc> (0);
     // inicializaciones de estructuras de datos
     matrix.generateMap();
+    matrix.generateBfs();
     displais.init();
     npcInit();
     updateCamera(0,sf::Vector2f(0,0)); //despues de dibujar todo
@@ -35,13 +36,10 @@ void Board::npcInit() {
     //TODO Inicializacion de los npcs de cada jugador
     sf::Texture* text = &texturas[tNpc];
     sf::Vector2f pos = sf::Vector2f(3.0,3.0);
-    HitBox b;
-    b.minX = 8;
-    b.maxX = 32;
-    b.minY = 5;
-    b.maxY = 36;
-    Npc beta(text,pos,TILE_SIZE, b);
+    Npc beta(text,pos,TILE_SIZE);
     npcs.push_back(beta);
+    Npc alfa(text,pos+sf::Vector2f(3,3),TILE_SIZE);
+    npcs.push_back(alfa);
 }
 
 sf::Vector2f Board::calculateColision(Npc n, float dt, sf::Vector2f dir) {
@@ -122,7 +120,9 @@ void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 void Board::update(float deltaTime) {
     matrix.updateDraw(cameraPos);
     displais.update(deltaTime,cameraPos,npcs[0].getPosition());
-    npcs[0].update(deltaTime,matrix);
+    for (unsigned int i = 0; i < npcs.size(); ++i) {
+        npcs[i].update(deltaTime,matrix);
+    }
 
     // COLOCAR EN SU SITIO
     float sizex = WIDTH/TILE_SIZE;
@@ -153,3 +153,5 @@ void Board::updateNpc(float deltaTime, sf::Vector2f dir) {
 
     npcs[0].setMatPosition(pos);
 }
+
+

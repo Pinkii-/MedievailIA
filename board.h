@@ -35,6 +35,8 @@ public:
     void update(float deltaTime);
     void updateCamera(float deltaTime, sf::Vector2f dir);
     void updateNpc(float deltaTime, sf::Vector2f dir);
+
+    void moveNpc();
 };
 
 #endif // BOARD_H

@@ -10,7 +10,8 @@ SOURCES += \
     terrain.cpp \
     npc.cpp \
     display.cpp \
-    util.cpp
+    util.cpp \
+    thing.cpp
 
 OTHER_FILES += \
     Resources/mapa.txt \
@@ -27,4 +28,5 @@ HEADERS += \
     terrain.h \
     npc.h \
     display.h \
-    util.h
+    util.h \
+    thing.h

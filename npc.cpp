@@ -42,11 +42,11 @@ void Npc::update(float delta,Map &m) {
     delta *= speed;
     int i = 0;
     int max = 5;
+    //way = std::stack<Direction>();
     while (waiting and i < max) {
         ++i;
         if(!way.empty()) {
             dir = way.top();
-            std::cout << dir << std::endl;
             sf::Vector2f vectorDirector = dirToVec(dir);
             sf::Vector2f dista = vectorDirector*delta;
             posMatrix += dista;

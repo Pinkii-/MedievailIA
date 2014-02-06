@@ -77,11 +77,6 @@ int main() {
         window.draw(board);
         window.display();
     }
-
-    sf::Vector2f pene = sf::Vector2f(0,0);
-    sf::Vector2f lala = pene + Up;
-    std::cout << lala.x << " " << lala.y << std::endl;
-
     return 0;
 }
 

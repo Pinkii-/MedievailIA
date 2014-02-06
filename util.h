@@ -17,6 +17,14 @@ enum Typo { //Terrain
     None, Rock, Wood
 };
 
+enum TypoO {
+    Star
+};
+
+enum texturas {
+    tNone, tRock, tNpc, tStar
+};
+
 enum Direction {
     Up, Right, Down, Left
 };
@@ -28,10 +36,6 @@ struct Way {
 
 struct HitBox {
     int minX, maxX, minY, maxY;
-};
-
-enum texturas {
-    tNone, tRock, tNpc, tStar
 };
 
 sf::Vector2f dirToVec(Direction dir);

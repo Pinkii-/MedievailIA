@@ -5,7 +5,7 @@
 
 #include "map.h"
 #include "player.h"
-#include "npc.h"
+#include "control.h"
 #include "display.h"
 #include "util.h"
 
@@ -13,7 +13,7 @@ class Board : public sf::Drawable
 {
 private:
     Map matrix;
-    std::vector<Npc> npcs;
+    Control control;
     //Map<Map<Way> > npcsCamino;
     std::vector<sf::Texture> texturas;
 
@@ -28,15 +28,12 @@ public:
     Board();
     void init();
     void loadTextures();
-    void npcInit();
+
 
     sf::Vector2f calculateColision(Npc n, float dt, sf::Vector2f dir);
 
     void update(float deltaTime);
     void updateCamera(float deltaTime, sf::Vector2f dir);
-    void updateNpc(float deltaTime, sf::Vector2f dir);
-
-    void moveNpc();
 };
 
 #endif // BOARD_H

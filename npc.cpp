@@ -9,21 +9,26 @@ Npc::Npc()
 
 Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size) {
     this->setTexture(*texturas);
+
+    float scalex, scaley;
+    scalex =  size/float(texturas->getSize().x);
+    scaley =  size/float(texturas->getSize().y);
+
+    this->setScale(scalex,scaley);
+
     posMatrix = pos;
     setPrinted(false);
     waiting = true;
-    speed = 1;
-
-    posDestino = sf::Vector2i(28,28);
-
-//    way.push(Down);
-//    way.push(Right);
-//    way.push(Right);
-//    way.push(Down);
+    speed = 4;
+    waitTime = 0;
 }
 
 void Npc::setMatPosition(sf::Vector2f pos) {
     posMatrix = pos;
+}
+
+void Npc::setDesPosition(sf::Vector2f pos) {
+    posDestino = vecfToVeci(pos);
 }
 
 sf::Vector2f Npc::getMatPosition() {
@@ -34,16 +39,21 @@ float Npc::getSpeed() {
     return speed;
 }
 
-HitBox Npc::getHitBox() {
-    return box;
+void Npc::decrementSpeed() {
+    speed -= 0.5;
+}
+
+void Npc::setWaitTime(float time) {
+    waitTime = time;
 }
 
 void Npc::update(float delta,Map &m) {
+    waitTime -= delta;
     delta *= speed;
     int i = 0;
     int max = 5;
     //way = std::stack<Direction>();
-    while (waiting and i < max) {
+    while (waiting and i < max and waitTime <= 0) {
         ++i;
         if(!way.empty()) {
             dir = way.top();
@@ -65,7 +75,7 @@ void Npc::update(float delta,Map &m) {
 
         }
     }
-    if (i != max) {
+    if (i != max and waitTime <= 0) {
         sf::Vector2f dist = dirToVec(dir)*delta;
         if (changingNumber(posMatrix.x,posMatrix.x+dist.x) or changingNumber(posMatrix.y,posMatrix.y+dist.y))  {
            posMatrix = vecfTrunc(posMatrix + dirNormaliced(dirToVec(dir)));

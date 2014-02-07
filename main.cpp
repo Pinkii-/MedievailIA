@@ -43,18 +43,18 @@ int main() {
                 case sf::Keyboard::Left:
                     board.updateCamera(deltaTime,sf::Vector2f(-1,0));
                     break;
-                case sf::Keyboard::S:
-                    board.updateNpc(deltaTime,sf::Vector2f(0,1));
-                    break;
-                case sf::Keyboard::W:
-                    board.updateNpc(deltaTime,sf::Vector2f(0,-1));
-                    break;
-                case sf::Keyboard::D:
-                    board.updateNpc(deltaTime,sf::Vector2f(1,0));
-                    break;
-                case sf::Keyboard::A:
-                    board.updateNpc(deltaTime,sf::Vector2f(-1,0));
-                    break;
+//                case sf::Keyboard::S:
+//                    board.updateNpc(deltaTime,sf::Vector2f(0,1));
+//                    break;
+//                case sf::Keyboard::W:
+//                    board.updateNpc(deltaTime,sf::Vector2f(0,-1));
+//                    break;
+//                case sf::Keyboard::D:
+//                    board.updateNpc(deltaTime,sf::Vector2f(1,0));
+//                    break;
+//                case sf::Keyboard::A:
+//                    board.updateNpc(deltaTime,sf::Vector2f(-1,0));
+//                    break;
                 case sf::Keyboard::Z:
                     deltaTime += 0.1;
                     break;

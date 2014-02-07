@@ -11,7 +11,8 @@ SOURCES += \
     npc.cpp \
     display.cpp \
     util.cpp \
-    prop.cpp
+    prop.cpp \
+    control.cpp
 
 OTHER_FILES += \
     Resources/mapa.txt \
@@ -29,4 +30,5 @@ HEADERS += \
     npc.h \
     display.h \
     util.h \
-    prop.h
+    prop.h \
+    control.h

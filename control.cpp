@@ -106,10 +106,10 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
  bool Control::npcOnProp(float deltaTime) {
      for (unsigned int i = 0; i < npcs.size(); ++i) {
          if (npcs[i].getMatPosition() == props[0].getMatPosition()) {
-//             sf::Texture *text = &texturas[tNpc];
-//             Npc npc(text,props[0].getMatPosition(),TILE_SIZE);
-//             npc.setWaitTime(0.1*npcs.size());
-//             npcs.push_back(npc);
+             sf::Texture *text = &texturas[tNpc];
+             Npc npc(text,props[0].getMatPosition(),TILE_SIZE);
+             npc.setWaitTime(0.1*npcs.size());
+             npcs.push_back(npc);
              return true;
          }
      }

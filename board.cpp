@@ -30,6 +30,9 @@ void Board::loadTextures() {
 
     //NPC Textures
     texturas[tNpc].loadFromFile("Resources/npc.png");
+
+    //PROP Textures
+    texturas[tStar].loadFromFile("Resources/star.png");
 }
 
 void Board::npcInit() {
@@ -38,7 +41,7 @@ void Board::npcInit() {
     sf::Vector2f pos = sf::Vector2f(3.0,3.0);
     Npc beta(text,pos,TILE_SIZE);
     npcs.push_back(beta);
-    Npc alfa(text,pos+sf::Vector2f(3,3),TILE_SIZE);
+    Npc alfa(text,pos+sf::Vector2f(0,1),TILE_SIZE);
     npcs.push_back(alfa);
 }
 
@@ -119,7 +122,7 @@ void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 void Board::update(float deltaTime) {
     matrix.updateDraw(cameraPos);
-    displais.update(deltaTime,cameraPos,npcs[0].getPosition());
+    displais.update(deltaTime,cameraPos,npcs[0].getMatPosition());
     for (unsigned int i = 0; i < npcs.size(); ++i) {
         npcs[i].update(deltaTime,matrix);
     }

@@ -11,7 +11,7 @@ class Map : public sf::Drawable
 {
 private:
     std::vector<std::vector<Terrain> > matrix;
-    std::vector<std::vector<Prop> > props;
+    std::vector<Prop> props;
     std::vector<sf::Texture> texturas;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:

@@ -14,6 +14,9 @@ int main() {
 
     Board board;
     board.init();
+    window.clear();
+    window.draw(board);
+    window.display();
 
     while (window.isOpen()) {
         sf::Time time = clock.restart();

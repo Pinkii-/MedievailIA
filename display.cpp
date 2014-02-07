@@ -34,7 +34,7 @@ void Display::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 }
 
 void Display::update(float deltaTime, sf::Vector2f cameraPos, sf::Vector2f npc) {
-    fps = fps*0.95 + (1.0/deltaTime)*0.05;
+    fps = fps*0.90 + (1.0/deltaTime)*0.1;
     std::string sAux = to_string(fps);
     textos[0].setString(sAux);
     textos[1].setString(to_string(cameraPos.x) + " " + to_string(cameraPos.y));

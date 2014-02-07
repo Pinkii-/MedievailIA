@@ -145,6 +145,7 @@ bool Npc::checkWay(Map &m) {
         std::cout << pos.x << " " << pos.y << std::endl;
         if (!m.isWalkeable(pos)) {
             std::cout << "No es walkeable" << std::endl;
+            way = std::stack<Direction>();
             return false;
         }
     }

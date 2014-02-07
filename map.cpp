@@ -11,12 +11,12 @@ Map::Map() {}
 
 Map::Map(int cols, int rows, std::vector<sf::Texture> *text) {
     matrix = std::vector<std::vector<Terrain> > (cols, (std::vector<Terrain> (rows)));
-    props = std::vector<std::vector<Prop> > (cols, (std::vector<Prop> (rows)));
+    props = std::vector<Prop> (0);
     texturas = *text;
 }
 
 void Map::generateMap() {
-    //TODO a random creator of maps
+//    TODO a random creator of maps
 //    for (unsigned int i = 0; i < matrix.size(); ++i) {
 //        for (unsigned int j = 0; j < matrix[0].size(); ++j) {
 //            Typo p;
@@ -31,9 +31,15 @@ void Map::generateMap() {
 }
 
 void Map::generateProps() {
-    for (unsigned int i = 0; i < props.size(); ++i) {
-        for (unsigned int j = 0; j < props[0].size(); ++j) {
-            props[i][j] = Prop();
+    //TODO a random generator of props on the map
+    while (props.size() == 0) {
+        int x,y;
+        x = std::rand() % COLS;
+        y = std::rand() % ROWS;
+        if (isWalkeable(sf::Vector2f(x,y))) {
+            sf::Texture *text = &texturas[tStar];
+            Prop p = Prop(Star,text,sf::Vector2f(x,y),TILE_SIZE);
+            props.push_back(p);
         }
     }
 }
@@ -135,6 +141,18 @@ void Map::updateDraw(sf::Vector2f cameraPos) {
         }
     }
 
+    for (unsigned int i= 0; i < props.size(); ++i) {
+        sf::Vector2f posProp = props[i].getMatPosition();
+        if (posProp.x >= cameraPos.x-1 and posProp.x < cameraPos.x + sizex + 1 and posProp.y >= cameraPos.y-1 and posProp.y < cameraPos.y+sizey+1) {
+            sf::Vector2f position;
+            position.x = TILE_SIZE*(posProp.x-cameraPos.x);
+            position.y = TILE_SIZE*(posProp.y-cameraPos.y);
+            props[i].setPosition(position);
+            props[i].setPrinted(true);
+        }
+        else props[i].setPrinted(false);
+    }
+
 
 }
 
@@ -147,6 +165,12 @@ void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
                 const Tile* tile = &matrix[i][j];
                 target.draw(*tile);
             }
+        }
+    }
+    for (unsigned int i= 0; i < props.size(); ++i) {
+        if (props[i].isPrinted()) {
+            const Prop* prop = &props[i];
+            target.draw(*prop);
         }
     }
 }

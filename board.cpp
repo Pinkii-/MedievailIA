@@ -15,7 +15,7 @@ void Board::init() {
     npcs = std::vector<Npc> (0);
     // inicializaciones de estructuras de datos
     matrix.generateMap();
-    matrix.generateBfs();
+    matrix.generateProps();
     displais.init();
     npcInit();
     updateCamera(0,sf::Vector2f(0,0)); //despues de dibujar todo

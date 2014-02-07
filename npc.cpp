@@ -85,10 +85,11 @@ void Npc::calculateWay(sf::Vector2i destino, Map &m) {
     while (!sinVisitar.empty() and sinVisitar.front() != vecfToVeci(posMatrix)) {
         sf::Vector2i visitando = sinVisitar.front();
         sinVisitar.pop();
-        for (int i = 0; i < 4;++i) {
+        int rand = std::rand()%4;
+        for (int i = 0+rand; i < 4+rand;++i) {
             sf::Vector2i aux = visitando;
             Direction d;
-            switch (i) { // The direction have to be the opposite direction because the route is on the opposite direction
+            switch (i%4) { // The direction have to be the opposite direction because the route is on the opposite direction
             case 0:
                 ++aux.x;
                 d = Left;

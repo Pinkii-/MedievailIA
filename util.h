@@ -17,8 +17,8 @@ enum Typo { //Terrain
     None, Rock, Wood
 };
 
-enum TypoO {
-    Star
+enum TypoP {
+    pNone, Star
 };
 
 enum texturas {

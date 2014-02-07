@@ -5,19 +5,20 @@
 #include <vector>
 #include "tile.h"
 #include "terrain.h"
+#include "prop.h"
 
 class Map : public sf::Drawable
 {
 private:
     std::vector<std::vector<Terrain> > matrix;
-    std::vector<std::vector<Way> > bfs;
+    std::vector<std::vector<Prop> > props;
     std::vector<sf::Texture> texturas;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:
     Map();
     Map(int cols, int rows,std::vector<sf::Texture> *text);
     void generateMap();
-    void generateBfs();
+    void generateProps();
     void loadMap();
     bool isWalkeable(sf::Vector2f pos);
 

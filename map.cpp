@@ -11,11 +11,12 @@ Map::Map() {}
 
 Map::Map(int cols, int rows, std::vector<sf::Texture> *text) {
     matrix = std::vector<std::vector<Terrain> > (cols, (std::vector<Terrain> (rows)));
-    bfs = std::vector<std::vector<Way> > (cols, (std::vector<Way> (rows)));
+    props = std::vector<std::vector<Prop> > (cols, (std::vector<Prop> (rows)));
     texturas = *text;
 }
 
 void Map::generateMap() {
+    //TODO a random creator of maps
 //    for (unsigned int i = 0; i < matrix.size(); ++i) {
 //        for (unsigned int j = 0; j < matrix[0].size(); ++j) {
 //            Typo p;
@@ -27,6 +28,14 @@ void Map::generateMap() {
 //    }
 
     loadMap();
+}
+
+void Map::generateProps() {
+    for (unsigned int i = 0; i < props.size(); ++i) {
+        for (unsigned int j = 0; j < props[0].size(); ++j) {
+            props[i][j] = Prop();
+        }
+    }
 }
 
 void Map::loadMap() {
@@ -70,9 +79,7 @@ void Map::loadMap() {
     myfile.close();
 }
 
-void Map::generateBfs() {
-    //TODO
-}
+
 
 bool Map::isWalkeable(sf::Vector2f pos) {
     int x = pos.x;

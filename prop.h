@@ -7,10 +7,10 @@
 class Prop : public Tile
 {
 private:
-    TypoO tipo;
+    TypoP tipo;
 public:
     Prop();
-    Prop(TypoO tipo, sf::Texture* texturas, int size);
+    Prop(TypoP tipo, sf::Texture* texturas, int size);
 };
 
 #endif // PROP_H

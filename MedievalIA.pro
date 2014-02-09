@@ -1,5 +1,6 @@
   CONFIG -= qt
   LIBS += -lsfml-graphics -lsfml-window -lsfml-system
+  QMAKE_CXXFLAGS += -std=c++11 -fpermissive
 
 SOURCES += \
     main.cpp \

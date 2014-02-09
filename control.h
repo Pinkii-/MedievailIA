@@ -10,7 +10,7 @@ class Control : public sf::Drawable
 {
 private:
      std::vector<Npc> npcs;
-     std::vector<Prop> props;
+     std::vector<std::vector<Prop> > props;
      std::vector<sf::Texture> texturas;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:
@@ -20,11 +20,11 @@ public:
     void update(float deltaTime, Map &m);
     void updateProp(float deltaTime, Map &m);
     void updatePosNpc(float deltaTime, Map &m);
-    void updateObjetiveNpc(sf::Vector2f pos);
+    void updateObjetiveNpc();
     void updateDraw(sf::Vector2f cameraPos);
 
     Npc getNpc(int i);
-    bool npcOnProp(float deltaTime);
+    bool npcOnProp(float deltaTime, int j);
 };
 
 #endif // CONTROL_H

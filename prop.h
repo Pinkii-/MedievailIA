@@ -15,6 +15,7 @@ public:
 
     void setMatPosition(sf::Vector2f pos);
     sf::Vector2f getMatPosition();
+    TypoP getTypoP();
 };
 
 #endif // PROP_H

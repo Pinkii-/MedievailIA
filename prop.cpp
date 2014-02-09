@@ -2,8 +2,6 @@
 
 Prop::Prop()
 {
-    this->tipo = pNone;
-    setPrinted(false);
 }
 
 Prop::Prop(TypoP tipo, sf::Texture* texturas, sf::Vector2f pos, int size) {
@@ -17,6 +15,8 @@ Prop::Prop(TypoP tipo, sf::Texture* texturas, sf::Vector2f pos, int size) {
     scaley =  size/float(texturas->getSize().y);
 
     this->setScale(scalex,scaley);
+
+    if (tipo == BStar) this->setColor(sf::Color::Black);
 }
 
 void Prop::setMatPosition(sf::Vector2f pos) {
@@ -25,4 +25,8 @@ void Prop::setMatPosition(sf::Vector2f pos) {
 
 sf::Vector2f Prop::getMatPosition() {
     return posMatrix;
+}
+
+TypoP Prop::getTypoP() {
+    return tipo;
 }

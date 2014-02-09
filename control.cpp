@@ -6,7 +6,7 @@ Control::Control()
 
 Control::Control(std::vector<sf::Texture> *text) {
     texturas = *text;
-    props = std::vector<Prop> (0);
+    props = std::vector<std::vector<Prop> >(NPROPS, std::vector<Prop> (0));
     npcs = std::vector<Npc> (0);
 }
 
@@ -29,25 +29,38 @@ void Control::update(float deltaTime, Map &m) {
 void Control::updateProp(float deltaTime,Map &m) {
     //TODO a random generator of props on the map
 
-    if (props.size() > 0 and npcOnProp(deltaTime)) props.clear();
+    for (unsigned int i = 0; i < props.size(); ++i) {
+        if (props[i].empty() or props[i].size() > 0 and npcOnProp(deltaTime,i)) {
 
-    while (props.size() == 0) {
-        int x,y;
-        x = std::rand() % COLS;
-        y = std::rand() % ROWS;
-        if (m.isWalkeable(sf::Vector2f(x,y))) {
-            sf::Texture *text = &texturas[tStar];
-            Prop p = Prop(Star,text,sf::Vector2f(x,y),TILE_SIZE);
-            props.push_back(p);
+            props[i].clear();
+
+            while (props[i].size() == 0) {
+                int x,y;
+                x = std::rand() % COLS;
+                y = std::rand() % ROWS;
+                if (m.isWalkeable(sf::Vector2f(x,y))) {
+                    sf::Texture *text = &texturas[tStar];
+                    Prop p = Prop(Star+i,text,sf::Vector2f(x,y),TILE_SIZE);
+                    props[i].push_back(p);
+                }
+            }
+
+            updateObjetiveNpc();
         }
     }
-
-    updateObjetiveNpc(props[0].getMatPosition());
 }
 
-void Control::updateObjetiveNpc(sf::Vector2f pos) {
+void Control::updateObjetiveNpc() {
+    std::vector<sf::Vector2f> proppos;
     for (unsigned int i = 0; i < npcs.size(); ++i) {
-        npcs[i].setDesPosition(pos);
+        for (unsigned int j = 0; j < props.size(); ++j) {
+            if (!props[j].empty() and props[j][0].getTypoP() == npcs[i].getPreference()) {
+                for (unsigned k = 0; k < props[j].size(); ++k) {
+                    proppos.push_back(props[j][k].getMatPosition());
+                }
+            }
+        }
+        npcs[i].setDesPosition(proppos);
     }
 }
 
@@ -61,15 +74,17 @@ void Control::updateDraw(sf::Vector2f cameraPos) {
     float sizex = WIDTH/TILE_SIZE;
     float sizey = HEIGHT/TILE_SIZE;
     for (unsigned int i= 0; i < props.size(); ++i) {
-        sf::Vector2f posProp = props[i].getMatPosition();
-        if (posProp.x >= cameraPos.x-1 and posProp.x < cameraPos.x + sizex + 1 and posProp.y >= cameraPos.y-1 and posProp.y < cameraPos.y+sizey+1) {
-            sf::Vector2f position;
-            position.x = TILE_SIZE*(posProp.x-cameraPos.x);
-            position.y = TILE_SIZE*(posProp.y-cameraPos.y);
-            props[i].setPosition(position);
-            props[i].setPrinted(true);
+        for (unsigned int j=0; j < props[i].size(); ++j) {
+            sf::Vector2f posProp = props[i][j].getMatPosition();
+            if (posProp.x >= cameraPos.x-1 and posProp.x < cameraPos.x + sizex + 1 and posProp.y >= cameraPos.y-1 and posProp.y < cameraPos.y+sizey+1) {
+                sf::Vector2f position;
+                position.x = TILE_SIZE*(posProp.x-cameraPos.x);
+                position.y = TILE_SIZE*(posProp.y-cameraPos.y);
+                props[i][j].setPosition(position);
+                props[i][j].setPrinted(true);
+            }
+            else props[i][j].setPrinted(false);
         }
-        else props[i].setPrinted(false);
     }
     for (unsigned int i= 0; i < npcs.size(); ++i) {
         sf::Vector2f posNpc = npcs[i].getMatPosition();
@@ -86,9 +101,11 @@ void Control::updateDraw(sf::Vector2f cameraPos) {
 
 void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     for (unsigned int i= 0; i < props.size(); ++i) {
-        if (props[i].isPrinted()) {
-            const Prop* prop = &props[i];
+        for (unsigned int j=0; j < props[i].size(); ++j) {
+        if (props[i][j].isPrinted()) {
+            const Prop* prop = &props[i][j];
             target.draw(*prop);
+        }
         }
     }
     for (int i= npcs.size()-1; i >= 0; --i) {
@@ -103,13 +120,13 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
      return npcs[i];
  }
 
- bool Control::npcOnProp(float deltaTime) {
+ bool Control::npcOnProp(float deltaTime, int j) {
      for (unsigned int i = 0; i < npcs.size(); ++i) {
-         if (npcs[i].getMatPosition() == props[0].getMatPosition()) {
-             sf::Texture *text = &texturas[tNpc];
-             Npc npc(text,props[0].getMatPosition(),TILE_SIZE);
-             npc.setWaitTime(0.1*npcs.size());
-             npcs.push_back(npc);
+         if (npcs[i].getMatPosition() == props[j][0].getMatPosition() and npcs[i].getPreference() == props[j][0].getTypoP()) {
+//             sf::Texture *text = &texturas[tNpc];
+//             Npc npc(text,props[0][0].getMatPosition(),TILE_SIZE);
+//             npc.setWaitTime(0.1*npcs.size());
+//             npcs.push_back(npc);
              return true;
          }
      }

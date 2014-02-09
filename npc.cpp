@@ -21,14 +21,28 @@ Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size) {
     waiting = true;
     speed = 4;
     waitTime = 0;
+
+    initPreferences();
+}
+
+void Npc::initPreferences() {
+//    for (int i = 0; i < NPROPS; ++i) {
+//        preferences.push_back(i);
+//    }
+    preferences.push_back(Star);
+}
+
+TypoP Npc::getPreference() {
+    std::list<TypoP>::iterator it = preferences.begin();
+    return *it;
 }
 
 void Npc::setMatPosition(sf::Vector2f pos) {
     posMatrix = pos;
 }
 
-void Npc::setDesPosition(sf::Vector2f pos) {
-    posDestino = vecfToVeci(pos);
+void Npc::setDesPosition(std::vector<sf::Vector2f> pos) {
+    posDestino = pos;
 }
 
 sf::Vector2f Npc::getMatPosition() {
@@ -63,7 +77,7 @@ void Npc::update(float delta,Map &m) {
             waiting = false;
         }
         else {
-            calculateWay(posDestino,m);
+            calculateWay(m);
 //            dir = Direction(std::rand()%4); //Se elige la direccion que tiene que pillar para seguir la ruta
 //            sf::Vector2f vectorDirector = dirToVec(dir);
 //            if (m.isWalkeable(posMatrix+vectorDirector)) {
@@ -86,12 +100,13 @@ void Npc::update(float delta,Map &m) {
     }
 }
 
-void Npc::calculateWay(sf::Vector2i destino, Map &m) {
+void Npc::calculateWay(Map &m) {
     std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));
     std::vector<std::vector<Direction> > camino(COLS, std::vector<Direction>(ROWS));
     std::queue<sf::Vector2i> sinVisitar;
-    visitado[destino.x][destino.y] = true;
-    sinVisitar.push(destino);
+    if (posDestino.size() == 0) std::cout << "LLorar" << std::endl;
+    visitado[int(posDestino[0].x)][int(posDestino[0].y)] = true;
+    sinVisitar.push(vecfToVeci(posDestino[0]));
     while (!sinVisitar.empty() and sinVisitar.front() != vecfToVeci(posMatrix)) {
         sf::Vector2i visitando = sinVisitar.front();
         sinVisitar.pop();
@@ -130,7 +145,7 @@ void Npc::calculateWay(sf::Vector2i destino, Map &m) {
     }
     std::stack<Direction> aux;
     sf::Vector2i pos = vecfToVeci(posMatrix);
-    while (pos != destino) {
+    while (pos != vecfToVeci(posDestino[0])) {
         aux.push(camino[pos.x][pos.y]);
         pos += vecfToVeci(dirToVec(camino[pos.x][pos.y]));
     }

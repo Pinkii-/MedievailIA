@@ -11,16 +11,18 @@
 
 #define TILE_SIZE 40
 
-#define NTEXTURES 4
+
 
 enum Typo { //Terrain
     None, Rock, Wood
 };
 
+#define NPROPS 2
 enum TypoP {
-    pNone, Star
+    Star, BStar
 };
 
+#define NTEXTURES 4
 enum texturas {
     tNone, tRock, tNpc, tStar
 };

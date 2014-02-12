@@ -3,13 +3,13 @@
 
 #include <SFML/System.hpp>
 
-#define WIDTH 1000
-#define HEIGHT 500
+#define WIDTH 1200
+#define HEIGHT 700
 
-#define ROWS 30
-#define COLS 30
+#define ROWS 1000
+#define COLS 1000
 
-#define TILE_SIZE 40
+#define TILE_SIZE 30
 
 
 

@@ -6,6 +6,7 @@
 #include "terrain.h"
 #include "map.h"
 
+#include <queue>
 #include <stack>
 #include <list>
 
@@ -44,6 +45,7 @@ public:
     void update(float delta, Map &m);
     bool checkWay(Map &m);
     void calculateWay(Map &m);
+    bool isOnDest(sf::Vector2i n);
 
 
 };

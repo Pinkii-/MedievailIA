@@ -54,4 +54,6 @@ sf::Vector2f vecfTrunc(sf::Vector2f vec);
 sf::Vector2f operator + (sf::Vector2f vec, Direction d);
 sf::Vector2f operator - (sf::Vector2f vec, Direction d);
 
+Direction opposite(Direction d);
+
 #endif // UTIL_H

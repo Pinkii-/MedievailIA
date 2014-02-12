@@ -19,7 +19,7 @@ private:
     float speed;
 
     bool waiting;
-    std::stack<Direction> way;
+    std::queue<Direction> way;
     Direction dir;
     std::list<TypoP> preferences;
 
@@ -31,6 +31,7 @@ public:
     Npc(sf::Texture* texturas, sf::Vector2f pos, int size);
 
     void initPreferences();
+    void setPreference(TypoP p);
     TypoP getPreference();
 
     void setMatPosition(sf::Vector2f pos);

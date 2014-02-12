@@ -27,10 +27,15 @@ Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size) {
 }
 
 void Npc::initPreferences() {
-//    for (int i = 0; i < NPROPS; ++i) {
-//        preferences.push_back(i);
-//    }
-    preferences.push_back(Star);
+    for (int i = 0; i < NPROPS; ++i) {
+        preferences.push_back(Star+i);
+    }
+//    preferences.push_back(Star);
+}
+
+void Npc::setPreference(TypoP p) {
+    preferences.clear();
+    preferences.push_back(p);
 }
 
 TypoP Npc::getPreference() {
@@ -70,14 +75,11 @@ void Npc::update(float delta,Map &m) {
     while (waiting and i < max and waitTime <= 0) {
         ++i;
         if(!way.empty()) {
-            dir = way.top();
+            dir = way.front();
             sf::Vector2f vectorDirector = dirToVec(dir);
             sf::Vector2f dista = vectorDirector*speed;
             posMatrix += dista;
             waiting = false;
-
-            std::cout << "pene" << std::endl;
-
         }
         else {
             calculateWay(m);
@@ -103,137 +105,121 @@ void Npc::update(float delta,Map &m) {
     }
 }
 
-void Npc::calculateWay(Map &m) { // from dest to ini
-    std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));
-    std::vector<std::vector<Direction> > camino(COLS, std::vector<Direction>(ROWS));
-    std::queue<sf::Vector2i> sinVisitar;
-    if (posDestino.size() == 0) std::cout << "LLorar" << std::endl;
-    visitado[int(posDestino[0].x)][int(posDestino[0].y)] = true;
-    sinVisitar.push(vecfToVeci(posDestino[0]));
-    while (!sinVisitar.empty() and sinVisitar.front() != vecfToVeci(posMatrix)) {
-        sf::Vector2i visitando = sinVisitar.front();
-        sinVisitar.pop();
-        int rand = std::rand()%4;
-        for (int i = 0+rand; i < 4+rand;++i) {
-            sf::Vector2i aux = visitando;
-            Direction d;
-            switch (i%4) { /// The direction have to be the opposite direction because the route is on the opposite direction
-            case 0:
-                ++aux.x;
-                d = Left;
-                break;
-            case 1:
-                --aux.x;
-                d = Right;
-                break;
-            case 2:
-                ++aux.y;
-                d = Up;
-                break;
-            case 3 :
-                --aux.y;
-                d = Down;
-                break;
-            default:
-                break;
-            }
-            if (!visitado[aux.x][aux.y]) {
-                if (m.isWalkeable(sf::Vector2f(aux.x,aux.y))) {
-                    camino[aux.x][aux.y] = d;
-                    sinVisitar.push(aux);
-                }
-                visitado[aux.x][aux.y] = true;
-            }
-        }
-    }
-    for (unsigned int i = 0; i < camino.size(); ++i) {
-        for (unsigned int j = 0; j < camino[0].size(); ++j) std::cout << camino[j][i];
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-    std::stack<Direction> aux;
-    sf::Vector2i pos = vecfToVeci(posMatrix);
-    while (pos != vecfToVeci(posDestino[0])) {
-        aux.push(camino[pos.x][pos.y]);
-        pos += vecfToVeci(dirToVec(camino[pos.x][pos.y]));
-    }
-    while (!aux.empty()) {
-        way.push(aux.top());
-        aux.pop();
-    }
-}
-
-//void Npc::calculateWay(Map &m) { /// From ini to dest
+//void Npc::calculateWay(Map &m) { // from dest to ini
 //    std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));
 //    std::vector<std::vector<Direction> > camino(COLS, std::vector<Direction>(ROWS));
 //    std::queue<sf::Vector2i> sinVisitar;
 //    if (posDestino.size() == 0) std::cout << "LLorar" << std::endl;
-//    visitado[int(posMatrix.x)][int(posMatrix.y)] = true;
-//    sinVisitar.push(vecfToVeci(posMatrix));
-//    while (!sinVisitar.empty() and not isOnDest(sinVisitar.front())) {
+//    visitado[int(posDestino[0].x)][int(posDestino[0].y)] = true;
+//    sinVisitar.push(vecfToVeci(posDestino[0]));
+//    while (!sinVisitar.empty() and sinVisitar.front() != vecfToVeci(posMatrix)) {
 //        sf::Vector2i visitando = sinVisitar.front();
 //        sinVisitar.pop();
 //        int rand = std::rand()%4;
 //        for (int i = 0+rand; i < 4+rand;++i) {
 //            sf::Vector2i aux = visitando;
 //            Direction d;
-//            switch (i%4) {
+//            switch (i%4) { /// The direction have to be the opposite direction because the route is on the opposite direction
 //            case 0:
 //                ++aux.x;
-//                d = Right;
+//                d = Left;
 //                break;
 //            case 1:
 //                --aux.x;
-//                d = Left;
+//                d = Right;
 //                break;
 //            case 2:
 //                ++aux.y;
-//                d = Down;
+//                d = Up;
 //                break;
 //            case 3 :
 //                --aux.y;
-//                d = Up;
+//                d = Down;
 //                break;
 //            default:
 //                break;
 //            }
 //            if (!visitado[aux.x][aux.y]) {
 //                if (m.isWalkeable(sf::Vector2f(aux.x,aux.y))) {
+//                    camino[aux.x][aux.y] = d;
 //                    sinVisitar.push(aux);
 //                }
-//                camino[aux.x][aux.y] = d;
 //                visitado[aux.x][aux.y] = true;
 //            }
 //        }
 //    }
-
-//    std::cout << "HOLA " << posMatrix.x << " " << posMatrix.y << std::endl;
-//    std::cout << "HOLA " << posDestino[0].x << " " << posDestino[0].y << std::endl;
-
-//    std::stack<Direction> aux;
-//    sf::Vector2i pos = vecfToVeci(posDestino[0]);
-
 //    for (unsigned int i = 0; i < camino.size(); ++i) {
 //        for (unsigned int j = 0; j < camino[0].size(); ++j) std::cout << camino[j][i];
 //        std::cout << std::endl;
 //    }
-
-//    while (pos != vecfToVeci(posMatrix)) {
+//    std::cout << std::endl;
+//    std::stack<Direction> aux;
+//    sf::Vector2i pos = vecfToVeci(posMatrix);
+//    while (pos != vecfToVeci(posDestino[0])) {
 //        aux.push(camino[pos.x][pos.y]);
 //        pos += vecfToVeci(dirToVec(camino[pos.x][pos.y]));
-
-//        std::cout << pos.x << " " << pos.y << " " << camino[pos.x][pos.y] << std::endl;
-
 //    }
-
-//    std::cout << "Adiosito" << std::endl;
-
-
-//    while (!aux.empty()) { /// Have to swap all the elements
+//    while (!aux.empty()) {
 //        way.push(aux.top());
 //        aux.pop();
 //    }
 //}
+
+void Npc::calculateWay(Map &m) { /// From ini to dest
+    std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));
+    std::vector<std::vector<Direction> > camino(COLS, std::vector<Direction>(ROWS));
+    std::queue<sf::Vector2i> sinVisitar;
+    if (posDestino.size() == 0) std::cout << "LLorar" << std::endl;
+    visitado[int(posMatrix.x)][int(posMatrix.y)] = true;
+    sinVisitar.push(vecfToVeci(posMatrix));
+    while (!sinVisitar.empty() and not isOnDest(sinVisitar.front())) {
+        sf::Vector2i visitando = sinVisitar.front();
+        sinVisitar.pop();
+        int rand = /*std::rand()%4*/ 0;
+        for (int i = 0+rand; i < 4+rand;++i) {
+            sf::Vector2i aux = visitando;
+            Direction d;
+            switch (i%4) {
+            case 0:
+                ++aux.x;
+                d = Right;
+                break;
+            case 1:
+                --aux.x;
+                d = Left;
+                break;
+            case 2:
+                ++aux.y;
+                d = Down;
+                break;
+            case 3 :
+                --aux.y;
+                d = Up;
+                break;
+            default:
+                break;
+            }
+            if (!visitado[aux.x][aux.y]) {
+                if (m.isWalkeable(sf::Vector2f(aux.x,aux.y))) {
+                    sinVisitar.push(aux);
+                    camino[aux.x][aux.y] = d;
+                }
+                visitado[aux.x][aux.y] = true;
+            }
+        }
+    }
+    std::stack<Direction> aux;
+    sf::Vector2i pos = vecfToVeci(posDestino[0]);
+
+     while (pos != vecfToVeci(posMatrix)) {
+        aux.push(camino[pos.x][pos.y]);
+        pos += vecfToVeci(dirToVec(opposite(camino[pos.x][pos.y])));
+    }
+    while (!aux.empty()) { /// Have to swap all the elements
+        way.push(aux.top());
+        aux.pop();
+    }
+}
 
 //bool Npc::checkWay(Map &m) {
 //    if (way.empty()) {
@@ -264,7 +250,6 @@ bool Npc::isOnDest(sf::Vector2i n) {
             aux = posDestino[i];
             posDestino.clear();
             posDestino.push_back(aux);
-                   std::cout << "POENE" << std::endl;
             return true;
         }
     }

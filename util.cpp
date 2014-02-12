@@ -91,3 +91,24 @@ sf::Vector2f operator - (sf::Vector2f vec, Direction d) {
     }
     return vec;
 }
+
+Direction opposite(Direction d) {
+    Direction dd;
+    switch (d) {
+    case Up:
+        dd = Down;
+        break;
+    case Down:
+        dd = Up;
+        break;
+    case Right:
+        dd = Left;
+        break;
+    case Left:
+        dd = Right;
+        break;
+    default:
+        break;
+    }
+    return dd;
+}

@@ -25,6 +25,7 @@ public:
 
     Npc getNpc(int i);
     bool npcOnProp(float deltaTime, int j);
+    void erasePropN(std::vector<Prop> &v,int n);
 };
 
 #endif // CONTROL_H

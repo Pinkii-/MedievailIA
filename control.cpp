@@ -1,6 +1,6 @@
 #include "control.h"
-//#include <math.h>
-#include "math.h"
+#include <math.h>
+#include <iostream>
 
 Control::Control()
 {
@@ -33,14 +33,11 @@ void Control::updateProp(float deltaTime,Map &m) {
 
     for (unsigned int i = 0; i < props.size(); ++i) {
         if (props[i].empty() or props[i].size() > 0 and npcOnProp(deltaTime,i)) {
-
-            props[i].clear();
-
-            while (props[i].size() == 0) {
+            while (props[i].size() < 3) {
                 int x,y;
                 x = std::rand() % COLS;
                 y = std::rand() % ROWS;
-                if (m.isWalkeable(sf::Vector2f(x,y)) and std::abs(x-int(npcs[0].getMatPosition().x)) + std::abs(y-int(npcs[0].getMatPosition().y))  > 25) {
+                if (m.isWalkeable(sf::Vector2f(x,y)) /* and std::abs(x-int(npcs[0].getMatPosition().x)) + std::abs(y-int(npcs[0].getMatPosition().y))  > 25*/) {
                     sf::Texture *text = &texturas[tStar];
                     Prop p = Prop(Star+i,text,sf::Vector2f(x,y),TILE_SIZE);
                     props[i].push_back(p);
@@ -124,25 +121,47 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
  bool Control::npcOnProp(float deltaTime, int j) {
      for (unsigned int i = 0; i < npcs.size(); ++i) {
-         if (npcs[i].getMatPosition() == props[j][0].getMatPosition() and npcs[i].getPreference() == props[j][0].getTypoP()) {
-             sf::Texture *text = &texturas[tNpc];
-             Npc npc(text,props[0][0].getMatPosition(),TILE_SIZE);
-             npc.setWaitTime(npcs.size()*50);
+         for (unsigned int k = 0; k < props[j].size(); ++k) {
+             if (npcs[i].getMatPosition() == props[j][k].getMatPosition() and npcs[i].getPreference() == props[j][k].getTypoP()) {
 
-             #define ratio 50
-             int r = ratio * npcs.size();
-             int g = ratio * (r/256);
-             int b = ratio * (g/256);
 
-             r %= 256;
-             g %= 256;
-             b %= 256;
+                 sf::Texture *text = &texturas[tNpc];
+                 Npc npc(text,props[j][k].getMatPosition(),TILE_SIZE);
+                 npc.setWaitTime(std::min(int(50*npcs.size()),1500));
 
-             npc.setColor(sf::Color(r,g,b));
 
-             npcs.push_back(npc);
-             return true;
+//#define ratio 50
+
+//                 int r = ratio * npcs.size();
+//                 int g = ratio * (r/256);
+//                 int b = ratio * (g/256);
+
+//                 r %= 256;
+//                 g %= 256;
+//                 b %= 256;
+
+//                 npc.setColor(sf::Color(r,g,b));
+
+                 if ((int(npcs.size())%2) == 0) {
+                     npc.setColor(sf::Color::Black);
+                     npc.setPreference(BStar);
+                 }
+                 else npc.setPreference(Star);
+
+                 npcs.push_back(npc);
+
+
+                 erasePropN(props[j],k);
+                 return true;
+             }
          }
      }
      return false;
+ }
+
+ void Control::erasePropN(std::vector<Prop> &v,int n) {
+     Prop aux = v[n];
+     v[n] = v[v.size()-1];
+     v[v.size()-1]= aux;
+     v.pop_back();
  }

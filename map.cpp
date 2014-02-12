@@ -16,18 +16,18 @@ Map::Map(int cols, int rows, std::vector<sf::Texture> *text) {
 }
 
 void Map::generateMap() {
-//    TODO a random creator of maps
-    for (unsigned int i = 0; i < matrix.size(); ++i) {
-        for (unsigned int j = 0; j < matrix[0].size(); ++j) {
-            Typo p;
-            if (i == 0 or j == 0 or i == matrix.size()-1 or j == matrix[0].size() -1) p = Rock;
-            else p = None;
-            sf::Texture* textura = &texturas[p];
-            matrix[i][j] = Terrain(p,textura,TILE_SIZE);
-        }
-    }
+    ////    TODO a random creator of maps
+//    for (unsigned int i = 0; i < matrix.size(); ++i) {
+//        for (unsigned int j = 0; j < matrix[0].size(); ++j) {
+//            Typo p;
+//            if (i == 0 or j == 0 or i == matrix.size()-1 or j == matrix[0].size() -1) p = Rock;
+//            else p = None;
+//            sf::Texture* textura = &texturas[p];
+//            matrix[i][j] = Terrain(p,textura,TILE_SIZE);
+//        }
+//    }
 
-//    loadMap();
+    loadMap();
 }
 
 
@@ -63,8 +63,8 @@ void Map::loadMap() {
         }
         sf::Texture* textura = &texturas[typo];
         matrix[j][i] = Terrain(typo,textura,TILE_SIZE);
-        if ((i+j)%2 == 0) matrix[j][i].setColor(sf::Color::Green);
-        else matrix[j][i].setColor(sf::Color::Yellow);
+//        if ((i+j)%2 == 0) matrix[j][i].setColor(sf::Color::Green);
+//        else matrix[j][i].setColor(sf::Color::Yellow);
         ++j;
         if (j >= matrix[0].size()) {
             j = 0;

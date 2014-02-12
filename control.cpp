@@ -1,4 +1,6 @@
 #include "control.h"
+//#include <math.h>
+#include "math.h"
 
 Control::Control()
 {
@@ -38,7 +40,7 @@ void Control::updateProp(float deltaTime,Map &m) {
                 int x,y;
                 x = std::rand() % COLS;
                 y = std::rand() % ROWS;
-                if (m.isWalkeable(sf::Vector2f(x,y))) {
+                if (m.isWalkeable(sf::Vector2f(x,y)) and std::abs(x-int(npcs[0].getMatPosition().x)) + std::abs(y-int(npcs[0].getMatPosition().y))  > 25) {
                     sf::Texture *text = &texturas[tStar];
                     Prop p = Prop(Star+i,text,sf::Vector2f(x,y),TILE_SIZE);
                     props[i].push_back(p);
@@ -125,7 +127,19 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
          if (npcs[i].getMatPosition() == props[j][0].getMatPosition() and npcs[i].getPreference() == props[j][0].getTypoP()) {
              sf::Texture *text = &texturas[tNpc];
              Npc npc(text,props[0][0].getMatPosition(),TILE_SIZE);
-             npc.setWaitTime(0.1*npcs.size());
+             npc.setWaitTime(npcs.size()*50);
+
+             #define ratio 50
+             int r = ratio * npcs.size();
+             int g = ratio * (r/256);
+             int b = ratio * (g/256);
+
+             r %= 256;
+             g %= 256;
+             b %= 256;
+
+             npc.setColor(sf::Color(r,g,b));
+
              npcs.push_back(npc);
              return true;
          }

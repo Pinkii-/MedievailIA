@@ -20,7 +20,7 @@ Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size) {
     posMatrix = pos;
     setPrinted(false);
     waiting = true;
-    speed = 4;
+    speed = (1./TILE_SIZE)*0.95*0.2;
     waitTime = 0;
 
     initPreferences();
@@ -63,20 +63,21 @@ void Npc::setWaitTime(float time) {
 }
 
 void Npc::update(float delta,Map &m) {
-    way = std::stack<Direction>();
-    waitTime -= delta;
-    delta *= speed;
+    --waitTime;
+    delta = speed;
     int i = 0;
     int max = 5;
-    //way = std::stack<Direction>();
     while (waiting and i < max and waitTime <= 0) {
         ++i;
         if(!way.empty()) {
             dir = way.top();
             sf::Vector2f vectorDirector = dirToVec(dir);
-            sf::Vector2f dista = vectorDirector*delta;
+            sf::Vector2f dista = vectorDirector*speed;
             posMatrix += dista;
             waiting = false;
+
+            std::cout << "pene" << std::endl;
+
         }
         else {
             calculateWay(m);
@@ -92,7 +93,7 @@ void Npc::update(float delta,Map &m) {
         }
     }
     if (i != max and waitTime <= 0) {
-        sf::Vector2f dist = dirToVec(dir)*delta;
+        sf::Vector2f dist = dirToVec(dir)*speed;
         if (changingNumber(posMatrix.x,posMatrix.x+dist.x) or changingNumber(posMatrix.y,posMatrix.y+dist.y))  {
            posMatrix = vecfTrunc(posMatrix + dirNormaliced(dirToVec(dir)));
             waiting = true;

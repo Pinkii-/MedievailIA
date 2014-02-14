@@ -11,6 +11,7 @@ int main() {
     sf::Clock clock;
     clock.restart();
 
+    srand(time(0));
 
     Board board;
     board.init();

@@ -18,7 +18,7 @@ void Control::npcInit() {
     sf::Vector2f pos = sf::Vector2f(3.0,3.0);
     Npc beta(text,pos,TILE_SIZE);
     beta.setColor(sf::Color::Black);
-    beta.setPreference(BStar);
+    beta.setPreference(Star);
     npcs.push_back(beta);
 //    Npc alfa(text,pos+sf::Vector2f(0,1),TILE_SIZE);
 //    npcs.push_back(alfa);
@@ -38,7 +38,7 @@ void Control::updateProp(float deltaTime,Map &m) {
                 int x,y;
                 x = std::rand() % COLS;
                 y = std::rand() % ROWS;
-                if (m.isWalkeable(sf::Vector2f(x,y)) /* and std::abs(x-int(npcs[0].getMatPosition().x)) + std::abs(y-int(npcs[0].getMatPosition().y))  > 25*/) {
+                if (m.isWalkeable(sf::Vector2f(x,y))  and std::abs(x-int(npcs[0].getMatPosition().x)) + std::abs(y-int(npcs[0].getMatPosition().y))  > 25) {
                     sf::Texture *text = &texturas[tStar];
                     Prop p = Prop(Star+i,text,sf::Vector2f(x,y),TILE_SIZE);
                     props[i].push_back(p);
@@ -55,7 +55,7 @@ void Control::updateObjetiveNpc() {
     for (unsigned int i = 0; i < npcs.size(); ++i) {
         for (unsigned int j = 0; j < props.size(); ++j) {
             if (!props[j].empty() and props[j][0].getTypoP() == npcs[i].getPreference()) {
-                for (unsigned k = 0; k < props[j].size(); ++k) {
+                for (unsigned int k = 0; k < props[j].size(); ++k) {
                     proppos.push_back(props[j][k].getMatPosition());
                 }
             }
@@ -128,7 +128,7 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
                  sf::Texture *text = &texturas[tNpc];
                  Npc npc(text,props[j][k].getMatPosition(),TILE_SIZE);
-                 npc.setWaitTime(std::min(int(50*npcs.size()),1500));
+                 npc.setWaitTime(std::min(int(2250),2250));
 
 
 //#define ratio 50
@@ -141,15 +141,19 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 //                 g %= 256;
 //                 b %= 256;
 
-//                 npc.setColor(sf::Color(r,g,b));
+                 //npc.setColor(sf::Color(r,g,b));
 
                  if (npcs[i].getPreference() == Star) {
-                     npc.setColor(sf::Color::Black);
-                     npc.setPreference(BStar);
+                     npcs[i].setColor(sf::Color::Black);
+                     npcs[i].setPreference(BStar);
                  }
-                 else npc.setPreference(Star);
+                 else {
+                     npcs[i].setPreference(Star);
+                     npcs[i].setColor(sf::Color::Yellow);
+                 }
 
-                 npcs.push_back(npc);
+
+                 if (npcs.size() < 5) npcs.push_back(npc);
 
 
                  erasePropN(props[j],k);

@@ -18,6 +18,7 @@ void Control::npcInit() {
     sf::Vector2f pos = sf::Vector2f(3.0,3.0);
     Npc beta(text,pos,TILE_SIZE);
     beta.setColor(sf::Color::Black);
+    beta.setPreference(BStar);
     npcs.push_back(beta);
 //    Npc alfa(text,pos+sf::Vector2f(0,1),TILE_SIZE);
 //    npcs.push_back(alfa);
@@ -142,7 +143,7 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 //                 npc.setColor(sf::Color(r,g,b));
 
-                 if ((int(npcs.size())%2) == 0) {
+                 if (npcs[i].getPreference() == Star) {
                      npc.setColor(sf::Color::Black);
                      npc.setPreference(BStar);
                  }

@@ -27,7 +27,7 @@ void Map::generateMap() {
 //        }
 //    }
 
-    loadMap();
+	loadMap();
 }
 
 

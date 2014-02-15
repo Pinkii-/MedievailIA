@@ -30,12 +30,11 @@ void Npc::initPreferences() {
     for (int i = 0; i < NPROPS; ++i) {
         preferences.push_back(Star+i);
     }
-//    preferences.push_back(Star);
 }
 
 void Npc::setPreference(TypoP p) {
-    preferences.clear();
-    preferences.push_back(p);
+	preferences.remove(p);
+	preferences.push_front(p);
 }
 
 TypoP Npc::getPreference() {
@@ -175,7 +174,7 @@ void Npc::calculateWay(Map &m) { /// From ini to dest
     while (!sinVisitar.empty() and not isOnDest(sinVisitar.front())) {
         sf::Vector2i visitando = sinVisitar.front();
         sinVisitar.pop();
-        int rand = /*std::rand()%4*/ 0;
+		int rand = /*std::rand()%4;*/ 0;
         for (int i = 0+rand; i < 4+rand;++i) {
             sf::Vector2i aux = visitando;
             Direction d;

@@ -108,8 +108,13 @@ void Board::update(float deltaTime) {
     matrix.updateDraw(cameraPos);
     control.update(deltaTime,matrix);
     control.updateDraw(cameraPos);
-    displais.update(deltaTime,cameraPos,control.getNpc(0).getMatPosition());
+//    displais.update(deltaTime,cameraPos,control.getNpc(0).getMatPosition());
 }
+
+void Board::updateD(float deltaDraw) {
+    displais.update(deltaDraw,cameraPos,control.getNpc(0).getMatPosition());
+}
+
 
 void Board::updateCamera(float deltaTime, sf::Vector2f dir) {
     cameraPos = matrix.updateCamera(deltaTime,dir,cameraPos, cameraVel);

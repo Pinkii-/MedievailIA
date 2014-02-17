@@ -43,7 +43,7 @@ void Display::update(float deltaTime, sf::Vector2f cameraPos, sf::Vector2f npc) 
 
 std::string Display::to_string(float x) {
     std::ostringstream buff;
-    buff.precision(4);
+    buff.precision(5);
     buff<<x;
     return buff.str();
 }

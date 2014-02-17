@@ -111,8 +111,8 @@ void Board::update(float deltaTime) {
 //    displais.update(deltaTime,cameraPos,control.getNpc(0).getMatPosition());
 }
 
-void Board::updateD(float deltaDraw) {
-    displais.update(deltaDraw,cameraPos,control.getNpc(0).getMatPosition());
+void Board::updateD(float deltaTime,float deltaDraw) {
+    displais.update(deltaDraw,deltaTime,cameraPos,control.getNpc(0).getMatPosition());
 }
 
 

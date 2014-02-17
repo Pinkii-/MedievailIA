@@ -33,7 +33,7 @@ public:
     sf::Vector2f calculateColision(Npc n, float dt, sf::Vector2f dir);
 
     void update(float deltaTime);
-    void updateD(float deltaDraw);
+    void updateD(float deltaTime, float deltaDraw);
     void updateCamera(float deltaTime, sf::Vector2f dir);
 };
 

@@ -10,7 +10,7 @@ int main() {
 
     sf::Clock clock;
     clock.restart();
-    int fps = 60;
+    int fps = 30;
     float deltaDraw = 0;
 
     srand(time(0));
@@ -76,12 +76,10 @@ int main() {
                 break;
             }
         }
-
         deltaDraw += deltaTime;
         board.update(deltaTime);
-
         if (deltaDraw >= 1.f/float(fps)) {
-            board.updateD(deltaDraw);
+            board.updateD(deltaTime,deltaDraw);
             deltaDraw -= 1.f/float(fps);
             window.clear();
             window.draw(board);

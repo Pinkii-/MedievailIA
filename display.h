@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#define nTextos 3
+#define nTextos 4
 
 class Display : public sf::Drawable
 {
@@ -13,16 +13,16 @@ private:
     std::vector<sf::Text> textos;
     sf::Font font;
 
-    float fps;
+    float fps,updates;
 
-    std::string to_string(float x);
+    std::string to_string(float x, int precision);
 
     sf::Text aux;
 
 public:
     Display();
     void init();
-    void update(float deltaTime, sf::Vector2f cameraPos, sf::Vector2f npc);
+    void update(float deltaDraw, float deltaTime, sf::Vector2f cameraPos, sf::Vector2f npc);
 
 };
 

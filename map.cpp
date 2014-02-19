@@ -1,8 +1,9 @@
 #include <iostream>
 #include <fstream>
 
-#include "map.h"
 #include "util.h"
+#include "map.h"
+
 
 
 
@@ -17,17 +18,17 @@ Map::Map(int cols, int rows, std::vector<sf::Texture> *text) {
 
 void Map::generateMap() {
     ////    TODO a random creator of maps
-//    for (unsigned int i = 0; i < matrix.size(); ++i) {
-//        for (unsigned int j = 0; j < matrix[0].size(); ++j) {
-//            Typo p;
-//            if (i == 0 or j == 0 or i == matrix.size()-1 or j == matrix[0].size() -1) p = Rock;
-//            else p = None;
-//            sf::Texture* textura = &texturas[p];
-//            matrix[i][j] = Terrain(p,textura,TILE_SIZE);
-//        }
-//    }
+	for (unsigned int i = 0; i < matrix.size(); ++i) {
+		for (unsigned int j = 0; j < matrix[0].size(); ++j) {
+			Typo p;
+			if (i == 0 or j == 0 or i == matrix.size()-1 or j == matrix[0].size() -1) p = Rock;
+			else p = None;
+			sf::Texture* textura = &texturas[p];
+			matrix[i][j] = Terrain(p,textura,TILE_SIZE);
+		}
+	}
 
-	loadMap();
+//	loadMap();
 }
 
 
@@ -81,16 +82,13 @@ bool Map::isWalkeable(sf::Vector2f pos) {
     int x = pos.x;
     int y = pos.y;
 
-    if (x >= ROWS or y >= COLS or x < 0 or y < 0) return false;
+	if (x >= COLS or y >= ROWS or x < 0 or y < 0) return false;
 
     if (matrix[x][y].getTypo() == None) return true;
     else return false;
 }
 
 
-//void Map::update(float deltaTime) {
-
-//}
 
 
 sf::Vector2f Map::updateCamera(float deltaTime, sf::Vector2f dir, sf::Vector2f cameraPos, sf::Vector2f cameraVel) {

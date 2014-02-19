@@ -1,16 +1,24 @@
 #include <SFML/Graphics.hpp>
-
+#include "util.h"
 #include "board.h"
 
 #include <iostream>
 
+int TILE_SIZE = 30;
+
+int WIDTH = sf::VideoMode::getFullscreenModes()[0].width;
+int HEIGHT = sf::VideoMode::getFullscreenModes()[0].height-3*TILE_SIZE;
+
+int ROWS = (HEIGHT+TILE_SIZE-1)/TILE_SIZE;
+int COLS = (WIDTH+TILE_SIZE-1)/TILE_SIZE;
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(WIDTH,HEIGHT), "MediavalIA",sf::Style::Close | sf::Style::Titlebar);
+
+	sf::RenderWindow window(sf::VideoMode(WIDTH,HEIGHT), "MediavalIA",sf::Style::Close | sf::Style::Titlebar);
 
     sf::Clock clock;
     clock.restart();
-    int fps = 30;
+	int fps = 35;
     float deltaDraw = 0;
 
     srand(time(0));

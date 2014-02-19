@@ -129,30 +129,21 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
                  Npc npc(text,props[j][k].getMatPosition(),TILE_SIZE);
 				 npc.setWaitTime(std::min(int(50*npcs.size()),2250));
 
-
-//#define ratio 50
-
-//				 int r = ratio * npcs.size();
-//				 int g = ratio * (r/256);
-//				 int b = ratio * (g/256);
-
-//				 r %= 256;
-//				 g %= 256;
-//				 b %= 256;
-
-//				 npc.setColor(sf::Color(r,g,b));
-
 				 if (npcs[i].getPreference() == Star) {
 					 npcs[i].setColor(sf::Color::Black);
 					 npcs[i].setPreference(BStar);
+					 npc.setPreference(Star);
+					 npc.setColor(sf::Color::Yellow);
 				 }
 				 else {
 					 npcs[i].setPreference(Star);
 					 npcs[i].setColor(sf::Color::Yellow);
+					 npc.setColor(sf::Color::Black);
+					 npc.setPreference(BStar);
 				 }
 
 
-				 /*if (npcs.size() < 5) */npcs.push_back(npc);
+				 npcs.push_back(npc);
 
 
                  erasePropN(props[j],k);

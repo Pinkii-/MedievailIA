@@ -24,7 +24,7 @@ void Board::init() {
 
 void Board::loadTextures() {
     //Terrain Textures
-    texturas[tNone].loadFromFile("Resources/pruebaTileBlanco.png");
+	texturas[tNone].loadFromFile("Resources/pruebaTileBlanco.png");
     texturas[tRock].loadFromFile("Resources/pruebaTile2.png");
 
     //NPC Textures

@@ -10,10 +10,11 @@
 #include <stack>
 #include <list>
 
-
+class Control;
 class Npc : public Tile
 {
 private:
+	Control* c;
     sf::Vector2f posMatrix;
     std::vector<sf::Vector2f> posDestino;
     float speed;

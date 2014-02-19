@@ -2,6 +2,8 @@
 #include <iostream>
 
 
+
+
 sf::Vector2f dirToVec(Direction dir) {
     sf::Vector2f vec;
     switch (dir) {
@@ -109,6 +111,21 @@ Direction opposite(Direction d) {
         break;
     default:
         break;
-    }
-    return dd;
+	}
+	return dd;
+}
+
+sf::Color getColor(int n) {
+	float ratio = 50;
+	int r = ratio * n;
+	int g = ratio * (r/256);
+	int b = ratio * (g/256);
+
+	r %= 256;
+	g %= 256;
+	b %= 256;
+
+	return sf::Color(r,g,b);
+
+
 }

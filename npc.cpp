@@ -1,4 +1,5 @@
 #include "npc.h"
+#include "control.h"
 
 #include <iostream>
 #include <queue>
@@ -20,7 +21,7 @@ Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size) {
     posMatrix = pos;
     setPrinted(false);
     waiting = true;
-    speed = (1./TILE_SIZE)*0.95*0.2;
+	speed = 10;
     waitTime = 0;
 
     initPreferences();
@@ -67,8 +68,8 @@ void Npc::setWaitTime(float time) {
 }
 
 void Npc::update(float delta,Map &m) {
+//	way = std::queue<Direction>();
     --waitTime;
-    delta = speed;
     int i = 0;
     int max = 5;
     while (waiting and i < max and waitTime <= 0) {
@@ -76,7 +77,7 @@ void Npc::update(float delta,Map &m) {
         if(!way.empty()) {
             dir = way.front();
             sf::Vector2f vectorDirector = dirToVec(dir);
-            sf::Vector2f dista = vectorDirector*speed;
+			sf::Vector2f dista = vectorDirector*speed*delta;
             posMatrix += dista;
             waiting = false;
         }
@@ -94,7 +95,7 @@ void Npc::update(float delta,Map &m) {
         }
     }
     if (i != max and waitTime <= 0) {
-        sf::Vector2f dist = dirToVec(dir)*speed;
+		sf::Vector2f dist = dirToVec(dir)*speed*delta;
         if (changingNumber(posMatrix.x,posMatrix.x+dist.x) or changingNumber(posMatrix.y,posMatrix.y+dist.y))  {
            posMatrix = vecfTrunc(posMatrix + dirNormaliced(dirToVec(dir)));
             waiting = true;
@@ -174,7 +175,7 @@ void Npc::calculateWay(Map &m) { /// From ini to dest
     while (!sinVisitar.empty() and not isOnDest(sinVisitar.front())) {
         sf::Vector2i visitando = sinVisitar.front();
         sinVisitar.pop();
-		int rand = /*std::rand()%4;*/ 0;
+		int rand = std::rand()%4;
         for (int i = 0+rand; i < 4+rand;++i) {
             sf::Vector2i aux = visitando;
             Direction d;

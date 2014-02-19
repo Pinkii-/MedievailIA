@@ -2,14 +2,15 @@
 #define UTIL_H
 
 #include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
-#define WIDTH 1200
-#define HEIGHT 900
+extern int WIDTH;
+extern int HEIGHT;
 
-#define ROWS 30
-#define COLS 30
+extern int ROWS;
+extern int COLS;
 
-#define TILE_SIZE 30
+extern int TILE_SIZE;
 
 
 
@@ -55,5 +56,7 @@ sf::Vector2f operator + (sf::Vector2f vec, Direction d);
 sf::Vector2f operator - (sf::Vector2f vec, Direction d);
 
 Direction opposite(Direction d);
+
+sf::Color getColor(int n);
 
 #endif // UTIL_H

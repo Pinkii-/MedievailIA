@@ -16,7 +16,7 @@ void Control::npcInit() {
     //TODO Inicializacion de los npcs de cada jugador
     sf::Texture* text = &texturas[tNpc];
     sf::Vector2f pos = sf::Vector2f(3.0,3.0);
-    Npc beta(text,pos,TILE_SIZE);
+	Npc beta(text,pos,TILE_SIZE, this);
 	beta.setColor(sf::Color::White);
     beta.setPreference(Star);
     npcs.push_back(beta);
@@ -44,7 +44,7 @@ void Control::updateProp(float deltaTime,Map &m) {
                     props[i].push_back(p);
                 }
             }
-            updateObjetiveNpc();
+//            updateObjetiveNpc();
         }
     }
 }
@@ -59,8 +59,20 @@ void Control::updateObjetiveNpc() {
                 }
             }
         }
-        npcs[i].setDesPosition(proppos);
+		//npcs[i].setDesPosition(proppos);
     }
+}
+
+std::vector<sf::Vector2f> Control::getObjetiveNpc(TypoP preference) {
+	std::vector<sf::Vector2f> proppos;
+	for (unsigned int j = 0; j < props.size(); ++j) {
+		if (!props[j].empty() and props[j][0].getTypoP() == preference) {
+			for (unsigned int k = 0; k < props[j].size(); ++k) {
+				proppos.push_back(props[j][k].getMatPosition());
+			}
+		}
+	}
+	return proppos;
 }
 
 void Control::updatePosNpc(float deltaTime, Map &m) {
@@ -126,7 +138,7 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 
                  sf::Texture *text = &texturas[tNpc];
-                 Npc npc(text,props[j][k].getMatPosition(),TILE_SIZE);
+				 Npc npc(text,props[j][k].getMatPosition(),TILE_SIZE,this);
 				 npc.setWaitTime(std::min(int(50*npcs.size()),2250));
 
 				 if (npcs[i].getPreference() == Star) {

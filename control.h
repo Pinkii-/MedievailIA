@@ -21,6 +21,7 @@ public:
     void updateProp(float deltaTime, Map &m);
     void updatePosNpc(float deltaTime, Map &m);
     void updateObjetiveNpc();
+	std::vector<sf::Vector2f> getObjetiveNpc(TypoP preference);
     void updateDraw(sf::Vector2f cameraPos);
 
     Npc getNpc(int i);

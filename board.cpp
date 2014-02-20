@@ -7,19 +7,17 @@ Board::Board()
 
 void Board::init() {
     cameraPos = sf::Vector2f(0.0,0.0);
-    cameraVel = sf::Vector2f(30,30);
+	cameraVel = sf::Vector2f(300,300);
     texturas = std::vector<sf::Texture> (NTEXTURES);
     loadTextures();
     // creacion de estructuras de datos
     matrix = Map(COLS,ROWS, &texturas);
     control = Control(&texturas);
-    // inicializaciones de estructuras d    e datos
+	// inicializaciones de estructuras de datos
     matrix.generateMap();
     control.npcInit();
     displais.init();
     updateCamera(0,sf::Vector2f(0,0)); //despues de dibujar todo
-
-    //npcsCamino = Map<Map<Way> >();
 }
 
 void Board::loadTextures() {
@@ -108,7 +106,6 @@ void Board::update(float deltaTime) {
     matrix.updateDraw(cameraPos);
     control.update(deltaTime,matrix);
     control.updateDraw(cameraPos);
-//    displais.update(deltaTime,cameraPos,control.getNpc(0).getMatPosition());
 }
 
 void Board::updateD(float deltaTime,float deltaDraw) {

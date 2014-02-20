@@ -9,7 +9,7 @@ Npc::Npc()
 {
 }
 
-Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size) {
+Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size, Control* con) : c(con) {
     this->setTexture(*texturas);
 
     float scalex, scaley;
@@ -82,16 +82,11 @@ void Npc::update(float delta,Map &m) {
             waiting = false;
         }
         else {
+			for (std::list<TypoP>::iterator it = preferences.begin(); it != preferences.end(); ++it) {
+				posDestino = c->getObjetiveNpc(*it);
+				if (!posDestino.empty()) break;
+			}
             calculateWay(m);
-//            dir = Direction(std::rand()%4); //Se elige la direccion que tiene que pillar para seguir la ruta
-//            sf::Vector2f vectorDirector = dirToVec(dir);
-//            if (m.isWalkeable(posMatrix+vectorDirector)) {
-//                waiting = false;
-//                sf::Vector2f vectorDirector = dirToVec(dir);
-//                sf::Vector2f dista = vectorDirector*delta;
-//                posMatrix += dista;
-//            }
-
         }
     }
     if (i != max and waitTime <= 0) {
@@ -104,66 +99,6 @@ void Npc::update(float delta,Map &m) {
         else posMatrix += dist;
     }
 }
-
-//void Npc::calculateWay(Map &m) { // from dest to ini
-//    std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));
-//    std::vector<std::vector<Direction> > camino(COLS, std::vector<Direction>(ROWS));
-//    std::queue<sf::Vector2i> sinVisitar;
-//    if (posDestino.size() == 0) std::cout << "LLorar" << std::endl;
-//    visitado[int(posDestino[0].x)][int(posDestino[0].y)] = true;
-//    sinVisitar.push(vecfToVeci(posDestino[0]));
-//    while (!sinVisitar.empty() and sinVisitar.front() != vecfToVeci(posMatrix)) {
-//        sf::Vector2i visitando = sinVisitar.front();
-//        sinVisitar.pop();
-//        int rand = std::rand()%4;
-//        for (int i = 0+rand; i < 4+rand;++i) {
-//            sf::Vector2i aux = visitando;
-//            Direction d;
-//            switch (i%4) { /// The direction have to be the opposite direction because the route is on the opposite direction
-//            case 0:
-//                ++aux.x;
-//                d = Left;
-//                break;
-//            case 1:
-//                --aux.x;
-//                d = Right;
-//                break;
-//            case 2:
-//                ++aux.y;
-//                d = Up;
-//                break;
-//            case 3 :
-//                --aux.y;
-//                d = Down;
-//                break;
-//            default:
-//                break;
-//            }
-//            if (!visitado[aux.x][aux.y]) {
-//                if (m.isWalkeable(sf::Vector2f(aux.x,aux.y))) {
-//                    camino[aux.x][aux.y] = d;
-//                    sinVisitar.push(aux);
-//                }
-//                visitado[aux.x][aux.y] = true;
-//            }
-//        }
-//    }
-//    for (unsigned int i = 0; i < camino.size(); ++i) {
-//        for (unsigned int j = 0; j < camino[0].size(); ++j) std::cout << camino[j][i];
-//        std::cout << std::endl;
-//    }
-//    std::cout << std::endl;
-//    std::stack<Direction> aux;
-//    sf::Vector2i pos = vecfToVeci(posMatrix);
-//    while (pos != vecfToVeci(posDestino[0])) {
-//        aux.push(camino[pos.x][pos.y]);
-//        pos += vecfToVeci(dirToVec(camino[pos.x][pos.y]));
-//    }
-//    while (!aux.empty()) {
-//        way.push(aux.top());
-//        aux.pop();
-//    }
-//}
 
 void Npc::calculateWay(Map &m) { /// From ini to dest
     std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));

@@ -9,7 +9,7 @@ int TILE_SIZE = 30;
 int WIDTH = sf::VideoMode::getFullscreenModes()[0].width;
 int HEIGHT = sf::VideoMode::getFullscreenModes()[0].height-3*TILE_SIZE;
 
-int ROWS = (HEIGHT+TILE_SIZE-1)/TILE_SIZE;
+int ROWS = 10+(HEIGHT+TILE_SIZE-1)/TILE_SIZE;
 int COLS = (WIDTH+TILE_SIZE-1)/TILE_SIZE;
 
 int main() {
@@ -88,7 +88,7 @@ int main() {
         board.update(deltaTime);
         if (deltaDraw >= 1.f/float(fps)) {
             board.updateD(deltaTime,deltaDraw);
-            deltaDraw -= 1.f/float(fps);
+			deltaDraw = 0;
             window.clear();
             window.draw(board);
             window.display();

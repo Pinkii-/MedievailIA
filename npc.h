@@ -29,7 +29,7 @@ private:
 
 public:
     Npc();
-    Npc(sf::Texture* texturas, sf::Vector2f pos, int size);
+	Npc(sf::Texture* texturas, sf::Vector2f pos, int size, Control* con);
 
     void initPreferences();
     void setPreference(TypoP p);

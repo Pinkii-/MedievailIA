@@ -141,20 +141,20 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 				 Npc npc(text,props[j][k].getMatPosition(),TILE_SIZE,this);
 				 npc.setWaitTime(std::min(int(50*npcs.size()),2250));
 
-				 if (npcs[i].getPreference() == Star) {
-					 npcs[i].setColor(sf::Color::Black);
-					 npcs[i].setPreference(BStar);
-					 npc.setPreference(Star);
-					 npc.setColor(sf::Color::Yellow);
-				 }
-				 else {
-					 npcs[i].setPreference(Star);
-					 npcs[i].setColor(sf::Color::Yellow);
-					 npc.setColor(sf::Color::Black);
-					 npc.setPreference(BStar);
-				 }
+//				 if (npcs[i].getPreference() == Star) {
+//					 npcs[i].setColor(sf::Color::Black);
+//					 npcs[i].setPreference(BStar);
+//					 npc.setPreference(Star);
+//					 npc.setColor(sf::Color::Yellow);
+//				 }
+//				 else {
+//					 npcs[i].setPreference(Star);
+//					 npcs[i].setColor(sf::Color::Yellow);
+//					 npc.setColor(sf::Color::Black);
+//					 npc.setPreference(BStar);
+//				 }
 
-
+				 npc.setColor(getColor(npcs.size()));
 				 npcs.push_back(npc);
 
 

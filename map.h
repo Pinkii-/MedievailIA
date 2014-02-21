@@ -22,7 +22,7 @@ public:
     bool isWalkeable(sf::Vector2f pos);
 
     void update(float deltaTime);
-    sf::Vector2f updateCamera(float deltaTime, sf::Vector2f dir, sf::Vector2f cameraPos, sf::Vector2f cameraVel);
+	sf::Vector2f updateCamera(float deltaTime, sf::Vector2f dir, sf::Vector2f cameraPos, float cameraVel);
     void updateDraw(sf::Vector2f cameraPos);
 };
 

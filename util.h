@@ -12,7 +12,7 @@ extern int COLS;
 
 extern int TILE_SIZE;
 
-
+extern bool GENERATE_MAP;
 
 enum Typo { //Terrain
     None, Rock, Wood

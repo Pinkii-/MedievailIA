@@ -18,7 +18,7 @@ private:
     std::vector<sf::Texture> texturas;
 
     sf::Vector2f cameraPos;
-    sf::Vector2f cameraVel;
+	float cameraVel;
 
     Display displais;
 //    Player players;

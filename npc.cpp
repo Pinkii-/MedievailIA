@@ -21,7 +21,7 @@ Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size, Control* con) : c(co
     posMatrix = pos;
     setPrinted(false);
     waiting = true;
-	speed = 10;
+	speed = 50;
     waitTime = 0;
 
     initPreferences();

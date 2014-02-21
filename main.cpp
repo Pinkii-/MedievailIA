@@ -9,8 +9,10 @@ int TILE_SIZE = 30;
 int WIDTH = sf::VideoMode::getFullscreenModes()[0].width;
 int HEIGHT = sf::VideoMode::getFullscreenModes()[0].height-3*TILE_SIZE;
 
-int ROWS = 10+(HEIGHT+TILE_SIZE-1)/TILE_SIZE;
+int ROWS = 5+(HEIGHT+TILE_SIZE-1)/TILE_SIZE;
 int COLS = (WIDTH+TILE_SIZE-1)/TILE_SIZE;
+
+bool GENERATE_MAP = true;
 
 int main() {
 
@@ -18,7 +20,7 @@ int main() {
 
     sf::Clock clock;
     clock.restart();
-	int fps = 35;
+	int fps = 120;
     float deltaDraw = 0;
 
     srand(time(0));
@@ -29,9 +31,9 @@ int main() {
     window.draw(board);
     window.display();
 
-    while (window.isOpen()) {
+	while (window.isOpen()) {
         sf::Time time = clock.restart();
-        float deltaTime = time.asSeconds();
+		float deltaTime = time.asSeconds();
         sf::Event event;
         while(window.pollEvent(event)) {
             switch(event.type)

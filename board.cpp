@@ -7,7 +7,7 @@ Board::Board()
 
 void Board::init() {
     cameraPos = sf::Vector2f(0.0,0.0);
-	cameraVel = sf::Vector2f(300,300);
+	cameraVel = 300;
     texturas = std::vector<sf::Texture> (NTEXTURES);
     loadTextures();
     // creacion de estructuras de datos

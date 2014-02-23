@@ -21,7 +21,7 @@ Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size, Control* con) : c(co
     posMatrix = pos;
     setPrinted(false);
     waiting = true;
-	speed = 50;
+    speed = 10;
     waitTime = 0;
 
     initPreferences();
@@ -82,11 +82,13 @@ void Npc::update(float delta,Map &m) {
             waiting = false;
         }
         else {
-			for (std::list<TypoP>::iterator it = preferences.begin(); it != preferences.end(); ++it) {
-				posDestino = c->getObjetiveNpc(*it);
-				if (!posDestino.empty()) break;
-			}
-            calculateWay(m);
+            while (way.empty()) {
+                for (std::list<TypoP>::iterator it = preferences.begin(); it != preferences.end(); ++it) {
+                    posDestino = c->getObjetiveNpc(*it);
+                    if (!posDestino.empty()) break;
+                }
+                calculateWay(m);
+            }
         }
     }
     if (i != max and waitTime <= 0) {

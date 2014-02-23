@@ -9,7 +9,7 @@ int TILE_SIZE = 30;
 int WIDTH = sf::VideoMode::getFullscreenModes()[0].width;
 int HEIGHT = sf::VideoMode::getFullscreenModes()[0].height-3*TILE_SIZE;
 
-int ROWS = 5+(HEIGHT+TILE_SIZE-1)/TILE_SIZE;
+int ROWS = (HEIGHT+TILE_SIZE-1)/TILE_SIZE;
 int COLS = (WIDTH+TILE_SIZE-1)/TILE_SIZE;
 
 bool GENERATE_MAP = true;
@@ -17,10 +17,11 @@ bool GENERATE_MAP = true;
 int main() {
 
 	sf::RenderWindow window(sf::VideoMode(WIDTH,HEIGHT), "MediavalIA",sf::Style::Close | sf::Style::Titlebar);
+    window.setVerticalSyncEnabled(true);
 
     sf::Clock clock;
     clock.restart();
-	int fps = 120;
+    int fps = 55;
     float deltaDraw = 0;
 
     srand(time(0));

@@ -28,20 +28,20 @@ void Map::generateMap() {
 				matrix[i][j] = Terrain(p,textura,TILE_SIZE);
 			}
 		}
-		std::vector<sf::Vector2i> islas (std::rand()%50);
-		for (unsigned int i = 0; i < islas.size(); ++i) {
-			int x = std::rand() % COLS;
-			int y = std::rand() % ROWS;
-			if (isWalkeable(sf::Vector2f(x,y))) {
-				for (int a = -1; a < 2; ++a) {
-					for (int b = -1; b < 2; ++b) {
-						sf::Texture* textura = &texturas[Rock];
-						matrix[x+a][y+b] = Terrain(Rock,textura,TILE_SIZE);
-					}
-				}
-			}
-			else --i;
-		}
+        std::vector<sf::Vector2i> islas (std::rand()%50);
+        for (unsigned int i = 0; i < islas.size(); ++i) {
+            int x = std::rand() % COLS;
+            int y = std::rand() % ROWS;
+            if (isWalkeable(sf::Vector2f(x,y))) {
+                for (int a = -1; a < 2; ++a) {
+                    for (int b = -1; b < 2; ++b) {
+                        sf::Texture* textura = &texturas[Rock];
+                        matrix[x+a][y+b] = Terrain(Rock,textura,TILE_SIZE);
+                    }
+                }
+            }
+            else --i;
+        }
 	}
 	else loadMap();
 }

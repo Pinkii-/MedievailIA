@@ -25,6 +25,8 @@ void Control::update(float deltaTime, Map &m) {
 
 void Control::updateProp(float deltaTime,Map &m) {
     //TODO a random generator of props on the map
+	//TODO a random generator of props on the map
+	//TODO a random generator of props on the map
 
 //	if (std::rand()%1000 == 0 and props[0].size() == 0r) {
 //		int x,y;
@@ -48,7 +50,6 @@ void Control::updateProp(float deltaTime,Map &m) {
                     props[i].push_back(p);
                 }
             }
-//            updateObjetiveNpc();
         }
     }
 }

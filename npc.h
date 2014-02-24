@@ -23,6 +23,7 @@ private:
     std::queue<Direction> way;
     Direction dir;
     std::list<TypoP> preferences;
+	TypoP goingTo;
 
     float waitTime;
 

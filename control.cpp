@@ -32,7 +32,7 @@ void Control::update(float deltaTime, Map &m) {
 void Control::updateProp(float deltaTime,Map &m) {
     //TODO a random generator of props on the map
 
-    for (unsigned int i = 0; i < props.size(); ++i) {
+	for (unsigned int i = 1; i < props.size(); ++i) {
         if (props[i].empty() or props[i].size() > 0 and npcOnProp(deltaTime,i)) {
 			while (props[i].size() < 3) {
                 int x,y;

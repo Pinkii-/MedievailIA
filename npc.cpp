@@ -25,6 +25,7 @@ Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size, Control* con) : c(co
     waitTime = 0;
 
     initPreferences();
+	goingTo = *preferences.begin();
 }
 
 void Npc::initPreferences() {
@@ -39,8 +40,7 @@ void Npc::setPreference(TypoP p) {
 }
 
 TypoP Npc::getPreference() {
-    std::list<TypoP>::iterator it = preferences.begin();
-    return *it;
+  return goingTo;
 }
 
 void Npc::setMatPosition(sf::Vector2f pos) {
@@ -69,7 +69,7 @@ void Npc::setWaitTime(float time) {
 
 void Npc::update(float delta,Map &m) {
 //	way = std::queue<Direction>();
-    --waitTime;
+	waitTime -= delta;
     int i = 0;
     int max = 5;
     while (waiting and i < max and waitTime <= 0) {
@@ -82,13 +82,17 @@ void Npc::update(float delta,Map &m) {
             waiting = false;
         }
         else {
-            while (way.empty()) {
-                for (std::list<TypoP>::iterator it = preferences.begin(); it != preferences.end(); ++it) {
-                    posDestino = c->getObjetiveNpc(*it);
-                    if (!posDestino.empty()) break;
-                }
-                calculateWay(m);
-            }
+			std::list<TypoP>::iterator it = preferences.begin();;
+			while (way.empty() and it != preferences.end()) {
+				posDestino = c->getObjetiveNpc(*it);
+				if (!posDestino.empty()) {
+					calculateWay(m);
+					goingTo = *it;
+					break;
+				}
+				++it;
+			}
+			if (it == preferences.end()) waitTime = 1;
         }
     }
     if (i != max and waitTime <= 0) {

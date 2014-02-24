@@ -4,15 +4,26 @@ Terrain::Terrain()
 {
 }
 
-Terrain::Terrain(Typo tipo, sf::Texture* texturas, int size) {
+Terrain::Terrain(Typo tipo, int size) {
     this->tipo = tipo;
-    this->setTexture(*texturas);
+	switch (tipo) {
+		case None:
+			this->setTexture(Textures::none);
+			break;
+		case Rock:
+			this->setTexture(Textures::rock);
+			break;
+		default:
+			break;
+	}
+
+
     setPrinted(false);
 
 
     float scalex, scaley;
-    scalex =  size/float(texturas->getSize().x);
-    scaley =  size/float(texturas->getSize().y);
+	scalex =  size/float(this->getTexture()->getSize().x);
+	scaley =  size/float(this->getTexture()->getSize().y);
 
     this->setScale(scalex,scaley);
 }

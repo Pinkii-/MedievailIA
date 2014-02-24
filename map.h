@@ -11,11 +11,10 @@ class Map : public sf::Drawable
 {
 private:
     std::vector<std::vector<Terrain> > matrix;
-    std::vector<sf::Texture> texturas;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:
     Map();
-    Map(int cols, int rows,std::vector<sf::Texture> *text);
+	Map(int cols, int rows);
     void generateMap();
     void generateProps();
     void loadMap();

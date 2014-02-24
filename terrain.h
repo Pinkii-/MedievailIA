@@ -3,6 +3,7 @@
 
 #include "tile.h"
 #include "util.h"
+#include "Textures.hpp"
 
 class Terrain : public Tile
 {
@@ -11,7 +12,7 @@ private:
 
 public:
     Terrain();
-    Terrain(Typo tipo, sf::Texture* texturas, int size);
+	Terrain(Typo tipo, int size);
 
     Typo getTypo() override; //Override mis cojones
 };

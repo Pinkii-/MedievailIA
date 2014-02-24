@@ -11,11 +11,9 @@ class Control : public sf::Drawable
 private:
      std::vector<Npc> npcs;
      std::vector<std::vector<Prop> > props;
-     std::vector<sf::Texture> texturas;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:
     Control();
-    Control(std::vector<sf::Texture> *text);
     void npcInit();
     void update(float deltaTime, Map &m);
     void updateProp(float deltaTime, Map &m);

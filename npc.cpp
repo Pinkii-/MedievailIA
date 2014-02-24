@@ -9,12 +9,12 @@ Npc::Npc()
 {
 }
 
-Npc::Npc(sf::Texture* texturas, sf::Vector2f pos, int size, Control* con) : c(con) {
-    this->setTexture(*texturas);
+Npc::Npc(sf::Vector2f pos, int size, Control* con) : c(con) {
+	this->setTexture(Textures::npc);
 
     float scalex, scaley;
-    scalex =  size/float(texturas->getSize().x);
-    scaley =  size/float(texturas->getSize().y);
+	scalex =  size/float(this->getTexture()->getSize().x);
+	scaley =  size/float(this->getTexture()->getSize().y);
 
     this->setScale(scalex,scaley);
 
@@ -150,19 +150,19 @@ void Npc::calculateWay(Map &m) { /// From ini to dest
                 visitado[aux.x][aux.y] = true;
             }
         }
-    }
+	}
 	if (isOnDest(sinVisitar.front())) {
-    std::stack<Direction> aux;
-    sf::Vector2i pos = vecfToVeci(posDestino[0]);
+		std::stack<Direction> aux;
+		sf::Vector2i pos = vecfToVeci(posDestino[0]);
 
-     while (pos != vecfToVeci(posMatrix)) {
-        aux.push(camino[pos.x][pos.y]);
-        pos += vecfToVeci(dirToVec(opposite(camino[pos.x][pos.y])));
-    }
-    while (!aux.empty()) { /// Have to swap all the elements
-        way.push(aux.top());
-        aux.pop();
-    }
+		while (pos != vecfToVeci(posMatrix)) {
+			aux.push(camino[pos.x][pos.y]);
+			pos += vecfToVeci(dirToVec(opposite(camino[pos.x][pos.y])));
+		}
+		while (!aux.empty()) { /// Have to swap all the elements
+			way.push(aux.top());
+			aux.pop();
+		}
 	}
 }
 

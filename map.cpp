@@ -10,10 +10,8 @@
 Map::Map() {}
 
 
-Map::Map(int cols, int rows, std::vector<sf::Texture> *text) {
+Map::Map(int cols, int rows) {
     matrix = std::vector<std::vector<Terrain> > (cols, (std::vector<Terrain> (rows)));
-
-    texturas = *text;
 }
 
 void Map::generateMap() {
@@ -24,8 +22,7 @@ void Map::generateMap() {
 				Typo p;
 				if (i == 0 or j == 0 or i == matrix.size()-1 or j == matrix[0].size() -1) p = Rock;
 				else p = None;
-				sf::Texture* textura = &texturas[p];
-				matrix[i][j] = Terrain(p,textura,TILE_SIZE);
+				matrix[i][j] = Terrain(p,TILE_SIZE);
 			}
 		}
 		std::vector<sf::Vector2i> islas (/*std::rand()%*/100);
@@ -35,8 +32,7 @@ void Map::generateMap() {
             if (isWalkeable(sf::Vector2f(x,y))) {
                 for (int a = -1; a < 2; ++a) {
                     for (int b = -1; b < 2; ++b) {
-                        sf::Texture* textura = &texturas[Rock];
-                        matrix[x+a][y+b] = Terrain(Rock,textura,TILE_SIZE);
+						matrix[x+a][y+b] = Terrain(Rock,TILE_SIZE);
                     }
                 }
             }
@@ -77,8 +73,7 @@ void Map::loadMap() {
             typo = None;
             break;
         }
-        sf::Texture* textura = &texturas[typo];
-        matrix[j][i] = Terrain(typo,textura,TILE_SIZE);
+		matrix[j][i] = Terrain(typo,TILE_SIZE);
 //		if ((i+j)%2 == 0) matrix[j][i].setColor(sf::Color::Green);
 //		else matrix[j][i].setColor(sf::Color::Yellow);
         ++j;

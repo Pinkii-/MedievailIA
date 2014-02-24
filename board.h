@@ -8,6 +8,7 @@
 #include "control.h"
 #include "display.h"
 #include "util.h"
+#include "Textures.hpp"
 
 class Board : public sf::Drawable
 {
@@ -15,7 +16,7 @@ private:
     Map matrix;
     Control control;
     //Map<Map<Way> > npcsCamino;
-    std::vector<sf::Texture> texturas;
+	Textures texturas;
 
     sf::Vector2f cameraPos;
 	float cameraVel;

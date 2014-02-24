@@ -8,28 +8,15 @@ Board::Board()
 void Board::init() {
     cameraPos = sf::Vector2f(0.0,0.0);
 	cameraVel = 300;
-    texturas = std::vector<sf::Texture> (NTEXTURES);
-    loadTextures();
+	texturas.load();
     // creacion de estructuras de datos
-    matrix = Map(COLS,ROWS, &texturas);
-    control = Control(&texturas);
+	matrix = Map(COLS,ROWS);
+	control = Control();
 	// inicializaciones de estructuras de datos
     matrix.generateMap();
     control.npcInit();
     displais.init();
     updateCamera(0,sf::Vector2f(0,0)); //despues de dibujar todo
-}
-
-void Board::loadTextures() {
-    //Terrain Textures
-	texturas[tNone].loadFromFile("Resources/pruebaTileBlanco.png");
-    texturas[tRock].loadFromFile("Resources/pruebaTile2.png");
-
-    //NPC Textures
-    texturas[tNpc].loadFromFile("Resources/npc.png");
-
-    //PROP Textures
-    texturas[tStar].loadFromFile("Resources/star.png");
 }
 
 

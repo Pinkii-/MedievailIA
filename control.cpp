@@ -2,21 +2,15 @@
 #include <math.h>
 #include <iostream>
 
-Control::Control()
-{
-}
-
-Control::Control(std::vector<sf::Texture> *text) {
-    texturas = *text;
+Control::Control() {
     props = std::vector<std::vector<Prop> >(NPROPS, std::vector<Prop> (0));
     npcs = std::vector<Npc> (0);
 }
 
 void Control::npcInit() {
     //TODO Inicializacion de los npcs de cada jugador
-    sf::Texture* text = &texturas[tNpc];
     sf::Vector2f pos = sf::Vector2f(3.0,3.0);
-	Npc beta(text,pos,TILE_SIZE, this);
+	Npc beta(pos,TILE_SIZE, this);
 	beta.setColor(sf::Color::White);
     beta.setPreference(Star);
     npcs.push_back(beta);
@@ -50,8 +44,7 @@ void Control::updateProp(float deltaTime,Map &m) {
                 x = std::rand() % COLS;
                 y = std::rand() % ROWS;
                 if (m.isWalkeable(sf::Vector2f(x,y))  and std::abs(x-int(npcs[0].getMatPosition().x)) + std::abs(y-int(npcs[0].getMatPosition().y))  > 25) {
-                    sf::Texture *text = &texturas[tStar];
-                    Prop p = Prop(Star+i,text,sf::Vector2f(x,y),TILE_SIZE);
+					Prop p = Prop(Star+i,sf::Vector2f(x,y),TILE_SIZE);
                     props[i].push_back(p);
                 }
             }
@@ -148,8 +141,7 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
              if (npcs[i].getMatPosition() == props[j][k].getMatPosition() and npcs[i].getPreference() == props[j][k].getTypoP()) {
 
 
-                 sf::Texture *text = &texturas[tNpc];
-				 Npc npc(text,props[j][k].getMatPosition(),TILE_SIZE,this);
+				 Npc npc(props[j][k].getMatPosition(),TILE_SIZE,this);
 				 npc.setWaitTime(std::min(int(npcs.size()),20)*0.1);
 
 				 std::cout << std::min(int(npcs.size()),25) << std::endl;

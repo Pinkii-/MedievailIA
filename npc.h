@@ -5,6 +5,7 @@
 #include "util.h"
 #include "terrain.h"
 #include "map.h"
+#include "Textures.hpp"
 
 #include <queue>
 #include <stack>
@@ -30,7 +31,7 @@ private:
 
 public:
     Npc();
-	Npc(sf::Texture* texturas, sf::Vector2f pos, int size, Control* con);
+	Npc(sf::Vector2f pos, int size, Control* con);
 
     void initPreferences();
     void setPreference(TypoP p);

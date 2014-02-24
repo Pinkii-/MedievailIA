@@ -13,7 +13,8 @@ SOURCES += \
     display.cpp \
     util.cpp \
     prop.cpp \
-    control.cpp
+    control.cpp \
+    Textures.cpp
 
 OTHER_FILES += \
     Resources/mapa.txt \
@@ -32,4 +33,5 @@ HEADERS += \
     display.h \
     util.h \
     prop.h \
-    control.h
+    control.h \
+    Textures.hpp

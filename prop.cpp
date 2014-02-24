@@ -4,15 +4,17 @@ Prop::Prop()
 {
 }
 
-Prop::Prop(TypoP tipo, sf::Texture* texturas, sf::Vector2f pos, int size) {
+Prop::Prop(TypoP tipo, sf::Vector2f pos, int size) {
     this->tipo = tipo;
     posMatrix = pos;
-    this->setTexture(*texturas);
     setPrinted(false);
 
+	this->setTexture(Textures::star);
+
+
     float scalex, scaley;
-    scalex =  size/float(texturas->getSize().x);
-    scaley =  size/float(texturas->getSize().y);
+	scalex =  size/float(this->getTexture()->getSize().x);
+	scaley =  size/float(this->getTexture()->getSize().y);
 
     this->setScale(scalex,scaley);
 

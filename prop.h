@@ -3,6 +3,7 @@
 
 #include "tile.h"
 #include "util.h"
+#include "Textures.hpp"
 
 class Prop : public Tile
 {
@@ -11,7 +12,7 @@ private:
     TypoP tipo;
 public:
     Prop();
-    Prop(TypoP tipo, sf::Texture* texturas, sf::Vector2f pos, int size);
+	Prop(TypoP tipo, sf::Vector2f pos, int size);
 
     void setMatPosition(sf::Vector2f pos);
     sf::Vector2f getMatPosition();

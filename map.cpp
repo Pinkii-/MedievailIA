@@ -28,7 +28,7 @@ void Map::generateMap() {
 				matrix[i][j] = Terrain(p,textura,TILE_SIZE);
 			}
 		}
-        std::vector<sf::Vector2i> islas (std::rand()%50);
+		std::vector<sf::Vector2i> islas (/*std::rand()%*/100);
         for (unsigned int i = 0; i < islas.size(); ++i) {
             int x = std::rand() % COLS;
             int y = std::rand() % ROWS;

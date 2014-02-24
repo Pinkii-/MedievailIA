@@ -32,9 +32,20 @@ void Control::update(float deltaTime, Map &m) {
 void Control::updateProp(float deltaTime,Map &m) {
     //TODO a random generator of props on the map
 
-	for (unsigned int i = 1; i < props.size(); ++i) {
+//	if (std::rand()%1000 == 0 and props[0].size() == 0r) {
+//		int x,y;
+//		x = std::rand() % COLS;
+//		y = std::rand() % ROWS;
+//		if (m.isWalkeable(sf::Vector2f(x,y))  and std::abs(x-int(npcs[0].getMatPosition().x)) + std::abs(y-int(npcs[0].getMatPosition().y))  > 25) {
+//			sf::Texture *text = &texturas[tStar];
+//			Prop p = Prop(Star,text,sf::Vector2f(x,y),TILE_SIZE);
+//			props[0].push_back(p);
+//		}
+//	}
+
+	for (unsigned int i = 0; i < props.size(); ++i) {
         if (props[i].empty() or props[i].size() > 0 and npcOnProp(deltaTime,i)) {
-			while (props[i].size() < 3) {
+			while (props[i].size() < 1 and std::rand()%1000 == 0) {
                 int x,y;
                 x = std::rand() % COLS;
                 y = std::rand() % ROWS;
@@ -139,7 +150,9 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
                  sf::Texture *text = &texturas[tNpc];
 				 Npc npc(text,props[j][k].getMatPosition(),TILE_SIZE,this);
-				 npc.setWaitTime(std::min(int(50*npcs.size()),2250));
+				 npc.setWaitTime(std::min(int(npcs.size()),20)*0.1);
+
+				 std::cout << std::min(int(npcs.size()),25) << std::endl;
 
 //				 if (npcs[i].getPreference() == Star) {
 //					 npcs[i].setColor(sf::Color::Black);

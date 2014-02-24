@@ -87,8 +87,10 @@ void Npc::update(float delta,Map &m) {
 				posDestino = c->getObjetiveNpc(*it);
 				if (!posDestino.empty()) {
 					calculateWay(m);
-					goingTo = *it;
-					break;
+					if (!way.empty()) {
+						goingTo = *it;
+						break;
+					}
 				}
 				++it;
 			}
@@ -149,6 +151,7 @@ void Npc::calculateWay(Map &m) { /// From ini to dest
             }
         }
     }
+	if (isOnDest(sinVisitar.front())) {
     std::stack<Direction> aux;
     sf::Vector2i pos = vecfToVeci(posDestino[0]);
 
@@ -160,6 +163,7 @@ void Npc::calculateWay(Map &m) { /// From ini to dest
         way.push(aux.top());
         aux.pop();
     }
+	}
 }
 
 //bool Npc::checkWay(Map &m) {

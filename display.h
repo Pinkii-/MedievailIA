@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "Textures.hpp"
 
 #define nTextos 4
 
@@ -11,7 +12,6 @@ class Display : public sf::Drawable
 private:
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     std::vector<sf::Text> textos;
-    sf::Font font;
 
     float fps,updates;
 

@@ -14,7 +14,8 @@ SOURCES += \
     util.cpp \
     prop.cpp \
     control.cpp \
-    Textures.cpp
+    Textures.cpp \
+    Interface.cpp
 
 OTHER_FILES += \
     Resources/mapa.txt \
@@ -34,4 +35,5 @@ HEADERS += \
     util.h \
     prop.h \
     control.h \
-    Textures.hpp
+    Textures.hpp \
+    Interface.hpp

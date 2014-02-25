@@ -7,7 +7,7 @@ Board::Board()
 
 void Board::init() {
     cameraPos = sf::Vector2f(0.0,0.0);
-	cameraVel = 500;
+	cameraVel = 1;
 	texturas.load();
     // creacion de estructuras de datos
 	matrix = Map(COLS,ROWS);
@@ -16,7 +16,9 @@ void Board::init() {
     matrix.generateMap();
     control.npcInit();
     displais.init();
-    updateCamera(0,sf::Vector2f(0,0)); //despues de dibujar todo
+	ui.init(this);
+	updateCamera(0); //despues de dibujar todo
+	cameraWait = 0;
 }
 
 
@@ -85,11 +87,13 @@ void Board::init() {
 
 void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(matrix);
-    target.draw(displais);
     target.draw(control);
+	target.draw(ui);
+	target.draw(displais);
 }
 
 void Board::update(float deltaTime) {
+	updateCamera(deltaTime);
     matrix.updateDraw(cameraPos);
     control.update(deltaTime,matrix);
     control.updateDraw(cameraPos);
@@ -100,9 +104,17 @@ void Board::updateD(float deltaTime,float deltaDraw) {
 }
 
 
-void Board::updateCamera(float deltaTime, sf::Vector2f dir) {
-    cameraPos = matrix.updateCamera(deltaTime,dir,cameraPos, cameraVel);
-    control.updateDraw(cameraPos);
+void Board::updateCamera(float deltaTime) {
+	if (cameraWait > 0) {
+		cameraWait -= deltaTime;
+		cameraPos = matrix.updateCamera(deltaTime,cameraDir,cameraPos, cameraVel);
+	}
+	control.updateDraw(cameraPos);
+}
+
+void Board::updateDirCamera(sf::Vector2f d){
+	cameraDir = d;
+	cameraWait = 0.1;
 }
 
 

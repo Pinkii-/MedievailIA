@@ -12,6 +12,7 @@ Terrain::Terrain(Typo tipo, int size) {
 			break;
 		case Rock:
 			this->setTexture(Textures::rock);
+			this->setColor(sf::Color::Black);
 			break;
 		default:
 			break;
@@ -22,8 +23,8 @@ Terrain::Terrain(Typo tipo, int size) {
 
 
     float scalex, scaley;
-	scalex =  size/float(this->getTexture()->getSize().x);
-	scaley =  size/float(this->getTexture()->getSize().y);
+	scalex = size/float(this->getTexture()->getSize().x);
+	scaley = size/float(this->getTexture()->getSize().y);
 
     this->setScale(scalex,scaley);
 }

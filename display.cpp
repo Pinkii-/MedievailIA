@@ -1,4 +1,5 @@
 #include "display.h"
+#include "util.h"
 #include <string>
 #include <sstream>
 
@@ -7,20 +8,18 @@ Display::Display()
 }
 
 void Display::init() {
-    font.loadFromFile("Resources/helvetica.ttf");
-    sf::Font *aux = &font;
     textos = std::vector<sf::Text> (nTextos);
     for (unsigned int i = 0; i < textos.size();++i) {
-        textos[i].setFont(*aux);
+		textos[i].setFont(Textures::font);
         textos[i].setCharacterSize(25);
         textos[i].setColor(sf::Color::Blue);
         textos[i].setStyle(sf::Text::Bold);
     }
 
-    textos[0].setPosition(sf::Vector2f(50,30));
-    textos[1].setPosition(sf::Vector2f(50,55));
-    textos[2].setPosition(sf::Vector2f(50,80));
-    textos[3].setPosition(sf::Vector2f(50,110));
+	textos[0].setPosition(sf::Vector2f(WIDTH-200,30));
+	textos[1].setPosition(sf::Vector2f(WIDTH-200,55));
+	textos[2].setPosition(sf::Vector2f(WIDTH-200,80));
+	textos[3].setPosition(sf::Vector2f(WIDTH-200,110));
 
     fps = 0;
     updates = 0;

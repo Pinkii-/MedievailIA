@@ -9,17 +9,20 @@
 #include "display.h"
 #include "util.h"
 #include "Textures.hpp"
+#include "Interface.hpp"
 
 class Board : public sf::Drawable
 {
 private:
     Map matrix;
     Control control;
-    //Map<Map<Way> > npcsCamino;
 	Textures texturas;
+	Interface ui;
 
     sf::Vector2f cameraPos;
 	float cameraVel;
+	sf::Vector2f cameraDir;
+	float cameraWait;
 
     Display displais;
 //    Player players;
@@ -35,7 +38,8 @@ public:
 
     void update(float deltaTime);
     void updateD(float deltaTime, float deltaDraw);
-    void updateCamera(float deltaTime, sf::Vector2f dir);
+	void updateCamera(float deltaTime);
+	void updateDirCamera(sf::Vector2f d);
 };
 
 #endif // BOARD_H

@@ -47,16 +47,16 @@ int main() {
                     window.close();
                     break;
                 case sf::Keyboard::Down:
-                    board.updateCamera(deltaTime,sf::Vector2f(0,1));
+					board.updateDirCamera(sf::Vector2f(0,1));
                     break;
                 case sf::Keyboard::Up:
-                    board.updateCamera(deltaTime,sf::Vector2f(0,-1));
+					board.updateDirCamera(sf::Vector2f(0,-1));
                     break;
                 case sf::Keyboard::Right:
-                    board.updateCamera(deltaTime,sf::Vector2f(1,0));
+					board.updateDirCamera(sf::Vector2f(1,0));
                     break;
                 case sf::Keyboard::Left:
-                    board.updateCamera(deltaTime,sf::Vector2f(-1,0));
+					board.updateDirCamera(sf::Vector2f(-1,0));
                     break;
 //                case sf::Keyboard::S:
 //                    board.updateNpc(deltaTime,sf::Vector2f(0,1));

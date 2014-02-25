@@ -107,8 +107,8 @@ sf::Vector2f Map::updateCamera(float deltaTime, sf::Vector2f dir, sf::Vector2f c
 	cameraPos.y += dir.y*distancia;
     float sizex = WIDTH/TILE_SIZE;
     float sizey = HEIGHT/TILE_SIZE;
-    if (cameraPos.x < 0) cameraPos.x = 0;
-    else if(cameraPos.x >= COLS - sizex) cameraPos.x = COLS - sizex;
+	if (cameraPos.x < 0) cameraPos.x = 0;
+	else if(cameraPos.x >= COLS - sizex + UISPACE) cameraPos.x = COLS - sizex + UISPACE;
     if (cameraPos.y < 0) cameraPos.y = 0;
     else if(cameraPos.y >= ROWS - sizey) cameraPos.y = ROWS - sizey;
     return cameraPos;
@@ -122,12 +122,14 @@ void Map::updateDraw(sf::Vector2f cameraPos) {
     float sizex = WIDTH/TILE_SIZE;
     float sizey = HEIGHT/TILE_SIZE;
 
+//	cameraPos.x -= UISPACE;
+
     for (int i = 0; i < sizei; ++i) {
         for (int j = 0; j < sizej; ++j) {
-            if (i >= cameraPos.x-1 and i < cameraPos.x + sizex + 1 and j >= cameraPos.y-1 and j < cameraPos.y+sizey+1) {
+			if (i >= cameraPos.x-1 and i < cameraPos.x + sizex + 1  - UISPACE and j >= cameraPos.y-1 and j < cameraPos.y+sizey+1) {
 
                 sf::Vector2f position;
-                position.x = TILE_SIZE*(float(i)-cameraPos.x);
+				position.x = TILE_SIZE*(float(i+UISPACE)-cameraPos.x);
                 position.y = TILE_SIZE*(float(j)-cameraPos.y);
 
                 matrix[i][j].setPosition(position);

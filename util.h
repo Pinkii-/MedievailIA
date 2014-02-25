@@ -11,6 +11,7 @@ extern int ROWS;
 extern int COLS;
 
 extern int TILE_SIZE;
+extern float UISPACE;
 
 extern bool GENERATE_MAP;
 

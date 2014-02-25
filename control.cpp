@@ -9,7 +9,7 @@ Control::Control() {
 
 void Control::npcInit() {
     //TODO Inicializacion de los npcs de cada jugador
-    sf::Vector2f pos = sf::Vector2f(3.0,3.0);
+	sf::Vector2f pos = sf::Vector2f(3.0,3.0);
 	Npc beta(pos,TILE_SIZE, this);
 	beta.setColor(sf::Color::White);
     beta.setPreference(Star);
@@ -89,12 +89,13 @@ void Control::updatePosNpc(float deltaTime, Map &m) {
 void Control::updateDraw(sf::Vector2f cameraPos) {
     float sizex = WIDTH/TILE_SIZE;
     float sizey = HEIGHT/TILE_SIZE;
+//	cameraPos.x -= UISPACE;
     for (unsigned int i= 0; i < props.size(); ++i) {
         for (unsigned int j=0; j < props[i].size(); ++j) {
             sf::Vector2f posProp = props[i][j].getMatPosition();
-            if (posProp.x >= cameraPos.x-1 and posProp.x < cameraPos.x + sizex + 1 and posProp.y >= cameraPos.y-1 and posProp.y < cameraPos.y+sizey+1) {
+			if (posProp.x >= cameraPos.x-1 and posProp.x < cameraPos.x + sizex + 1 - UISPACE and posProp.y >= cameraPos.y-1 and posProp.y < cameraPos.y+sizey+1) {
                 sf::Vector2f position;
-                position.x = TILE_SIZE*(posProp.x-cameraPos.x);
+				position.x = TILE_SIZE*(posProp.x+UISPACE-cameraPos.x);
                 position.y = TILE_SIZE*(posProp.y-cameraPos.y);
                 props[i][j].setPosition(position);
                 props[i][j].setPrinted(true);
@@ -104,9 +105,9 @@ void Control::updateDraw(sf::Vector2f cameraPos) {
     }
     for (unsigned int i= 0; i < npcs.size(); ++i) {
         sf::Vector2f posNpc = npcs[i].getMatPosition();
-        if (posNpc.x >= cameraPos.x-1 and posNpc.x < cameraPos.x + sizex + 1 and posNpc.y >= cameraPos.y-1 and posNpc.y < cameraPos.y+sizey+1) {
+		if (posNpc.x >= cameraPos.x-1 and posNpc.x < cameraPos.x + sizex + 1 - UISPACE and posNpc.y >= cameraPos.y-1 and posNpc.y < cameraPos.y+sizey+1) {
             sf::Vector2f position;
-            position.x = TILE_SIZE*(posNpc.x-cameraPos.x);
+			position.x = TILE_SIZE*(posNpc.x+UISPACE-cameraPos.x);
             position.y = TILE_SIZE*(posNpc.y-cameraPos.y);
             npcs[i].setPosition(position);
             npcs[i].setPrinted(true);

@@ -17,15 +17,10 @@ Terrain::Terrain(Land tipo, int size) {
 		default:
 			break;
 	}
-
-
     setPrinted(false);
-
-
     float scalex, scaley;
 	scalex = size/float(this->getTexture()->getSize().x);
 	scaley = size/float(this->getTexture()->getSize().y);
-
     this->setScale(scalex,scaley);
 }
 

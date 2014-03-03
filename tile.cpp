@@ -10,10 +10,6 @@ Tile::Tile(sf::Texture* texturas) {
     printed = false;
 }
 
-bool Tile::isPrinted() const {
-    return printed;
-}
-
 void Tile::setPrinted(bool b) {
     printed = b;
 }
@@ -21,6 +17,10 @@ void Tile::setPrinted(bool b) {
 Land Tile::getLand() { // El polimorfismo esta broken
     Land aux = None;
     return aux;
+}
+
+bool Tile::isPrinted() const {
+    return printed;
 }
 
 //this->setOrigin(50,50);

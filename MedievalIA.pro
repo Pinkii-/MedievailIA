@@ -16,7 +16,8 @@ SOURCES += \
     control.cpp \
     Textures.cpp \
     Interface.cpp \
-    Building.cpp
+    Building.cpp \
+    0templateclass.cpp
 
 OTHER_FILES += \
     Resources/mapa.txt \
@@ -38,4 +39,5 @@ HEADERS += \
     control.h \
     Textures.hpp \
     Interface.hpp \
-    Building.h
+    Building.h \
+    0templateclass.h

@@ -27,7 +27,6 @@ private:
 public:
     Board();   
     void init();
-    void loadTextures();
     void update(float deltaTime);
     void updateD(float deltaTime, float deltaDraw);
 	void updateCamera(float deltaTime);

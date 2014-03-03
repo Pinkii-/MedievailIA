@@ -1,15 +1,17 @@
 #ifndef NPC_H
 #define NPC_H
 
+#include <queue>
+#include <stack>
+#include <list>
+
 #include "tile.h"
 #include "util.h"
 #include "terrain.h"
 #include "map.h"
 #include "Textures.hpp"
 
-#include <queue>
-#include <stack>
-#include <list>
+
 
 class Control;
 class Npc : public Tile
@@ -28,7 +30,7 @@ private:
     bool waiting;
 public:
     Npc();
-    Npc(sf::Vector2f pos, int size, Control* con, Map* map);
+    Npc(sf::Vector2f pos, int size, Control *con, Map *map);
     void initPreferences();
     void update(float delta);
     void setMatPosition(sf::Vector2f pos);

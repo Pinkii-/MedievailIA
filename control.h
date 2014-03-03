@@ -19,8 +19,6 @@ public:
     void init(Map *map);
     void update(float deltaTime, Map &m);
     void updateProp(float deltaTime, Map &m);
-    void updatePosNpc(float deltaTime, Map &m);
-    void updateObjetiveNpc();
     void updateDraw(sf::Vector2f cameraPos);
     void erasePropN(std::vector<Prop> &v,int n);
     std::vector<sf::Vector2f> getObjetiveNpc(Resource preference);

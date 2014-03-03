@@ -1,6 +1,14 @@
 #include "board.h"
 #include "map.cpp"
 
+
+void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    target.draw(matrix);
+    target.draw(control);
+    target.draw(ui);
+    target.draw(displais);
+}
+
 Board::Board()
 {
 }
@@ -8,19 +16,50 @@ Board::Board()
 void Board::init() {
     cameraPos = sf::Vector2f(0.0,0.0);
     cameraVel = 10;
-	texturas.load();
+    texturas.load();
     // creacion de estructuras de datos
-	matrix = Map(COLS,ROWS);
-	control = Control();
-	// inicializaciones de estructuras de datos
+    matrix = Map(COLS,ROWS);
+    control = Control();
+    // inicializaciones de estructuras de datos
     matrix.generateMap();
     control.init(&matrix);
     displais.init();
-	ui.init(this);
-	updateCamera(0); //despues de dibujar todo
-	cameraWait = 0;
+    ui.init(this);
+    updateCamera(0); //despues de dibujar todo
+    cameraWait = 0;
 }
 
+void Board::update(float deltaTime) {
+    updateCamera(deltaTime);
+    matrix.updateDraw(cameraPos);
+    control.update(deltaTime,matrix);
+    control.updateDraw(cameraPos);
+}
+
+void Board::updateD(float deltaTime,float deltaDraw) {
+    displais.update(deltaDraw,deltaTime,cameraPos,control.getNpc(0,0).getMatPosition());
+}
+
+void Board::updateCamera(float deltaTime) {
+    if (cameraWait > 0) {
+        cameraWait -= deltaTime;
+        float distancia = cameraVel*deltaTime;
+        cameraPos.x += cameraDir.x*distancia;
+        cameraPos.y += cameraDir.y*distancia;
+        float sizex = WIDTH/TILE_SIZE;
+        float sizey = HEIGHT/TILE_SIZE;
+        if (cameraPos.x < 0) cameraPos.x = 0;
+        else if(cameraPos.x >= COLS - sizex + UISPACE) cameraPos.x = COLS - sizex + UISPACE;
+        if (cameraPos.y < 0) cameraPos.y = 0;
+        else if(cameraPos.y >= ROWS - sizey) cameraPos.y = ROWS - sizey;
+    }
+    control.updateDraw(cameraPos);
+}
+
+void Board::updateDirCamera(sf::Vector2f d){
+    cameraDir = d;
+    cameraWait = 0.1;
+}
 
 //sf::Vector2f Board::calculateColision(Npc n, float dt, sf::Vector2f dir) {
 
@@ -82,49 +121,4 @@ void Board::init() {
 //    }
 //    return pos;
 //}
-
-
-
-void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    target.draw(matrix);
-    target.draw(control);
-	target.draw(ui);
-	target.draw(displais);
-}
-
-void Board::update(float deltaTime) {
-	updateCamera(deltaTime);
-    matrix.updateDraw(cameraPos);
-    control.update(deltaTime,matrix);
-    control.updateDraw(cameraPos);
-}
-
-void Board::updateD(float deltaTime,float deltaDraw) {
-    displais.update(deltaDraw,deltaTime,cameraPos,control.getNpc(0,0).getMatPosition());
-}
-
-
-void Board::updateCamera(float deltaTime) {
-	if (cameraWait > 0) {
-		cameraWait -= deltaTime;
-        float distancia = cameraVel*deltaTime;
-        cameraPos.x += cameraDir.x*distancia;
-        cameraPos.y += cameraDir.y*distancia;
-        float sizex = WIDTH/TILE_SIZE;
-        float sizey = HEIGHT/TILE_SIZE;
-        if (cameraPos.x < 0) cameraPos.x = 0;
-        else if(cameraPos.x >= COLS - sizex + UISPACE) cameraPos.x = COLS - sizex + UISPACE;
-        if (cameraPos.y < 0) cameraPos.y = 0;
-        else if(cameraPos.y >= ROWS - sizey) cameraPos.y = ROWS - sizey;
-	}
-	control.updateDraw(cameraPos);
-}
-
-void Board::updateDirCamera(sf::Vector2f d){
-	cameraDir = d;
-	cameraWait = 0.1;
-}
-
-
-
 

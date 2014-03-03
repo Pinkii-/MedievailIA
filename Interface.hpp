@@ -13,6 +13,7 @@ class Interface : public sf::Drawable {
 	public:
 		Interface();
 		void init(Board* g);
+        void update();
 };
 
 #endif // INTERFACE_HPP

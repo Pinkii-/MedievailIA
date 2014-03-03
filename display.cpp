@@ -1,7 +1,22 @@
 #include "display.h"
-#include "util.h"
 #include <string>
 #include <sstream>
+#include "util.h"
+
+std::string Display::to_string(float x,int precision) {
+    std::ostringstream buff;
+    buff.precision(precision);
+    buff<<x;
+    return buff.str();
+}
+
+void Display::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    for (unsigned int i = 0; i < textos.size(); ++i) {
+        const sf::Text *aux = &textos[i];
+        target.draw(*aux);
+    }
+}
+
 
 Display::Display()
 {
@@ -10,27 +25,20 @@ Display::Display()
 void Display::init() {
     textos = std::vector<sf::Text> (nTextos);
     for (unsigned int i = 0; i < textos.size();++i) {
-		textos[i].setFont(Textures::font);
+        textos[i].setFont(Textures::font);
         textos[i].setCharacterSize(25);
         textos[i].setColor(sf::Color::Blue);
         textos[i].setStyle(sf::Text::Bold);
     }
 
-	textos[0].setPosition(sf::Vector2f(WIDTH-200,30));
-	textos[1].setPosition(sf::Vector2f(WIDTH-200,55));
-	textos[2].setPosition(sf::Vector2f(WIDTH-200,80));
-	textos[3].setPosition(sf::Vector2f(WIDTH-200,110));
+    textos[0].setPosition(sf::Vector2f(WIDTH-200,30));
+    textos[1].setPosition(sf::Vector2f(WIDTH-200,55));
+    textos[2].setPosition(sf::Vector2f(WIDTH-200,80));
+    textos[3].setPosition(sf::Vector2f(WIDTH-200,110));
 
     fps = 0;
     updates = 0;
 
-}
-
-void Display::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    for (unsigned int i = 0; i < textos.size(); ++i) {
-        const sf::Text *aux = &textos[i];
-        target.draw(*aux);
-    }
 }
 
 void Display::update(float deltaDraw, float deltaTime, sf::Vector2f cameraPos, sf::Vector2f npc) {
@@ -41,11 +49,4 @@ void Display::update(float deltaDraw, float deltaTime, sf::Vector2f cameraPos, s
     textos[1].setString("Updates: " + to_string(updates,5));
     textos[2].setString(to_string(cameraPos.x,3) + " " + to_string(cameraPos.y,3));
     textos[3].setString(to_string(npc.x,3) + " " + to_string(npc.y,3));
-}
-
-std::string Display::to_string(float x,int precision) {
-    std::ostringstream buff;
-    buff.precision(precision);
-    buff<<x;
-    return buff.str();
 }

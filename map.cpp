@@ -5,6 +5,18 @@
 #include "map.h"
 
 
+void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    int sizei = matrix.size();
+    int sizej = matrix[0].size();
+    for (int i = 0; i < sizei; ++i) {
+        for (int j = 0; j < sizej; ++j) {
+            if (matrix[i][j].isPrinted()) {
+                const Tile* tile = &matrix[i][j];
+                target.draw(*tile);
+            }
+        }
+    }
+}
 
 
 Map::Map() {}
@@ -41,8 +53,6 @@ void Map::generateMap() {
 	}
 	else loadMap();
 }
-
-
 
 void Map::loadMap() {
 
@@ -86,18 +96,6 @@ void Map::loadMap() {
     myfile.close();
 }
 
-
-
-bool Map::isWalkeable(sf::Vector2f pos) {
-    int x = pos.x;
-    int y = pos.y;
-
-	if (x >= COLS or y >= ROWS or x < 0 or y < 0) return false;
-
-    if (matrix[x][y].getLand() == None) return true;
-    else return false;
-}
-
 void Map::updateDraw(sf::Vector2f cameraPos) {
     int sizei = matrix.size();
     int sizej = matrix[0].size();
@@ -126,15 +124,12 @@ void Map::updateDraw(sf::Vector2f cameraPos) {
     }
 }
 
-void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    int sizei = matrix.size();
-    int sizej = matrix[0].size();
-    for (int i = 0; i < sizei; ++i) {
-        for (int j = 0; j < sizej; ++j) {
-            if (matrix[i][j].isPrinted()) {
-                const Tile* tile = &matrix[i][j];
-                target.draw(*tile);
-            }
-        }
-    }
+bool Map::isWalkeable(sf::Vector2f pos) {
+    int x = pos.x;
+    int y = pos.y;
+
+    if (x >= COLS or y >= ROWS or x < 0 or y < 0) return false;
+
+    if (matrix[x][y].getLand() == None) return true;
+    else return false;
 }

@@ -1,9 +1,12 @@
 #include "npc.h"
-#include "control.h"
 
 #include <iostream>
 #include <queue>
 #include <stack>
+
+#include "control.h"
+
+
 
 Npc::Npc()
 {
@@ -34,13 +37,45 @@ void Npc::initPreferences() {
     }
 }
 
-void Npc::setPreference(Resource p) {
-	preferences.remove(p);
-	preferences.push_front(p);
-}
-
-Resource Npc::getPreference() {
-  return goingTo;
+void Npc::update(float delta) {
+//	way = std::queue<Direction>();
+    waitTime -= delta;
+    int i = 0;
+    int max = 5;
+    while (waiting and i < max and waitTime <= 0) {
+        ++i;
+        if(!way.empty()) {
+            dir = way.front();
+            sf::Vector2f vectorDirector = dirToVec(dir);
+            sf::Vector2f dista = vectorDirector*speed*delta;
+            posMatrix += dista;
+            waiting = false;
+        }
+        else {
+            std::list<Resource>::iterator it = preferences.begin();;
+            while (way.empty() and it != preferences.end()) {
+                posDestino = c->getObjetiveNpc(*it);
+                if (!posDestino.empty()) {
+                    calculateWay();
+                    if (!way.empty()) {
+                        goingTo = *it;
+                        break;
+                    }
+                }
+                ++it;
+            }
+            if (it == preferences.end()) waitTime = 0.1;
+        }
+    }
+    if (i != max and waitTime <= 0) {
+        sf::Vector2f dist = dirToVec(dir)*speed*delta;
+        if (changingNumber(posMatrix.x,posMatrix.x+dist.x) or changingNumber(posMatrix.y,posMatrix.y+dist.y))  {
+           posMatrix = vecfTrunc(posMatrix + dirNormaliced(dirToVec(dir)));
+            waiting = true;
+           if (!way.empty()) way.pop();
+        }
+        else posMatrix += dist;
+    }
 }
 
 void Npc::setMatPosition(sf::Vector2f pos) {
@@ -51,61 +86,12 @@ void Npc::setDesPosition(std::vector<sf::Vector2f> pos) {
     posDestino = pos;
 }
 
-sf::Vector2f Npc::getMatPosition() {
-    return posMatrix;
-}
-
-float Npc::getSpeed() {
-    return speed;
-}
-
 void Npc::decrementSpeed() {
     speed -= 0.5;
 }
 
 void Npc::setWaitTime(float time) {
     waitTime = time;
-}
-
-void Npc::update(float delta) {
-//	way = std::queue<Direction>();
-	waitTime -= delta;
-    int i = 0;
-    int max = 5;
-    while (waiting and i < max and waitTime <= 0) {
-        ++i;
-        if(!way.empty()) {
-            dir = way.front();
-            sf::Vector2f vectorDirector = dirToVec(dir);
-			sf::Vector2f dista = vectorDirector*speed*delta;
-            posMatrix += dista;
-            waiting = false;
-        }
-        else {
-            std::list<Resource>::iterator it = preferences.begin();;
-			while (way.empty() and it != preferences.end()) {
-				posDestino = c->getObjetiveNpc(*it);
-				if (!posDestino.empty()) {
-                    calculateWay();
-					if (!way.empty()) {
-						goingTo = *it;
-						break;
-					}
-				}
-				++it;
-			}
-            if (it == preferences.end()) waitTime = 0.1;
-        }
-    }
-    if (i != max and waitTime <= 0) {
-		sf::Vector2f dist = dirToVec(dir)*speed*delta;
-        if (changingNumber(posMatrix.x,posMatrix.x+dist.x) or changingNumber(posMatrix.y,posMatrix.y+dist.y))  {
-           posMatrix = vecfTrunc(posMatrix + dirNormaliced(dirToVec(dir)));
-            waiting = true;
-           if (!way.empty()) way.pop();
-        }
-        else posMatrix += dist;
-    }
 }
 
 void Npc::calculateWay() { /// From ini to dest
@@ -166,6 +152,32 @@ void Npc::calculateWay() { /// From ini to dest
 	}
 }
 
+void Npc::setPreference(Resource p) {
+    preferences.remove(p);
+    preferences.push_front(p);
+}
+
+Resource Npc::getPreference() {
+  return goingTo;
+}
+
+sf::Vector2f Npc::getMatPosition() {
+    return posMatrix;
+}
+
+bool Npc::isOnDest(sf::Vector2i n) {
+    sf::Vector2f aux;
+    for (unsigned int i = 0; i < posDestino.size(); ++i) {
+        if (n == vecfToVeci(posDestino[i])) {
+            aux = posDestino[i];
+            posDestino.clear();
+            posDestino.push_back(aux);
+            return true;
+        }
+    }
+    return false;
+}
+
 //bool Npc::checkWay(Map &m) {
 //    if (way.empty()) {
 //        waiting = true;
@@ -188,20 +200,9 @@ void Npc::calculateWay() { /// From ini to dest
 //    return true;
 //}
 
-bool Npc::isOnDest(sf::Vector2i n) {
-    sf::Vector2f aux;
-    for (unsigned int i = 0; i < posDestino.size(); ++i) {
-        if (n == vecfToVeci(posDestino[i])) {
-            aux = posDestino[i];
-            posDestino.clear();
-            posDestino.push_back(aux);
-            return true;
-        }
-    }
-    return false;
+float Npc::getSpeed() {
+    return speed;
 }
-
-
 
 // annie waits - Rockin' the suburs - Ben folds
 // ants marching (acoustic) house of blues - Dave Matthews Band

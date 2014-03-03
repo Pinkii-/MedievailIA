@@ -23,9 +23,10 @@ public:
     void init(int nColor,Control* con, Map* map);
     void buildingInit();
     void npcInit();
-    void updateDraw(sf::Vector2f cameraPos);
     void update(float deltaTime);
     void updateNpcs(float deltaTime);
+    void updateBuildings(float deltaTime);
+    void updateDraw(sf::Vector2f cameraPos);
     std::vector<Npc> getNpcs();
 };
 

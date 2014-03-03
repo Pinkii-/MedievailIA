@@ -15,9 +15,7 @@ public:
     Map();
 	Map(int cols, int rows);
     void generateMap();
-    void generateProps();
     void loadMap();
-    void update(float deltaTime);
     void updateDraw(sf::Vector2f cameraPos);
     bool isWalkeable(sf::Vector2f pos);
 

@@ -58,6 +58,22 @@ void Player::npcInit() {
     //    npcs.push_back(alfa);
 }
 
+void Player::update(float deltaTime) {
+    updateNpcs(deltaTime);
+}
+
+void Player::updateNpcs(float deltaTime) {
+    for (unsigned int i = 0; i < npcs.size(); ++i) {
+        npcs[i].update(deltaTime);
+    }
+}
+
+void Player::updateBuildings(float deltaTime) {
+    for (unsigned int i = 0; i < buildings.size(); ++i) {
+        buildings[i].update(deltaTime);
+    }
+}
+
 void Player::updateDraw(sf::Vector2f cameraPos) {
     float sizex = WIDTH/TILE_SIZE;
     float sizey = HEIGHT/TILE_SIZE;
@@ -85,16 +101,6 @@ void Player::updateDraw(sf::Vector2f cameraPos) {
     }
 }
 
-void Player::update(float deltaTime) {
-    updateNpcs(deltaTime);
-}
-
-
-void Player::updateNpcs(float deltaTime) {
-    for (unsigned int i = 0; i < npcs.size(); ++i) {
-        npcs[i].update(deltaTime);
-    }
-}
 
 std::vector<Npc> Player::getNpcs(){
     return npcs;

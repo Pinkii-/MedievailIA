@@ -2,6 +2,10 @@
 #include "board.h"
 #include "util.h"
 
+void Interface::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    target.draw(fondo);
+}
+
 Interface::Interface() {
 }
 
@@ -12,10 +16,7 @@ void Interface::init(Board *g) {
 	fondo.setFillColor(sf::Color(200,200,200));
 }
 
-void update() {
+void Interface::update() {
 
 }
 
-void Interface::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-	target.draw(fondo);
-}

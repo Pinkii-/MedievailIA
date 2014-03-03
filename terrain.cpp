@@ -4,7 +4,7 @@ Terrain::Terrain()
 {
 }
 
-Terrain::Terrain(Typo tipo, int size) {
+Terrain::Terrain(Land tipo, int size) {
     this->tipo = tipo;
 	switch (tipo) {
 		case None:
@@ -29,6 +29,6 @@ Terrain::Terrain(Typo tipo, int size) {
     this->setScale(scalex,scaley);
 }
 
-Typo Terrain::getTypo() {
+Land Terrain::getLand() {
     return this->tipo;
 }

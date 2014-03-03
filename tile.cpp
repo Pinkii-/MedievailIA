@@ -18,8 +18,8 @@ void Tile::setPrinted(bool b) {
     printed = b;
 }
 
-Typo Tile::getTypo() { // El polimorfismo esta broken
-    Typo aux = None;
+Land Tile::getLand() { // El polimorfismo esta broken
+    Land aux = None;
     return aux;
 }
 

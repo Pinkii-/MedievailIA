@@ -8,13 +8,13 @@
 class Terrain : public Tile
 {
 private:
-    Typo tipo;
+    Land tipo;
 
 public:
     Terrain();
-	Terrain(Typo tipo, int size);
+    Terrain(Land tipo, int size);
 
-    Typo getTypo() override; //Override mis cojones
+    Land getLand(); //Override mis cojones
 };
 
 #endif // TERRAIN_H

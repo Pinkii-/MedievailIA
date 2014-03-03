@@ -19,7 +19,7 @@ void Map::generateMap() {
 	if (GENERATE_MAP) {
 		for (unsigned int i = 0; i < matrix.size(); ++i) {
 			for (unsigned int j = 0; j < matrix[0].size(); ++j) {
-				Typo p;
+                Land p;
 				if (i == 0 or j == 0 or i == matrix.size()-1 or j == matrix[0].size() -1) p = Rock;
 				else p = None;
 				matrix[i][j] = Terrain(p,TILE_SIZE);
@@ -60,7 +60,7 @@ void Map::loadMap() {
     unsigned int j = 0;
 
     while (myfile >> c) {
-        Typo typo;
+        Land typo;
         switch (c) {
         case cNone:
             typo = None;
@@ -94,7 +94,7 @@ bool Map::isWalkeable(sf::Vector2f pos) {
 
 	if (x >= COLS or y >= ROWS or x < 0 or y < 0) return false;
 
-    if (matrix[x][y].getTypo() == None) return true;
+    if (matrix[x][y].getLand() == None) return true;
     else return false;
 }
 

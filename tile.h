@@ -13,7 +13,7 @@ private:
 public:
     Tile();
     Tile(sf::Texture *texturas);
-    virtual Typo getTypo();
+    virtual Land getLand();
     bool isPrinted() const; //Just dont
     void setPrinted(bool b);
 };

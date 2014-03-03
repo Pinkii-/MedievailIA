@@ -15,12 +15,12 @@ extern float UISPACE;
 
 extern bool GENERATE_MAP;
 
-enum Typo { //Terrain
+enum Land { //Terrain
     None, Rock, Grass, Water
 };
 
 #define NPROPS 2
-enum TypoP {
+enum Resource {
     Star, BStar, Stone, Tree, Fish
 };
 

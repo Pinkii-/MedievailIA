@@ -9,14 +9,14 @@ class Prop : public Tile
 {
 private:
     sf::Vector2f posMatrix;
-    TypoP tipo;
+    Resource tipo;
 public:
     Prop();
-	Prop(TypoP tipo, sf::Vector2f pos, int size);
+    Prop(Resource tipo, sf::Vector2f pos, int size);
 
     void setMatPosition(sf::Vector2f pos);
     sf::Vector2f getMatPosition();
-    TypoP getTypoP();
+    Resource getResource();
 };
 
 #endif // PROP_H

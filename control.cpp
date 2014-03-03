@@ -41,7 +41,7 @@ void Control::updateProp(float deltaTime,Map &m) {
 
 	for (unsigned int i = 0; i < props.size(); ++i) {
         if (props[i].empty() or props[i].size() > 0 and npcOnProp(deltaTime,i)) {
-			while (props[i].size() < 1 and std::rand()%1000 == 0) {
+            while (props[i].size() < 1 and std::rand()%10 == 0) {
                 int x,y;
                 x = std::rand() % COLS;
                 y = std::rand() % ROWS;
@@ -58,7 +58,7 @@ void Control::updateObjetiveNpc() {
     for (unsigned int i = 0; i < npcs.size(); ++i) {
 		 std::vector<sf::Vector2f> proppos;
         for (unsigned int j = 0; j < props.size(); ++j) {
-            if (!props[j].empty() and props[j][0].getTypoP() == npcs[i].getPreference()) {
+            if (!props[j].empty() and props[j][0].getResource() == npcs[i].getPreference()) {
                 for (unsigned int k = 0; k < props[j].size(); ++k) {
                     proppos.push_back(props[j][k].getMatPosition());
                 }
@@ -68,10 +68,10 @@ void Control::updateObjetiveNpc() {
     }
 }
 
-std::vector<sf::Vector2f> Control::getObjetiveNpc(TypoP preference) {
+std::vector<sf::Vector2f> Control::getObjetiveNpc(Resource preference) {
 	std::vector<sf::Vector2f> proppos;
 	for (unsigned int j = 0; j < props.size(); ++j) {
-		if (!props[j].empty() and props[j][0].getTypoP() == preference) {
+        if (!props[j].empty() and props[j][0].getResource() == preference) {
 			for (unsigned int k = 0; k < props[j].size(); ++k) {
 				proppos.push_back(props[j][k].getMatPosition());
 			}
@@ -140,7 +140,7 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
  bool Control::npcOnProp(float deltaTime, int j) {
      for (unsigned int i = 0; i < npcs.size(); ++i) {
          for (unsigned int k = 0; k < props[j].size(); ++k) {
-             if (npcs[i].getMatPosition() == props[j][k].getMatPosition() and npcs[i].getPreference() == props[j][k].getTypoP()) {
+             if (npcs[i].getMatPosition() == props[j][k].getMatPosition() and npcs[i].getPreference() == props[j][k].getResource()) {
 
 
 				 Npc npc(props[j][k].getMatPosition(),TILE_SIZE,this);

@@ -4,7 +4,7 @@ Prop::Prop()
 {
 }
 
-Prop::Prop(TypoP tipo, sf::Vector2f pos, int size) {
+Prop::Prop(Resource tipo, sf::Vector2f pos, int size) {
     this->tipo = tipo;
     posMatrix = pos;
     setPrinted(false);
@@ -29,6 +29,6 @@ sf::Vector2f Prop::getMatPosition() {
     return posMatrix;
 }
 
-TypoP Prop::getTypoP() {
+Resource Prop::getResource() {
     return tipo;
 }

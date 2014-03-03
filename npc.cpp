@@ -34,12 +34,12 @@ void Npc::initPreferences() {
     }
 }
 
-void Npc::setPreference(TypoP p) {
+void Npc::setPreference(Resource p) {
 	preferences.remove(p);
 	preferences.push_front(p);
 }
 
-TypoP Npc::getPreference() {
+Resource Npc::getPreference() {
   return goingTo;
 }
 
@@ -82,7 +82,7 @@ void Npc::update(float delta,Map &m) {
             waiting = false;
         }
         else {
-			std::list<TypoP>::iterator it = preferences.begin();;
+            std::list<Resource>::iterator it = preferences.begin();;
 			while (way.empty() and it != preferences.end()) {
 				posDestino = c->getObjetiveNpc(*it);
 				if (!posDestino.empty()) {

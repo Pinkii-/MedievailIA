@@ -23,8 +23,8 @@ private:
     bool waiting;
     std::queue<Direction> way;
     Direction dir;
-    std::list<TypoP> preferences;
-	TypoP goingTo;
+    std::list<Resource> preferences;
+    Resource goingTo;
 
     float waitTime;
 
@@ -34,8 +34,8 @@ public:
 	Npc(sf::Vector2f pos, int size, Control* con);
 
     void initPreferences();
-    void setPreference(TypoP p);
-    TypoP getPreference();
+    void setPreference(Resource p);
+    Resource getPreference();
 
     void setMatPosition(sf::Vector2f pos);
     void setDesPosition(std::vector<sf::Vector2f> pos);

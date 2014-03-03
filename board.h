@@ -18,28 +18,21 @@ private:
     Control control;
 	Textures texturas;
 	Interface ui;
-
+    Display displais;
     sf::Vector2f cameraPos;
 	float cameraVel;
 	sf::Vector2f cameraDir;
 	float cameraWait;
-
-    Display displais;
-//    Player players;
-
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:
-    Board();
+    Board();   
     void init();
     void loadTextures();
-
-
-    sf::Vector2f calculateColision(Npc n, float dt, sf::Vector2f dir);
-
     void update(float deltaTime);
     void updateD(float deltaTime, float deltaDraw);
 	void updateCamera(float deltaTime);
-	void updateDirCamera(sf::Vector2f d);
+	void updateDirCamera(sf::Vector2f d);  
+    sf::Vector2f calculateColision(Npc n, float dt, sf::Vector2f dir);
 };
 
 #endif // BOARD_H

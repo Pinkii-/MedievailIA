@@ -21,12 +21,11 @@ public:
     void updateProp(float deltaTime, Map &m);
     void updatePosNpc(float deltaTime, Map &m);
     void updateObjetiveNpc();
-    std::vector<sf::Vector2f> getObjetiveNpc(Resource preference);
     void updateDraw(sf::Vector2f cameraPos);
-
+    void erasePropN(std::vector<Prop> &v,int n);
+    std::vector<sf::Vector2f> getObjetiveNpc(Resource preference);
     Npc getNpc(int player, int i);
     bool npcOnProp(int j);
-    void erasePropN(std::vector<Prop> &v,int n);
 };
 
 #endif // CONTROL_H

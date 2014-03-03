@@ -10,20 +10,14 @@
 class Display : public sf::Drawable
 {
 private:
-    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     std::vector<sf::Text> textos;
-
     float fps,updates;
-
     std::string to_string(float x, int precision);
-
-    sf::Text aux;
-
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:
     Display();
     void init();
     void update(float deltaDraw, float deltaTime, sf::Vector2f cameraPos, sf::Vector2f npc);
-
 };
 
 #endif // DISPLAY_H

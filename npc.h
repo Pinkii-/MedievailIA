@@ -15,44 +15,33 @@ class Control;
 class Npc : public Tile
 {
 private:
-	Control* c;
+    Control* c;
     Map* m;
-    sf::Vector2f posMatrix;
     std::vector<sf::Vector2f> posDestino;
-    float speed;
-
-    bool waiting;
     std::queue<Direction> way;
-    Direction dir;
     std::list<Resource> preferences;
+    Direction dir;
     Resource goingTo;
-
+    sf::Vector2f posMatrix;
+    float speed;
     float waitTime;
-
-
+    bool waiting;
 public:
     Npc();
     Npc(sf::Vector2f pos, int size, Control* con, Map* map);
-
     void initPreferences();
-    void setPreference(Resource p);
-    Resource getPreference();
-
+    void update(float delta);
     void setMatPosition(sf::Vector2f pos);
     void setDesPosition(std::vector<sf::Vector2f> pos);
-
-    sf::Vector2f getMatPosition();
-    float getSpeed();
-
     void decrementSpeed();
     void setWaitTime(float deltaTime);
-
-    void update(float delta);
-    bool checkWay(Map &m);
     void calculateWay();
+    void setPreference(Resource p);
+    Resource getPreference();
+    sf::Vector2f getMatPosition();
     bool isOnDest(sf::Vector2i n);
-
-
+    bool checkWay(Map &m);
+    float getSpeed();
 };
 
 #endif // NPC_H

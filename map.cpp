@@ -98,23 +98,6 @@ bool Map::isWalkeable(sf::Vector2f pos) {
     else return false;
 }
 
-
-
-
-sf::Vector2f Map::updateCamera(float deltaTime, sf::Vector2f dir, sf::Vector2f cameraPos, float cameraVel) {
-	float distancia = cameraVel*deltaTime;
-	cameraPos.x += dir.x*distancia;
-	cameraPos.y += dir.y*distancia;
-    float sizex = WIDTH/TILE_SIZE;
-    float sizey = HEIGHT/TILE_SIZE;
-	if (cameraPos.x < 0) cameraPos.x = 0;
-	else if(cameraPos.x >= COLS - sizex + UISPACE) cameraPos.x = COLS - sizex + UISPACE;
-    if (cameraPos.y < 0) cameraPos.y = 0;
-    else if(cameraPos.y >= ROWS - sizey) cameraPos.y = ROWS - sizey;
-    return cameraPos;
-}
-
-
 void Map::updateDraw(sf::Vector2f cameraPos) {
     int sizei = matrix.size();
     int sizej = matrix[0].size();

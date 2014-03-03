@@ -9,11 +9,9 @@ class Terrain : public Tile
 {
 private:
     Land tipo;
-
 public:
     Terrain();
     Terrain(Land tipo, int size);
-
     Land getLand(); //Override mis cojones
 };
 

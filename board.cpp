@@ -107,7 +107,15 @@ void Board::updateD(float deltaTime,float deltaDraw) {
 void Board::updateCamera(float deltaTime) {
 	if (cameraWait > 0) {
 		cameraWait -= deltaTime;
-		cameraPos = matrix.updateCamera(deltaTime,cameraDir,cameraPos, cameraVel);
+        float distancia = cameraVel*deltaTime;
+        cameraPos.x += cameraDir.x*distancia;
+        cameraPos.y += cameraDir.y*distancia;
+        float sizex = WIDTH/TILE_SIZE;
+        float sizey = HEIGHT/TILE_SIZE;
+        if (cameraPos.x < 0) cameraPos.x = 0;
+        else if(cameraPos.x >= COLS - sizex + UISPACE) cameraPos.x = COLS - sizex + UISPACE;
+        if (cameraPos.y < 0) cameraPos.y = 0;
+        else if(cameraPos.y >= ROWS - sizey) cameraPos.y = ROWS - sizey;
 	}
 	control.updateDraw(cameraPos);
 }

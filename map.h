@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "tile.h"
 #include "terrain.h"
 #include "prop.h"
 
@@ -18,11 +17,10 @@ public:
     void generateMap();
     void generateProps();
     void loadMap();
+    void update(float deltaTime);
+    void updateDraw(sf::Vector2f cameraPos);
     bool isWalkeable(sf::Vector2f pos);
 
-    void update(float deltaTime);
-	sf::Vector2f updateCamera(float deltaTime, sf::Vector2f dir, sf::Vector2f cameraPos, float cameraVel);
-    void updateDraw(sf::Vector2f cameraPos);
 };
 
 #endif // MAP_H

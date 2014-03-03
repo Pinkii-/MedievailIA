@@ -8,12 +8,11 @@
 class Prop : public Tile
 {
 private:
-    sf::Vector2f posMatrix;
     Resource tipo;
+    sf::Vector2f posMatrix;
 public:
     Prop();
     Prop(Resource tipo, sf::Vector2f pos, int size);
-
     void setMatPosition(sf::Vector2f pos);
     sf::Vector2f getMatPosition();
     Resource getResource();

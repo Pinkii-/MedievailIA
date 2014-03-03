@@ -8,6 +8,8 @@ private:
 
     // data structures
 
+    // objects
+
     // variables
 
     // private fuctions

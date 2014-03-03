@@ -94,7 +94,7 @@ void Npc::update(float delta,Map &m) {
 				}
 				++it;
 			}
-			if (it == preferences.end()) waitTime = 1;
+            if (it == preferences.end()) waitTime = 0.1;
         }
     }
     if (i != max and waitTime <= 0) {

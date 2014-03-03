@@ -16,17 +16,12 @@ extern float UISPACE;
 extern bool GENERATE_MAP;
 
 enum Typo { //Terrain
-    None, Rock, Wood
+    None, Rock, Grass, Water
 };
 
 #define NPROPS 2
 enum TypoP {
-    Star, BStar
-};
-
-#define NTEXTURES 4
-enum texturas {
-    tNone, tRock, tNpc, tStar
+    Star, BStar, Stone, Tree, Fish
 };
 
 enum Direction {

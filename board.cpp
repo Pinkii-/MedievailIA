@@ -7,7 +7,7 @@ Board::Board()
 
 void Board::init() {
     cameraPos = sf::Vector2f(0.0,0.0);
-	cameraVel = 1;
+    cameraVel = 10;
 	texturas.load();
     // creacion de estructuras de datos
 	matrix = Map(COLS,ROWS);

@@ -16,6 +16,7 @@ class Npc : public Tile
 {
 private:
 	Control* c;
+    Map* m;
     sf::Vector2f posMatrix;
     std::vector<sf::Vector2f> posDestino;
     float speed;
@@ -31,7 +32,7 @@ private:
 
 public:
     Npc();
-	Npc(sf::Vector2f pos, int size, Control* con);
+    Npc(sf::Vector2f pos, int size, Control* con, Map* map);
 
     void initPreferences();
     void setPreference(Resource p);
@@ -46,9 +47,9 @@ public:
     void decrementSpeed();
     void setWaitTime(float deltaTime);
 
-    void update(float delta, Map &m);
+    void update(float delta);
     bool checkWay(Map &m);
-    void calculateWay(Map &m);
+    void calculateWay();
     bool isOnDest(sf::Vector2i n);
 
 

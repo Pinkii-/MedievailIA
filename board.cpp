@@ -14,7 +14,7 @@ void Board::init() {
 	control = Control();
 	// inicializaciones de estructuras de datos
     matrix.generateMap();
-    control.npcInit();
+    control.init(&matrix);
     displais.init();
 	ui.init(this);
 	updateCamera(0); //despues de dibujar todo
@@ -100,7 +100,7 @@ void Board::update(float deltaTime) {
 }
 
 void Board::updateD(float deltaTime,float deltaDraw) {
-    displais.update(deltaDraw,deltaTime,cameraPos,control.getNpc(0).getMatPosition());
+    displais.update(deltaDraw,deltaTime,cameraPos,control.getNpc(0,0).getMatPosition());
 }
 
 

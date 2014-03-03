@@ -9,7 +9,7 @@ Npc::Npc()
 {
 }
 
-Npc::Npc(sf::Vector2f pos, int size, Control* con) : c(con) {
+Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
 	this->setTexture(Textures::npc);
 
     float scalex, scaley;
@@ -67,7 +67,7 @@ void Npc::setWaitTime(float time) {
     waitTime = time;
 }
 
-void Npc::update(float delta,Map &m) {
+void Npc::update(float delta) {
 //	way = std::queue<Direction>();
 	waitTime -= delta;
     int i = 0;
@@ -86,7 +86,7 @@ void Npc::update(float delta,Map &m) {
 			while (way.empty() and it != preferences.end()) {
 				posDestino = c->getObjetiveNpc(*it);
 				if (!posDestino.empty()) {
-					calculateWay(m);
+                    calculateWay();
 					if (!way.empty()) {
 						goingTo = *it;
 						break;
@@ -108,7 +108,7 @@ void Npc::update(float delta,Map &m) {
     }
 }
 
-void Npc::calculateWay(Map &m) { /// From ini to dest
+void Npc::calculateWay() { /// From ini to dest
     std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));
     std::vector<std::vector<Direction> > camino(COLS, std::vector<Direction>(ROWS));
     std::queue<sf::Vector2i> sinVisitar;
@@ -143,7 +143,7 @@ void Npc::calculateWay(Map &m) { /// From ini to dest
                 break;
             }
             if (!visitado[aux.x][aux.y]) {
-                if (m.isWalkeable(sf::Vector2f(aux.x,aux.y))) {
+                if (m->isWalkeable(sf::Vector2f(aux.x,aux.y))) {
                     sinVisitar.push(aux);
                     camino[aux.x][aux.y] = d;
                 }

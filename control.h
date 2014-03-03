@@ -10,12 +10,13 @@
 class Control : public sf::Drawable
 {
 private:
-     std::vector<Npc> npcs;
-     std::vector<std::vector<Prop> > props;
+    Map* m;
+    std::vector<Player> players;
+    std::vector<std::vector<Prop> > props;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:
     Control();
-    void npcInit();
+    void init(Map *map);
     void update(float deltaTime, Map &m);
     void updateProp(float deltaTime, Map &m);
     void updatePosNpc(float deltaTime, Map &m);
@@ -23,8 +24,8 @@ public:
     std::vector<sf::Vector2f> getObjetiveNpc(Resource preference);
     void updateDraw(sf::Vector2f cameraPos);
 
-    Npc getNpc(int i);
-    bool npcOnProp(float deltaTime, int j);
+    Npc getNpc(int player, int i);
+    bool npcOnProp(int j);
     void erasePropN(std::vector<Prop> &v,int n);
 };
 

@@ -32,6 +32,7 @@ public:
 	void updateCamera(float deltaTime);
 	void updateDirCamera(sf::Vector2f d);  
     sf::Vector2f calculateColision(Npc n, float dt, sf::Vector2f dir);
+    Control getControl();
 };
 
 #endif // BOARD_H

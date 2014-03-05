@@ -3,10 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 #include "Utils/Textures.hpp"
+#include "Npcdisplayer.hpp"
 
 class Board;
 class Interface : public sf::Drawable {
 	private:
+        std::vector<NpcDisplayer> n;
 		Board* game;
 		sf::RectangleShape fondo;
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;

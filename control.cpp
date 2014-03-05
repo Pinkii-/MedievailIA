@@ -107,6 +107,10 @@ Npc Control::getNpc(int player,int i) {
     return players[player].getNpcs()[i];
 }
 
+Player Control::getPlayer() {
+    return players[0];
+}
+
 bool Control::npcOnProp(int j) {
     for (unsigned int p = 0; p < players.size(); ++p) {
         std::vector<Npc> npcs = players[p].getNpcs();

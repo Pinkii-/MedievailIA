@@ -17,7 +17,8 @@ SOURCES += \
     Utils/Textures.cpp \
     Utils/0templateclass.cpp \
     UI/Interface.cpp \
-    UI/display.cpp
+    UI/display.cpp \
+    UI/Npcdisplayer.cpp
 
 OTHER_FILES += \
     Resources/mapa.txt \
@@ -50,4 +51,5 @@ HEADERS += \
     Utils/Textures.hpp \
     Utils/0templateclass.h \
     UI/Interface.hpp \
-    UI/display.h
+    UI/display.h \
+    UI/Npcdisplayer.hpp

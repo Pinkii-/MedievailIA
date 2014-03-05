@@ -122,3 +122,6 @@ void Board::updateDirCamera(sf::Vector2f d){
 //    return pos;
 //}
 
+Control Board::getControl() {
+    return control;
+}

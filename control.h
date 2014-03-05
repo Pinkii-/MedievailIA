@@ -23,6 +23,7 @@ public:
     void erasePropN(std::vector<Prop> &v,int n);
     std::vector<sf::Vector2f> getObjetiveNpc(Resource preference);
     Npc getNpc(int player, int i);
+    Player getPlayer();
     bool npcOnProp(int j);
 };
 

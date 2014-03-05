@@ -6,10 +6,10 @@
 #include "map.h"
 #include "player.h"
 #include "control.h"
-#include "display.h"
-#include "util.h"
-#include "Textures.hpp"
-#include "Interface.hpp"
+#include "UI/display.h"
+#include "Utils/util.h"
+#include "Utils/Textures.hpp"
+#include "UI/Interface.hpp"
 
 class Board : public sf::Drawable
 {

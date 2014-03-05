@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "util.h"
+#include "Utils/util.h"
 #include "board.h"
 
 #include <iostream>
@@ -10,8 +10,8 @@ float UISPACE = 15;
 int WIDTH = sf::VideoMode::getFullscreenModes()[0].width;
 int HEIGHT = sf::VideoMode::getFullscreenModes()[0].height-3*TILE_SIZE;
 
-int ROWS = 400;
-int COLS = 400;
+int ROWS = 50;
+int COLS = 50;
 
 bool GENERATE_MAP = true;
 
@@ -22,7 +22,7 @@ int main() {
 
     sf::Clock clock;
     clock.restart();
-    int fps = 55;
+    int fps = 20;
     float deltaDraw = 0;
 
     srand(time(0));

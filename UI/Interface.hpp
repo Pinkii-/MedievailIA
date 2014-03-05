@@ -2,7 +2,7 @@
 #define INTERFACE_HPP
 
 #include <SFML/Graphics.hpp>
-#include "Textures.hpp"
+#include "Utils/Textures.hpp"
 
 class Board;
 class Interface : public sf::Drawable {

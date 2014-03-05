@@ -2,8 +2,8 @@
 #define PROP_H
 
 #include "tile.h"
-#include "util.h"
-#include "Textures.hpp"
+#include "Utils/util.h"
+#include "Utils/Textures.hpp"
 
 class Prop : public Tile
 {

@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "terrain.h"
-#include "prop.h"
+#include "Tiles/terrain.h"
+#include "Tiles/prop.h"
 
 class Map : public sf::Drawable
 {

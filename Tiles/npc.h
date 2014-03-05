@@ -5,11 +5,11 @@
 #include <stack>
 #include <list>
 
-#include "tile.h"
-#include "util.h"
-#include "terrain.h"
+#include "Tiles/tile.h"
+#include "Utils/util.h"
+#include "Tiles/terrain.h"
 #include "map.h"
-#include "Textures.hpp"
+#include "Utils/Textures.hpp"
 
 
 

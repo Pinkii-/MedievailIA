@@ -3,8 +3,8 @@
 
 #include "vector"
 
-#include "npc.h"
-#include "Building.h"
+#include "Tiles/npc.h"
+#include "Tiles/Building.h"
 #include "map.h"
 
 class Control;

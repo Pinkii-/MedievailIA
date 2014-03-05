@@ -7,17 +7,17 @@ SOURCES += \
     board.cpp \
     map.cpp \
     player.cpp \
-    tile.cpp \
-    terrain.cpp \
-    npc.cpp \
-    display.cpp \
-    util.cpp \
-    prop.cpp \
     control.cpp \
-    Textures.cpp \
-    Interface.cpp \
-    Building.cpp \
-    0templateclass.cpp
+    Tiles/tile.cpp \
+    Tiles/terrain.cpp \
+    Tiles/prop.cpp \
+    Tiles/npc.cpp \
+    Tiles/Building.cpp \
+    Utils/util.cpp \
+    Utils/Textures.cpp \
+    Utils/0templateclass.cpp \
+    UI/Interface.cpp \
+    UI/display.cpp
 
 OTHER_FILES += \
     Resources/mapa.txt \
@@ -40,4 +40,14 @@ HEADERS += \
     Textures.hpp \
     Interface.hpp \
     Building.h \
-    0templateclass.h
+    0templateclass.h \
+    Tiles/tile.h \
+    Tiles/terrain.h \
+    Tiles/prop.h \
+    Tiles/npc.h \
+    Tiles/Building.h \
+    Utils/util.h \
+    Utils/Textures.hpp \
+    Utils/0templateclass.h \
+    UI/Interface.hpp \
+    UI/display.h

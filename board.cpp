@@ -30,9 +30,7 @@ void Board::init() {
 }
 
 void Board::update(float deltaTime) {
-
     control.update(deltaTime,matrix);
-
 }
 
 void Board::updateD(float deltaTime,float deltaDraw) {

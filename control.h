@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "npc.h"
-#include "prop.h"
+#include "Tiles/npc.h"
+#include "Tiles/prop.h"
 #include "player.h"
 
 class Control : public sf::Drawable

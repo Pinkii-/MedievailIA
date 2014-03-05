@@ -30,13 +30,15 @@ void Board::init() {
 }
 
 void Board::update(float deltaTime) {
-    updateCamera(deltaTime);
-    matrix.updateDraw(cameraPos);
+
     control.update(deltaTime,matrix);
-    control.updateDraw(cameraPos);
+
 }
 
 void Board::updateD(float deltaTime,float deltaDraw) {
+	updateCamera(deltaTime);
+	matrix.updateDraw(cameraPos);
+	control.updateDraw(cameraPos);
     displais.update(deltaDraw,deltaTime,cameraPos,control.getNpc(0,0).getMatPosition());
 }
 

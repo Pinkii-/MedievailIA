@@ -18,7 +18,8 @@ SOURCES += \
     Utils/0templateclass.cpp \
     UI/Interface.cpp \
     UI/display.cpp \
-    UI/Npcdisplayer.cpp
+    UI/Npcdisplayer.cpp \
+    Tiles/Buildings/Base.cpp
 
 OTHER_FILES += \
     Resources/mapa.txt \
@@ -52,4 +53,5 @@ HEADERS += \
     Utils/0templateclass.h \
     UI/Interface.hpp \
     UI/display.h \
-    UI/Npcdisplayer.hpp
+    UI/Npcdisplayer.hpp \
+    Tiles/Buildings/Base.hpp

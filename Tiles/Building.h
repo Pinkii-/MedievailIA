@@ -9,7 +9,7 @@ private:
     sf::Vector2f posMatrix;
 public:
     Building();
-    void update(float deltaTime);
+    virtual void update(float deltaTime) = 0;
     void setMatPosition(sf::Vector2f pos);
     sf::Vector2f getMatPosition();
 };

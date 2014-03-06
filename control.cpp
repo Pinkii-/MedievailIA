@@ -104,7 +104,7 @@ void Control::erasePropN(std::vector<Prop> &v,int n) {
 }
 
 Npc Control::getNpc(int player,int i) {
-    return players[player].getNpcs()[i];
+    return *players[player].getNpcs()[i];
 }
 
 Player Control::getPlayer() {
@@ -113,10 +113,10 @@ Player Control::getPlayer() {
 
 bool Control::npcOnProp(int j) {
     for (unsigned int p = 0; p < players.size(); ++p) {
-        std::vector<Npc> npcs = players[p].getNpcs();
+        std::vector<Npc*> npcs = players[p].getNpcs();
         for (unsigned int i = 0; i < npcs.size(); ++i) {
             for (unsigned int k = 0; k < props[j].size(); ++k) {
-                if (npcs[i].getMatPosition() == props[j][k].getMatPosition() and npcs[i].getPreference() == props[j][k].getResource()) {
+                if (npcs[i]->getMatPosition() == props[j][k].getMatPosition() and npcs[i]->getPreference() == props[j][k].getResource()) {
                     // TODO: Set the behavior between the npc and the prop
 
                     //				 Npc npc(props[j][k].getMatPosition(),TILE_SIZE,this);

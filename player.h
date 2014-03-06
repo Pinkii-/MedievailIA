@@ -5,6 +5,7 @@
 
 #include "Tiles/npc.h"
 #include "Tiles/Building.h"
+#include "Tiles/Buildings/Base.hpp"
 #include "map.h"
 
 class Control;
@@ -13,8 +14,8 @@ class Player : public sf::Drawable
 private:
     Control* c;
     Map* m;
-    std::vector<Npc> npcs;
-    std::vector<Building> buildings;
+    std::vector<Npc*> npcs;
+    std::vector<Building*> buildings;
     sf::Color color;
     // Class? Race?
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
@@ -27,7 +28,7 @@ public:
     void updateNpcs(float deltaTime);
     void updateBuildings(float deltaTime);
     void updateDraw(sf::Vector2f cameraPos);
-    std::vector<Npc> getNpcs();
+    std::vector<Npc*> getNpcs();
 };
 
 #endif // PLAYER_H

@@ -16,7 +16,7 @@ void Interface::init(Board *g) {
 	fondo.setPosition(0,0);
 	fondo.setFillColor(sf::Color(200,200,200));
     n = std::vector<NpcDisplayer>(g->getControl().getPlayer().getNpcs().size());
-    for (unsigned int i = 0; i < n.size(); ++i) n[i] = NpcDisplayer(i,&g->getControl().getPlayer().getNpcs()[i]);
+    for (unsigned int i = 0; i < n.size(); ++i) n[i] = NpcDisplayer(i,g->getControl().getPlayer().getNpcs()[i]);
 }
 
 void Interface::update() {

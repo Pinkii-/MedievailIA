@@ -4,9 +4,7 @@ Building::Building()
 {
 }
 
-void Building::update(float deltaTime) {
 
-}
 
 void Building::setMatPosition(sf::Vector2f pos) {
     posMatrix = pos;

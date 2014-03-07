@@ -23,19 +23,17 @@ Display::Display()
 }
 
 void Display::init() {
+	int x = WIDTH - 230;
+	int y = 30;
     textos = std::vector<sf::Text> (nTextos);
     for (unsigned int i = 0; i < textos.size();++i) {
         textos[i].setFont(Textures::font);
         textos[i].setCharacterSize(25);
         textos[i].setColor(sf::Color::Blue);
         textos[i].setStyle(sf::Text::Bold);
-    }
-
-	textos[0].setPosition(sf::Vector2f(WIDTH-230,30));
-	textos[1].setPosition(sf::Vector2f(WIDTH-230,55));
-	textos[2].setPosition(sf::Vector2f(WIDTH-230,80));
-	textos[3].setPosition(sf::Vector2f(WIDTH-230,110));
-
+		textos[i].setPosition(sf::Vector2f(x,y));
+		y += 25;
+	}
     fps = 0;
     updates = 0;
 

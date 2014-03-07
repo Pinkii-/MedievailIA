@@ -44,7 +44,9 @@ void Player::init(int nColor,Control* con, Map* map) {
 }
 
 void Player::buildingInit() {
-
+	sf::Vector2f pos = sf::Vector2f(3.0,3.0);
+	Base* base = new Base(pos,TILE_SIZE);
+	buildings.push_back(base);
 }
 
 void Player::npcInit() {
@@ -101,6 +103,10 @@ void Player::updateDraw(sf::Vector2f cameraPos) {
     }
 }
 
+void Player::addNpc() {
+	Npc* npc = new Npc(sf::Vector2f(3.f,3.f),TILE_SIZE, c, m);
+	npcs.push_back(npc);
+}
 
 std::vector<Npc*> Player::getNpcs(){
     return npcs;

@@ -5,8 +5,8 @@
 
 class Building : public Tile
 {
-private:
-    sf::Vector2f posMatrix;
+protected:
+	sf::Vector2f posMatrix;
 public:
     Building();
     virtual void update(float deltaTime) = 0;

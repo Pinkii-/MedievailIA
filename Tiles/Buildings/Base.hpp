@@ -5,7 +5,8 @@
 class Base : public Building
 {
 public:
-    Base();
+	Base(sf::Vector2f pos, int size);
+	void update(float deltaTime);
 };
 
 #endif // BASE_HPP

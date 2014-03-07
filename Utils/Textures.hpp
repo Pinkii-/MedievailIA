@@ -11,6 +11,7 @@ class Textures
 		static sf::Texture rock;
 		static sf::Texture npc;
 		static sf::Texture star;
+		static sf::Texture BuildingBase;
 		static void load();
 };
 

@@ -26,6 +26,7 @@ Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
     waiting = true;
     speed = 10;
     waitTime = 0;
+    this->maxRange = 30;
 
     initPreferences();
 	goingTo = *preferences.begin();
@@ -38,10 +39,11 @@ void Npc::initPreferences() {
 }
 
 void Npc::update(float delta) {
-//	way = std::queue<Direction>();
+    //	way = std::queue<Direction>();
     waitTime -= delta;
     int i = 0;
     int max = 5;
+
     while (waiting and i < max and waitTime <= 0) {
         ++i;
         if(!way.empty()) {
@@ -52,7 +54,8 @@ void Npc::update(float delta) {
             waiting = false;
         }
         else {
-            std::list<Resource>::iterator it = preferences.begin();;
+            std::list<Resource>::iterator it = preferences.begin();
+
             while (way.empty() and it != preferences.end()) {
                 posDestino = c->getObjetiveNpc(*it);
                 if (!posDestino.empty()) {
@@ -64,9 +67,11 @@ void Npc::update(float delta) {
                 }
                 ++it;
             }
+
             if (it == preferences.end()) waitTime = 0.1;
         }
     }
+
     if (i != max and waitTime <= 0) {
         sf::Vector2f dist = dirToVec(dir)*speed*delta;
         if (changingNumber(posMatrix.x,posMatrix.x+dist.x) or changingNumber(posMatrix.y,posMatrix.y+dist.y))  {
@@ -96,44 +101,54 @@ void Npc::setWaitTime(float time) {
 
 void Npc::calculateWay() { /// From ini to dest
     std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));
-    std::vector<std::vector<Direction> > camino(COLS, std::vector<Direction>(ROWS));
+    std::vector<std::vector<BFSNode> > camino(COLS, std::vector<BFSNode>(ROWS));
     std::queue<sf::Vector2i> sinVisitar;
+
     if (posDestino.size() == 0) std::cout << "LLorar" << std::endl;
+
     visitado[int(posMatrix.x)][int(posMatrix.y)] = true;
     sinVisitar.push(vecfToVeci(posMatrix));
+
+    camino[posMatrix.x][posMatrix.y].pasos = 0;
+
     while (!sinVisitar.empty() and not isOnDest(sinVisitar.front())) {
         sf::Vector2i visitando = sinVisitar.front();
         sinVisitar.pop();
 		int rand = std::rand()%4;
-        for (int i = 0+rand; i < 4+rand;++i) {
-            sf::Vector2i aux = visitando;
-            Direction d;
-            switch (i%4) {
-            case 0:
-                ++aux.x;
-                d = Right;
-                break;
-            case 1:
-                --aux.x;
-                d = Left;
-                break;
-            case 2:
-                ++aux.y;
-                d = Down;
-                break;
-            case 3 :
-                --aux.y;
-                d = Up;
-                break;
-            default:
-                break;
-            }
-            if (!visitado[aux.x][aux.y]) {
-                if (m->isWalkeable(sf::Vector2f(aux.x,aux.y))) {
-                    sinVisitar.push(aux);
-                    camino[aux.x][aux.y] = d;
+
+        if(camino[visitando.x][visitando.y].pasos < this->maxRange){
+            for (int i = 0+rand; i < 4+rand; ++i) {
+                sf::Vector2i aux = visitando;
+                Direction d;
+                switch (i%4) {
+                case 0:
+                    ++aux.x;
+                    d = Right;
+                    break;
+                case 1:
+                    --aux.x;
+                    d = Left;
+                    break;
+                case 2:
+                    ++aux.y;
+                    d = Down;
+                    break;
+                case 3 :
+                    --aux.y;
+                    d = Up;
+                    break;
+                default:
+                    break;
                 }
-                visitado[aux.x][aux.y] = true;
+
+                if (!visitado[aux.x][aux.y]) {
+                    if (m->isWalkeable(sf::Vector2f(aux.x,aux.y))) {
+                        sinVisitar.push(aux);
+                        camino[aux.x][aux.y].d = d;
+                        camino[aux.x][aux.y].pasos = camino[visitando.x][visitando.y].pasos + 1;
+                    }
+                    visitado[aux.x][aux.y] = true;
+                }
             }
         }
 	}
@@ -142,8 +157,8 @@ void Npc::calculateWay() { /// From ini to dest
 		sf::Vector2i pos = vecfToVeci(posDestino[0]);
 
 		while (pos != vecfToVeci(posMatrix)) {
-			aux.push(camino[pos.x][pos.y]);
-			pos += vecfToVeci(dirToVec(opposite(camino[pos.x][pos.y])));
+			aux.push(camino[pos.x][pos.y].d);
+			pos += vecfToVeci(dirToVec(opposite(camino[pos.x][pos.y].d)));
 		}
 		while (!aux.empty()) { /// Have to swap all the elements
 			way.push(aux.top());
@@ -157,8 +172,12 @@ void Npc::setPreference(Resource p) {
     preferences.push_front(p);
 }
 
+void Npc::setMaxRange(int pasos){
+    this->maxRange = pasos;
+}
+
 Resource Npc::getPreference() {
-  return goingTo;
+    return goingTo;
 }
 
 sf::Vector2f Npc::getMatPosition() {

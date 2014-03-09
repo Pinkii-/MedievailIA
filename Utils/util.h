@@ -28,6 +28,11 @@ enum Direction {
     Up, Right, Down, Left
 };
 
+struct BFSNode {
+	Direction d;
+	int pasos;
+};
+
 struct Way {
     Direction d;
     int distancia;
@@ -47,6 +52,8 @@ sf::Vector2f absoluteValue(sf::Vector2f v);
 bool changingNumber(float antes, float despues);
 
 sf::Vector2f vecfTrunc(sf::Vector2f vec);
+
+int distanceVec2(sf::Vector2f v1, sf::Vector2f v2);
 
 sf::Vector2f operator + (sf::Vector2f vec, Direction d);
 sf::Vector2f operator - (sf::Vector2f vec, Direction d);

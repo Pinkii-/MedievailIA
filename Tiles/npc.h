@@ -25,6 +25,7 @@ private:
     Direction dir;
     Resource goingTo;
     sf::Vector2f posMatrix;
+    int maxRange;
     float speed;
     float waitTime;
     bool waiting;
@@ -35,6 +36,7 @@ public:
     void update(float delta);
     void setMatPosition(sf::Vector2f pos);
     void setDesPosition(std::vector<sf::Vector2f> pos);
+    void setMaxRange(int pasos);
     void decrementSpeed();
     void setWaitTime(float deltaTime);
     void calculateWay();

@@ -2,7 +2,6 @@
 #include <math.h>
 #include <iostream>
 
-
 void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     for (unsigned int i= 0; i < props.size(); ++i) {
         for (unsigned int j=0; j < props[i].size(); ++j) {
@@ -14,7 +13,6 @@ void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     }
     for (unsigned int i = 0; i < players.size(); ++i) target.draw(players[i]);
 }
-
 
 Control::Control() {
 }
@@ -73,8 +71,6 @@ std::vector<sf::Vector2f> Control::getObjetiveNpc(Resource preference) {
     }
     return proppos;
 }
-
-
 
 void Control::updateDraw(sf::Vector2f cameraPos) {
     float sizex = WIDTH/TILE_SIZE;
@@ -150,5 +146,3 @@ bool Control::npcOnProp(int j) {
     }
     return false;
 }
-
-

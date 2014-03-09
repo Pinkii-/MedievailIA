@@ -1,8 +1,6 @@
 #include "util.h"
 #include <iostream>
-
-
-
+#include <math.h>
 
 sf::Vector2f dirToVec(Direction dir) {
     sf::Vector2f vec;
@@ -52,6 +50,13 @@ sf::Vector2f vecfTrunc(sf::Vector2f vec) {
     vec.x = int(vec.x);
     vec.y = int(vec.y);
     return vec;
+}
+
+int distanceVec2(const sf::Vector2f& v1, const sf::Vector2f& v2) {
+    int aux_x, aux_y;
+    aux_x = int(v1.x - v2.x);
+    aux_y = int(v1.y - v2.y);
+    return sqrt(aux_x*aux_x + aux_y*aux_y);
 }
 
 sf::Vector2f operator + (sf::Vector2f vec, Direction d) {

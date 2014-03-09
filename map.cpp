@@ -55,8 +55,6 @@ void Map::generateMap() {
 }
 
 void Map::loadMap() {
-
-
     std::string map = "mapa";
     std::string auxS = "Resources/"+map+".txt";
     std::ifstream myfile;
@@ -132,4 +130,12 @@ bool Map::isWalkeable(sf::Vector2f pos) {
 
     if (matrix[x][y].getLand() == None) return true;
     else return false;
+}
+
+void Map::setMask(sf::Vector2f pos, sf::Color color){
+    this->matrix[pos.x][pos.y].setColor(color);
+}
+
+void Map::removeMask(sf::Vector2f pos){
+    this->matrix[pos.x][pos.y].setColor(sf::Color::White);
 }

@@ -17,8 +17,9 @@ public:
     void generateMap();
     void loadMap();
     void updateDraw(sf::Vector2f cameraPos);
+    void setMask(sf::Vector2f pos, sf::Color color);
+    void removeMask(sf::Vector2f pos);
     bool isWalkeable(sf::Vector2f pos);
-
 };
 
 #endif // MAP_H

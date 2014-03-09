@@ -146,6 +146,8 @@ void Npc::calculateWay() { /// From ini to dest
                         sinVisitar.push(aux);
                         camino[aux.x][aux.y].d = d;
                         camino[aux.x][aux.y].distancia = camino[visitando.x][visitando.y].distancia + 1;
+                        // ACctivar para mostrar rango
+                        //m->setMask(sf::Vector2f(aux.x,aux.y),sf::Color::Blue);
                     }
                     visitado[aux.x][aux.y] = true;
                 }

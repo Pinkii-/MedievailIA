@@ -9,6 +9,7 @@ Terrain::Terrain(Land tipo, int size) {
 	switch (tipo) {
 		case None:
 			this->setTexture(Textures::none);
+			this->setColor(sf::Color::White);
 			break;
 		case Rock:
 			this->setTexture(Textures::rock);

@@ -101,7 +101,7 @@ void Npc::setWaitTime(float time) {
 
 void Npc::calculateWay() { /// From ini to dest
     std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));
-    std::vector<std::vector<BFSNode> > camino(COLS, std::vector<BFSNode>(ROWS));
+    std::vector<std::vector<Way> > camino(COLS, std::vector<Way>(ROWS));
     std::queue<sf::Vector2i> sinVisitar;
 
     if (posDestino.size() == 0) std::cout << "LLorar" << std::endl;
@@ -109,14 +109,14 @@ void Npc::calculateWay() { /// From ini to dest
     visitado[int(posMatrix.x)][int(posMatrix.y)] = true;
     sinVisitar.push(vecfToVeci(posMatrix));
 
-    camino[posMatrix.x][posMatrix.y].pasos = 0;
+    camino[posMatrix.x][posMatrix.y].distancia = 0;
 
     while (!sinVisitar.empty() and not isOnDest(sinVisitar.front())) {
         sf::Vector2i visitando = sinVisitar.front();
         sinVisitar.pop();
 		int rand = std::rand()%4;
 
-        if(camino[visitando.x][visitando.y].pasos < this->maxRange){
+        if(camino[visitando.x][visitando.y].distancia < this->maxRange){
             for (int i = 0+rand; i < 4+rand; ++i) {
                 sf::Vector2i aux = visitando;
                 Direction d;
@@ -145,7 +145,7 @@ void Npc::calculateWay() { /// From ini to dest
                     if (m->isWalkeable(sf::Vector2f(aux.x,aux.y))) {
                         sinVisitar.push(aux);
                         camino[aux.x][aux.y].d = d;
-                        camino[aux.x][aux.y].pasos = camino[visitando.x][visitando.y].pasos + 1;
+                        camino[aux.x][aux.y].distancia = camino[visitando.x][visitando.y].distancia + 1;
                     }
                     visitado[aux.x][aux.y] = true;
                 }
@@ -172,8 +172,8 @@ void Npc::setPreference(Resource p) {
     preferences.push_front(p);
 }
 
-void Npc::setMaxRange(int pasos){
-    this->maxRange = pasos;
+void Npc::setMaxRange(int distancia){
+    this->maxRange = distancia;
 }
 
 Resource Npc::getPreference() {

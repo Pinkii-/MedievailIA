@@ -6,6 +6,7 @@ void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(matrix);
     target.draw(control);
     target.draw(ui);
+    target.draw(control);
     target.draw(displais);
 }
 

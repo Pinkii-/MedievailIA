@@ -4,12 +4,10 @@ void NpcDisplayer::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(s);
 }
 
-NpcDisplayer::NpcDisplayer(): width(UISPACE*TILE_SIZE),height(100)
-{
+NpcDisplayer::NpcDisplayer(): width(UISPACE*TILE_SIZE),height(100) {
 }
 
-NpcDisplayer::NpcDisplayer(int position,Npc* npc): width(UISPACE*TILE_SIZE-10),height(100),n(npc)
-{
+NpcDisplayer::NpcDisplayer(int position,Npc* npc): width(UISPACE*TILE_SIZE-10),height(100),n(npc) {
     int x = 10;
     int y = 5;
     s = sf::RectangleShape(sf::Vector2f(width-x,height-y));
@@ -21,8 +19,11 @@ NpcDisplayer::NpcDisplayer(int position,Npc* npc): width(UISPACE*TILE_SIZE-10),h
     s.setFillColor(sf::Color::Cyan);
 }
 
-
 bool NpcDisplayer::isClicked(sf::Vector2f pos){
     if (std::abs(pos.x - (s.getPosition().x)) < width and std::abs(pos.y - s.getPosition().y) < height) return true;
     else return false;
+}
+
+Npc* NpcDisplayer::getNpc() {
+    return n;
 }

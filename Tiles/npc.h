@@ -44,6 +44,7 @@ public:
     Resource getPreference();
     sf::Vector2f getMatPosition();
     int getMaxDistance();
+    Map* getMap();
     bool isOnDest(sf::Vector2i n);
     bool checkWay(Map &m);
     float getSpeed();

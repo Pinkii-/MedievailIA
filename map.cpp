@@ -24,6 +24,7 @@ Map::Map() {}
 
 Map::Map(int cols, int rows) {
     matrix = std::vector<std::vector<Terrain> > (cols, (std::vector<Terrain> (rows)));
+        std::cout << matrix.size() << std::endl;
 }
 
 void Map::generateMap() {
@@ -132,4 +133,16 @@ bool Map::isWalkeable(sf::Vector2f pos) {
 
     if (matrix[x][y].getLand() == None) return true;
     else return false;
+}
+
+sf::Vector2i Map::getSize() {
+    sf::Vector2i aux;
+    aux.x = matrix.size();
+    aux.y = matrix[0].size();
+    return aux;
+}
+
+Terrain Map::getTerrain(int x, int y) {
+    return matrix[x][y];
+
 }

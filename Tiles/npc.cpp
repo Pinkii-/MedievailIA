@@ -26,7 +26,7 @@ Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
     waiting = true;
     speed = 10;
     waitTime = 0;
-    maxDistance = 0;
+    maxDistance = 10;
 
     initPreferences();
 	goingTo = *preferences.begin();
@@ -178,6 +178,10 @@ sf::Vector2f Npc::getMatPosition() {
 
 int Npc::getMaxDistance() {
     return maxDistance;
+}
+
+Map* Npc::getMap() {
+    return m;
 }
 
 bool Npc::isOnDest(sf::Vector2i n) {

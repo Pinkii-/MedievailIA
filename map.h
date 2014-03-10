@@ -18,6 +18,8 @@ public:
     void loadMap();
     void updateDraw(sf::Vector2f cameraPos);
     bool isWalkeable(sf::Vector2f pos);
+    sf::Vector2i getSize();
+    Terrain getTerrain(int x, int y);
 
 };
 

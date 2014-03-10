@@ -29,8 +29,8 @@ enum Direction {
 };
 
 struct Way {
-    Direction d;
-    int distancia;
+    Direction dir;
+    int dist;
 };
 
 struct HitBox {

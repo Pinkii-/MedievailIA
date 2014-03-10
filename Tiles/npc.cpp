@@ -155,6 +155,7 @@ void Npc::calculateWay() { /// From ini to dest
 void Npc::setPreference(Resource p) {
     preferences.remove(p);
     preferences.push_front(p);
+    way = std::queue<Direction>();
 }
 
 Resource Npc::getPreference() {

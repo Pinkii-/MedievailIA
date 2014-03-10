@@ -16,3 +16,9 @@ NpcDisplayer::NpcDisplayer(int position,Npc* npc): width(UISPACE*TILE_SIZE),heig
     s.setPosition((textRect.width+10)/2.f,((10+textRect.height/2.f))*(1+position));
     s.setFillColor(sf::Color::Cyan);
 }
+
+
+bool NpcDisplayer::isClicked(sf::Vector2f pos){
+    if (std::abs(pos.x - (s.getPosition().x)) < width and std::abs(pos.y - s.getPosition().y) < height) return true;
+    else return false;
+}

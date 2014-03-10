@@ -32,6 +32,7 @@ void Board::init() {
 void Board::update(float deltaTime) {
 	updateCamera(deltaTime);
     control.update(deltaTime,matrix);
+    ui.update();
 }
 
 void Board::updateD(float deltaTime,float deltaDraw) {

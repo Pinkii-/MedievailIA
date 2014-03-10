@@ -28,6 +28,7 @@ private:
     float speed;
     float waitTime;
     bool waiting;
+    int maxDistance;
 public:
     Npc();
     Npc(sf::Vector2f pos, int size, Control *con, Map *map);
@@ -39,8 +40,10 @@ public:
     void setWaitTime(float deltaTime);
     void calculateWay();
     void setPreference(Resource p);
+    void setMaxDistance(int dist);
     Resource getPreference();
     sf::Vector2f getMatPosition();
+    int getMaxDistance();
     bool isOnDest(sf::Vector2i n);
     bool checkWay(Map &m);
     float getSpeed();

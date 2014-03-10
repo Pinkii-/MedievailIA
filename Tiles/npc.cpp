@@ -26,6 +26,7 @@ Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
     waiting = true;
     speed = 10;
     waitTime = 0;
+    maxDistance = 0;
 
     initPreferences();
 	goingTo = *preferences.begin();
@@ -96,14 +97,16 @@ void Npc::setWaitTime(float time) {
 
 void Npc::calculateWay() { /// From ini to dest
     std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));
-    std::vector<std::vector<Direction> > camino(COLS, std::vector<Direction>(ROWS));
+    std::vector<std::vector<Way> > camino(COLS, std::vector<Way>(ROWS));
     std::queue<sf::Vector2i> sinVisitar;
     if (posDestino.size() == 0) std::cout << "LLorar" << std::endl;
     visitado[int(posMatrix.x)][int(posMatrix.y)] = true;
+    camino[int(posMatrix.x)][int(posMatrix.y)].dist = 0;
     sinVisitar.push(vecfToVeci(posMatrix));
     while (!sinVisitar.empty() and not isOnDest(sinVisitar.front())) {
         sf::Vector2i visitando = sinVisitar.front();
         sinVisitar.pop();
+        if (maxDistance != 0 and maxDistance < camino[visitando.x][visitando.y].dist) break;
 		int rand = std::rand()%4;
         for (int i = 0+rand; i < 4+rand;++i) {
             sf::Vector2i aux = visitando;
@@ -131,7 +134,8 @@ void Npc::calculateWay() { /// From ini to dest
             if (!visitado[aux.x][aux.y]) {
                 if (m->isWalkeable(sf::Vector2f(aux.x,aux.y))) {
                     sinVisitar.push(aux);
-                    camino[aux.x][aux.y] = d;
+                    camino[aux.x][aux.y].dir = d;
+                    camino[aux.x][aux.y].dist = ++camino[visitando.x][visitando.y].dist;
                 }
                 visitado[aux.x][aux.y] = true;
             }
@@ -142,8 +146,8 @@ void Npc::calculateWay() { /// From ini to dest
 		sf::Vector2i pos = vecfToVeci(posDestino[0]);
 
 		while (pos != vecfToVeci(posMatrix)) {
-			aux.push(camino[pos.x][pos.y]);
-			pos += vecfToVeci(dirToVec(opposite(camino[pos.x][pos.y])));
+            aux.push(camino[pos.x][pos.y].dir);
+            pos += vecfToVeci(dirToVec(opposite(camino[pos.x][pos.y].dir)));
 		}
 		while (!aux.empty()) { /// Have to swap all the elements
 			way.push(aux.top());
@@ -155,6 +159,13 @@ void Npc::calculateWay() { /// From ini to dest
 void Npc::setPreference(Resource p) {
     preferences.remove(p);
     preferences.push_front(p);
+    way = std::queue<Direction>();
+}
+
+// If dist = 0, it means that the npc will try to reach any position of the map.
+// Otherwise, it will try to reach only the first "dist" tiles.
+void Npc::setMaxDistance(int dist) {
+    maxDistance = dist;
 }
 
 Resource Npc::getPreference() {
@@ -163,6 +174,10 @@ Resource Npc::getPreference() {
 
 sf::Vector2f Npc::getMatPosition() {
     return posMatrix;
+}
+
+int Npc::getMaxDistance() {
+    return maxDistance;
 }
 
 bool Npc::isOnDest(sf::Vector2i n) {

@@ -20,6 +20,7 @@ void Interface::init(Board *g) {
 }
 
 void Interface::update() {
-
+    n = std::vector<NpcDisplayer>(game->getControl().getPlayer().getNpcs().size());
+    for (unsigned int i = 0; i < n.size(); ++i) n[i] = NpcDisplayer(i,game->getControl().getPlayer().getNpcs()[i]);
 }
 

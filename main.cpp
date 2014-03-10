@@ -18,11 +18,11 @@ bool GENERATE_MAP = true;
 int main() {
 
 	sf::RenderWindow window(sf::VideoMode(WIDTH,HEIGHT), "MediavalIA",sf::Style::Close | sf::Style::Titlebar);
-    window.setVerticalSyncEnabled(true);
+	window.setVerticalSyncEnabled(false);
 
     sf::Clock clock;
     clock.restart();
-    int fps = 20;
+	int fps = 60;
     float deltaDraw = 0;
 
     srand(time(0));

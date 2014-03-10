@@ -1,7 +1,7 @@
-#include <iostream>
-#include <math.h>
-
 #include "util.h"
+#include <iostream>
+
+
 
 
 sf::Vector2f dirToVec(Direction dir) {
@@ -115,6 +115,23 @@ Direction opposite(Direction d) {
 	return dd;
 }
 
+std::string resourceToString (Resource r)
+{
+    std::string s;
+    switch (r){
+    case Star:
+        s = "Yellow Star";
+        break;
+    case BStar:
+        s = "Black Star";
+        break;
+    default:
+        s = "Not a Resource";
+    }
+
+    return s;
+}
+
 sf::Color getColor(int n) {
 	float ratio = 50;
 	int r = ratio * n;
@@ -126,6 +143,4 @@ sf::Color getColor(int n) {
 	b %= 256;
 
 	return sf::Color(r,g,b);
-
-
 }

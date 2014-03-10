@@ -24,6 +24,7 @@ Map::Map() {}
 
 Map::Map(int cols, int rows) {
     matrix = std::vector<std::vector<Terrain> > (cols, (std::vector<Terrain> (rows)));
+        std::cout << matrix.size() << std::endl;
 }
 
 void Map::generateMap() {
@@ -55,6 +56,8 @@ void Map::generateMap() {
 }
 
 void Map::loadMap() {
+
+
     std::string map = "mapa";
     std::string auxS = "Resources/"+map+".txt";
     std::ifstream myfile;
@@ -132,10 +135,14 @@ bool Map::isWalkeable(sf::Vector2f pos) {
     else return false;
 }
 
-void Map::setMask(sf::Vector2f pos, sf::Color color){
-    this->matrix[pos.x][pos.y].setColor(color);
+sf::Vector2i Map::getSize() {
+    sf::Vector2i aux;
+    aux.x = matrix.size();
+    aux.y = matrix[0].size();
+    return aux;
 }
 
-void Map::removeMask(sf::Vector2f pos){
-    this->matrix[pos.x][pos.y].setColor(sf::Color::White);
+Terrain Map::getTerrain(int x, int y) {
+    return matrix[x][y];
+
 }

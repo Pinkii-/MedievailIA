@@ -22,7 +22,7 @@ int main() {
 
     sf::Clock clock;
     clock.restart();
-	int fps = 60;
+    int fps = 60;
     float deltaDraw = 0;
 
     srand(time(0));

@@ -19,6 +19,8 @@ void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 Player::Player() {
 }
 
+
+
 void Player::init(int nColor,Control* con, Map* map) {
     c = con;
     m = map;
@@ -54,7 +56,7 @@ void Player::npcInit() {
     beta->setColor(sf::Color::White);
     beta->setPreference(Star);
     npcs.push_back(beta);
-    //    Npc alfa(text,pos+sf::Vector2f(0,1),TILE_SIZE);
+//    Npc alfa(text,pos+sf::Vector2f(0,1),TILE_SIZE);
     //    npcs.push_back(alfa);
 }
 

@@ -11,7 +11,7 @@ std::string Display::to_string(float x,int precision) {
 }
 
 void Display::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    for (unsigned int i = 0; i < textos.size(); ++i) {
+    for (unsigned int i = 0; i < nTextos; ++i) {
         const sf::Text *aux = &textos[i];
         target.draw(*aux);
     }
@@ -26,7 +26,7 @@ void Display::init() {
 	int x = WIDTH - 230;
 	int y = 30;
     textos = std::vector<sf::Text> (nTextos);
-    for (unsigned int i = 0; i < textos.size();++i) {
+    for (unsigned int i = 0; i < nTextos;++i) {
         textos[i].setFont(Textures::font);
         textos[i].setCharacterSize(25);
         textos[i].setColor(sf::Color::Blue);

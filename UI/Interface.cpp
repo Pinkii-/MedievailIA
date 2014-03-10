@@ -2,8 +2,6 @@
 #include "board.h"
 #include "Utils/util.h"
 
-#include <stdio.h>
-
 void Interface::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     for (unsigned int i = 0; i < mask.size(); ++i) target.draw(mask[i]);
     target.draw(fondo);
@@ -64,7 +62,6 @@ void Interface::setMask(Npc* n) {
                 if (!visitado[aux.x][aux.y]) {
                     if (n->getMap()->isWalkeable(sf::Vector2f(aux.x,aux.y))) {
                         sinVisitar.push(aux);
-                        printf("%i %i\n", aux.x, aux.y);
                         camino[aux.x][aux.y] = camino[visitando.x][visitando.y] + 1;
                         Terrain t = n->getMap()->getTerrain(aux.x,aux.y);
                         if(t.isPrinted()) {

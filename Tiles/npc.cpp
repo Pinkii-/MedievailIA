@@ -1,7 +1,6 @@
 #include "npc.h"
 
 #include <iostream>
-#include <stdio.h>
 #include <queue>
 #include <stack>
 

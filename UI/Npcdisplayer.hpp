@@ -13,6 +13,7 @@ private:
 public:
     NpcDisplayer();
     NpcDisplayer(int position,Npc* npc);
+    void update();
     bool isClicked(sf::Vector2f pos);
     Npc* getNpc();
 };

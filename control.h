@@ -21,6 +21,7 @@ public:
     void updateProp(float deltaTime, Map &m);
     void updateDraw(sf::Vector2f cameraPos);
     void erasePropN(std::vector<Prop> &v,int n);
+	void forceToUpdateObjective(sf::Vector2f pos);
     std::vector<sf::Vector2f> getObjetiveNpc(Resource preference);
     Npc getNpc(int player, int i);
     Player getPlayer();

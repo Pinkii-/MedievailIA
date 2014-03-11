@@ -100,7 +100,14 @@ void Control::erasePropN(std::vector<Prop> &v,int n) {
     Prop aux = v[n];
     v[n] = v[v.size()-1];
     v[v.size()-1]= aux;
-    v.pop_back();
+	v.pop_back();
+}
+
+void Control::forceToUpdateObjective(sf::Vector2f pos) {
+	for (unsigned int i = 0; i < players.size();++i) {
+		std::vector<Npc*> npcs = players[i].getNpcs();
+		for (unsigned int j = 0; j < npcs.size(); ++j) if (npcs[j]->getPosDestino() == pos) npcs[j]->resetWay();
+	}
 }
 
 Npc Control::getNpc(int player,int i) {
@@ -119,6 +126,7 @@ bool Control::npcOnProp(int j) {
                 if (npcs[i]->getMatPosition() == props[j][k].getMatPosition() and npcs[i]->getPreference() == props[j][k].getResource()) {
                     // TODO: Set the behavior between the npc and the prop
 
+					forceToUpdateObjective(props[j][k].getMatPosition());
                     //				 Npc npc(props[j][k].getMatPosition(),TILE_SIZE,this);
                     //				 npc.setWaitTime(std::min(int(npcs.size()),20)*0.1);
 
@@ -140,9 +148,9 @@ bool Control::npcOnProp(int j) {
                     //				 npc.setColor(getColor(npcs.size()));
                     //				 npcs.push_back(npc);
 
-                    players[p].addNpc();
-                    players[p].getNpcs()[players[p].getNpcs().size()-1]->setWaitTime(0.1f); // oh GOD
-                    erasePropN(props[j],k);
+//                    players[p].addNpc();
+//					players[p].getNpcs()[players[p].getNpcs().size()-1]->setWaitTime(0.1f); // oh GOD
+					erasePropN(props[j],k);
                     return true;
                 }
             }

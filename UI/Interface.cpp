@@ -39,7 +39,7 @@ void Interface::setMask(Npc* n) {
     while (!sinVisitar.empty()) {
         sf::Vector2i visitando = sinVisitar.front();
         sinVisitar.pop();
-        if (n->getMaxDistance() != 0 and n->getMaxDistance() < camino[visitando.x][visitando.y]) break;
+        if (n->getMaxDistance() != 0 and n->getMaxDistance() < camino[visitando.x][visitando.y] + 1) break;
         for (int i = 0; i < 4;++i) {
             sf::Vector2i aux = visitando;
             switch (i) {

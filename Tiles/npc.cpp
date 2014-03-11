@@ -25,7 +25,7 @@ Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
     setPrinted(false);
     waiting = true;
     speed = 10;
-    waitTime = 0;
+    waitTime = 2;
     maxDistance = 1;
 
     initPreferences();
@@ -70,6 +70,7 @@ void Npc::update(float delta) {
                 ++maxDistance;
                 waitTime = 0.1;
             }
+            else int a = 0;
         }
     }
     if (i != max and waitTime <= 0) {
@@ -110,7 +111,6 @@ void Npc::calculateWay() { /// From ini to dest
     while (!sinVisitar.empty() and not isOnDest(sinVisitar.front())) {
         sf::Vector2i visitando = sinVisitar.front();
         sinVisitar.pop();
-
         if (maxDistance != 0 and maxDistance < camino[visitando.x][visitando.y].dist) break;
 		int rand = std::rand()%4;
         for (int i = 0+rand; i < 4+rand;++i) {
@@ -140,7 +140,7 @@ void Npc::calculateWay() { /// From ini to dest
                 if (m->isWalkeable(sf::Vector2f(aux.x,aux.y))) {
                     sinVisitar.push(aux);
                     camino[aux.x][aux.y].dir = d;
-                    camino[aux.x][aux.y].dist = ++camino[visitando.x][visitando.y].dist +1 ;
+                    camino[aux.x][aux.y].dist = camino[visitando.x][visitando.y].dist +1 ;
                 }
                 visitado[aux.x][aux.y] = true;
             }

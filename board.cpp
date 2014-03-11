@@ -62,6 +62,10 @@ void Board::updateDirCamera(sf::Vector2f d){
     cameraWait = 0.1;
 }
 
+void Board::onMouseButtonPressed(sf::Event event) {
+    ui.isClicked(sf::Vector2f(event.mouseButton.x,event.mouseButton.y));
+}
+
 //sf::Vector2f Board::calculateColision(Npc n, float dt, sf::Vector2f dir) {
 
 //    /* This shit should work, but by now it doesnt. So let's try to not look at it (/-_-)/ */

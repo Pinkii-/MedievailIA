@@ -12,6 +12,7 @@ private:
     std::vector<NpcDisplayer> n;
     Board* game;
     sf::RectangleShape fondo;
+    int nMask;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:
 	void drawBefore(sf::RenderTarget &target);
@@ -19,6 +20,7 @@ public:
     void init(Board* g);
     void update();
     void setMask(Npc* n);
+    bool isClicked(sf::Vector2f pos);
 };
 
 #endif // INTERFACE_HPP

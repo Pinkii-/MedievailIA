@@ -26,7 +26,7 @@ Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
     waiting = true;
     speed = 10;
     waitTime = 2;
-	maxDistance = 0;
+    maxDistance = 1;
 
     initPreferences();
 	goingTo = *preferences.begin();
@@ -46,7 +46,7 @@ void Npc::update(float delta) {
     while (waiting and i < max and waitTime <= 0) {
         ++i;
         if(!way.empty()) {
-//            maxDistance = 1;
+            maxDistance = 1;
             dir = way.front();
             sf::Vector2f vectorDirector = dirToVec(dir);
             sf::Vector2f dista = vectorDirector*speed*delta;
@@ -67,7 +67,7 @@ void Npc::update(float delta) {
                 ++it;
             }
             if (it == preferences.end() and way.empty()) {
-//                ++maxDistance;
+                ++maxDistance;
 				waitTime = 0.1;
             }
         }

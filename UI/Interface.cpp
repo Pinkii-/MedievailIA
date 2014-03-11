@@ -22,12 +22,14 @@ void Interface::init(Board *g) {
 	fondo.setFillColor(sf::Color(200,200,200));
 	n = std::vector<NpcDisplayer>(g->getControl().getPlayer().getNpcs().size());
 	for (unsigned int i = 0; i < n.size(); ++i) n[i] = NpcDisplayer(i,g->getControl().getPlayer().getNpcs()[i]);
+    nMask = -1;
 }
 
 void Interface::update() {
 	for (unsigned int i = n.size(); i < game->getControl().getPlayer().getNpcs().size(); ++i) n.push_back(NpcDisplayer(i,game->getControl().getPlayer().getNpcs()[i]));
 	for (unsigned int i = 0; i < n.size();++i) n[i].update();
-	setMask(n[0].getNpc()); //provisonal to test setMask();
+    if (nMask != -1) setMask(n[nMask].getNpc()); //provisonal to test setMask();
+    else mask = mask = std::vector<Terrain>();
 }
 
 void Interface::setMask(Npc* n) {
@@ -76,6 +78,13 @@ void Interface::setMask(Npc* n) {
 				}
 			}
 		}
-	}
+    }
+}
+
+bool Interface::isClicked(sf::Vector2f pos) {
+    for (unsigned int i = 0; i < n.size();++i) if (n[i].isClicked(pos)) {
+        if (nMask != i) nMask = i;
+        else nMask = -1;
+    }
 }
 

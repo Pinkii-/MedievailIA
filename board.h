@@ -31,6 +31,7 @@ public:
     void updateD(float deltaTime, float deltaDraw);
 	void updateCamera(float deltaTime);
 	void updateDirCamera(sf::Vector2f d);
+    void onMouseButtonPressed(sf::Event event);
     sf::Vector2f calculateColision(Npc n, float dt, sf::Vector2f dir);
     Control getControl();
 };

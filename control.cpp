@@ -148,8 +148,8 @@ bool Control::npcOnProp(int j) {
                     //				 npc.setColor(getColor(npcs.size()));
                     //				 npcs.push_back(npc);
 
-//                    players[p].addNpc();
-//					players[p].getNpcs()[players[p].getNpcs().size()-1]->setWaitTime(0.1f); // oh GOD
+                    players[p].addNpc();
+                    players[p].getNpcs()[players[p].getNpcs().size()-1]->setWaitTime(0.1f); // oh GOD
 					erasePropN(props[j],k);
                     return true;
                 }

@@ -17,8 +17,8 @@ bool GENERATE_MAP = true;
 
 int main() {
 
-	sf::RenderWindow window(sf::VideoMode(WIDTH,HEIGHT), "MediavalIA",sf::Style::Close | sf::Style::Titlebar);
-	window.setVerticalSyncEnabled(false);
+    sf::RenderWindow window(sf::VideoMode(WIDTH,HEIGHT), "MediavalIA",sf::Style::Close | sf::Style::Titlebar);
+    window.setVerticalSyncEnabled(false);
 
     sf::Clock clock;
     clock.restart();
@@ -33,13 +33,16 @@ int main() {
     window.draw(board);
     window.display();
 
-	while (window.isOpen()) {
+    while (window.isOpen()) {
         sf::Time time = clock.restart();
-		float deltaTime = time.asSeconds();
+        float deltaTime = time.asSeconds();
         sf::Event event;
         while(window.pollEvent(event)) {
             switch(event.type)
             {
+            case sf::Event::MouseButtonPressed:
+                board.onMouseButtonPressed(event);
+                break;
             case sf::Event::KeyPressed:
                 switch(event.key.code)
                 {
@@ -47,29 +50,29 @@ int main() {
                     window.close();
                     break;
                 case sf::Keyboard::Down:
-					board.updateDirCamera(sf::Vector2f(0,1));
+                    board.updateDirCamera(sf::Vector2f(0,1));
                     break;
                 case sf::Keyboard::Up:
-					board.updateDirCamera(sf::Vector2f(0,-1));
+                    board.updateDirCamera(sf::Vector2f(0,-1));
                     break;
                 case sf::Keyboard::Right:
-					board.updateDirCamera(sf::Vector2f(1,0));
+                    board.updateDirCamera(sf::Vector2f(1,0));
                     break;
                 case sf::Keyboard::Left:
-					board.updateDirCamera(sf::Vector2f(-1,0));
+                    board.updateDirCamera(sf::Vector2f(-1,0));
                     break;
-//                case sf::Keyboard::S:
-//                    board.updateNpc(deltaTime,sf::Vector2f(0,1));
-//                    break;
-//                case sf::Keyboard::W:
-//                    board.updateNpc(deltaTime,sf::Vector2f(0,-1));
-//                    break;
-//                case sf::Keyboard::D:
-//                    board.updateNpc(deltaTime,sf::Vector2f(1,0));
-//                    break;
-//                case sf::Keyboard::A:
-//                    board.updateNpc(deltaTime,sf::Vector2f(-1,0));
-//                    break;
+                    //                case sf::Keyboard::S:
+                    //                    board.updateNpc(deltaTime,sf::Vector2f(0,1));
+                    //                    break;
+                    //                case sf::Keyboard::W:
+                    //                    board.updateNpc(deltaTime,sf::Vector2f(0,-1));
+                    //                    break;
+                    //                case sf::Keyboard::D:
+                    //                    board.updateNpc(deltaTime,sf::Vector2f(1,0));
+                    //                    break;
+                    //                case sf::Keyboard::A:
+                    //                    board.updateNpc(deltaTime,sf::Vector2f(-1,0));
+                    //                    break;
                 case sf::Keyboard::Z:
                     deltaTime += 0.1;
                     break;
@@ -92,7 +95,7 @@ int main() {
         board.update(deltaTime);
         if (deltaDraw >= 1.f/float(fps)) {
             board.updateD(deltaTime,deltaDraw);
-			deltaDraw = 0;
+            deltaDraw = 0;
             window.clear();
             window.draw(board);
             window.display();

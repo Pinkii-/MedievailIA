@@ -3,6 +3,7 @@
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+#include <string>
 
 extern int WIDTH;
 extern int HEIGHT;
@@ -52,6 +53,7 @@ sf::Vector2f operator + (sf::Vector2f vec, Direction d);
 sf::Vector2f operator - (sf::Vector2f vec, Direction d);
 
 Direction opposite(Direction d);
+std::string resourceToString (Resource r);
 
 sf::Color getColor(int n);
 

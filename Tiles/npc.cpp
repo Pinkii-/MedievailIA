@@ -106,6 +106,7 @@ void Npc::calculateWay() { /// From ini to dest
     while (!sinVisitar.empty() and not isOnDest(sinVisitar.front())) {
         sf::Vector2i visitando = sinVisitar.front();
         sinVisitar.pop();
+
         if (maxDistance != 0 and maxDistance < camino[visitando.x][visitando.y].dist) break;
 		int rand = std::rand()%4;
         for (int i = 0+rand; i < 4+rand;++i) {
@@ -135,25 +136,26 @@ void Npc::calculateWay() { /// From ini to dest
                 if (m->isWalkeable(sf::Vector2f(aux.x,aux.y))) {
                     sinVisitar.push(aux);
                     camino[aux.x][aux.y].dir = d;
-                    camino[aux.x][aux.y].dist = ++camino[visitando.x][visitando.y].dist;
+                    camino[aux.x][aux.y].dist = ++camino[visitando.x][visitando.y].dist +1 ;
                 }
                 visitado[aux.x][aux.y] = true;
             }
         }
-	}
-	if (isOnDest(sinVisitar.front())) {
-		std::stack<Direction> aux;
-		sf::Vector2i pos = vecfToVeci(posDestino[0]);
+    }
 
-		while (pos != vecfToVeci(posMatrix)) {
+    if (isOnDest(sinVisitar.front())) {
+        std::stack<Direction> aux;
+        sf::Vector2i pos = vecfToVeci(posDestino[0]);
+
+        while (pos != vecfToVeci(posMatrix)) {
             aux.push(camino[pos.x][pos.y].dir);
             pos += vecfToVeci(dirToVec(opposite(camino[pos.x][pos.y].dir)));
-		}
-		while (!aux.empty()) { /// Have to swap all the elements
-			way.push(aux.top());
-			aux.pop();
-		}
-	}
+        }
+        while (!aux.empty()) { /// Have to swap all the elements
+            way.push(aux.top());
+            aux.pop();
+        }
+    }
 }
 
 void Npc::setPreference(Resource p) {

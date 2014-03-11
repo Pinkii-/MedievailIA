@@ -61,7 +61,7 @@ void Interface::setMask(Npc* n) {
             if (!visitado[aux.x][aux.y]) {
                 if (n->getMap()->isWalkeable(sf::Vector2f(aux.x,aux.y))) {
                     sinVisitar.push(aux);
-                    camino[aux.x][aux.y] = ++camino[visitando.x][visitando.y];
+                    camino[aux.x][aux.y] = camino[visitando.x][visitando.y] + 1;
                     Terrain t = n->getMap()->getTerrain(aux.x,aux.y);
                     if(t.isPrinted()) {
                         t.setColor(sf::Color::Cyan);

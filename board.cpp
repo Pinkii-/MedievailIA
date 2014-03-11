@@ -10,8 +10,7 @@ void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(displais);
 }
 
-Board::Board()
-{
+Board::Board() {
 }
 
 void Board::init() {

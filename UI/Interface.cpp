@@ -3,9 +3,12 @@
 #include "Utils/util.h"
 
 void Interface::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    for (unsigned int i = 0; i < mask.size(); ++i) target.draw(mask[i]);
     target.draw(fondo);
-    for (unsigned int i = 0; i < n.size(); ++i) target.draw(n[i]);
+	for (unsigned int i = 0; i < n.size(); ++i) target.draw(n[i]);
+}
+
+void Interface::drawBefore(sf::RenderTarget &target) {
+	for (unsigned int i = 0; i < mask.size(); ++i) target.draw(mask[i]);
 }
 
 Interface::Interface() {

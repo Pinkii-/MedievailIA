@@ -14,6 +14,7 @@ private:
     sf::RectangleShape fondo;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:
+	void drawBefore(sf::RenderTarget &target);
     Interface();
     void init(Board* g);
     void update();

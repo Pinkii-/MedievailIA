@@ -24,7 +24,7 @@ Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
     posMatrix = pos;
     setPrinted(false);
     waiting = true;
-    speed = 10;
+    speed = 1;
     waitTime = 2;
     maxDistance = 0;
 
@@ -55,6 +55,7 @@ void Npc::update(float delta) {
             while (way.empty() and it != preferences.end()) {
 				vPosDestino = c->getObjetiveNpc(*it);
 				if (!vPosDestino.empty()) {
+
                     calculateWay();
                     if (!way.empty()) {
                         goingTo = *it;
@@ -73,9 +74,9 @@ void Npc::update(float delta) {
     if (going and waitTime <= 0) {
         sf::Vector2f dist = dirToVec(dir)*speed*delta;
         if (changingNumber(posMatrix.x,posMatrix.x+dist.x) or changingNumber(posMatrix.y,posMatrix.y+dist.y))  {
-           posMatrix = vecfTrunc(posMatrix) + dirNormaliced(dirToVec(dir));
+            posMatrix = vecfTrunc(posMatrix) + dirNormaliced(dirToVec(dir));
             waiting = true;
-           if (!way.empty()) way.pop();
+            if (!way.empty()) way.pop();
         }
         else posMatrix += dist;
     }
@@ -137,7 +138,7 @@ void Npc::calculateWay() { /// From ini to dest
                 if (m->isWalkeable(sf::Vector2f(aux.x,aux.y))) {
                     sinVisitar.push(aux);
                     camino[aux.x][aux.y].dir = d;
-                    camino[aux.x][aux.y].dist = camino[visitando.x][visitando.y].dist +1 ;
+                    camino[aux.x][aux.y].dist = camino[visitando.x][visitando.y].dist + 1 ;
                 }
                 visitado[aux.x][aux.y] = true;
             }

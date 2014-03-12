@@ -1,5 +1,6 @@
 #include "player.h"
 #include "control.h"
+#include <stdio.h>
 
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     for (int i= buildings.size()-1; i >= 0; --i) {

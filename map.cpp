@@ -24,7 +24,6 @@ Map::Map() {}
 
 Map::Map(int cols, int rows) {
     matrix = std::vector<std::vector<Terrain> > (cols, (std::vector<Terrain> (rows)));
-        std::cout << matrix.size() << std::endl;
 }
 
 void Map::generateMap() {

@@ -26,7 +26,7 @@ Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
     waiting = true;
     speed = 10;
     waitTime = 2;
-    maxDistance = 1;
+    maxDistance = 0;
 
     initPreferences();
 	goingTo = *preferences.begin();
@@ -39,17 +39,14 @@ void Npc::initPreferences() {
 }
 
 void Npc::update(float delta) {
-//	way = std::queue<Direction>();
     waitTime -= delta;
-    int i = 0;
-    int max = 5;
-    while (waiting and i < max and waitTime <= 0) {
-        ++i;
+    bool going = true;
+    while (waiting and going and waitTime <= 0) {
         if(!way.empty()) {
-            maxDistance = 1;
+            if (maxDistance  != 0) maxDistance = 1;
             dir = way.front();
             sf::Vector2f vectorDirector = dirToVec(dir);
-            sf::Vector2f dista = vectorDirector*speed*delta;
+            sf::Vector2f dista = vectorDirector*0.0001f;
             posMatrix += dista;
             waiting = false;
         }
@@ -67,15 +64,16 @@ void Npc::update(float delta) {
                 ++it;
             }
             if (it == preferences.end() and way.empty()) {
-                ++maxDistance;
-				waitTime = 0.1;
+                if (maxDistance  != 0) ++maxDistance;
+                waitTime = 0.001;
+                going = false;
             }
         }
     }
-    if (i != max and waitTime <= 0) {
+    if (going and waitTime <= 0) {
         sf::Vector2f dist = dirToVec(dir)*speed*delta;
         if (changingNumber(posMatrix.x,posMatrix.x+dist.x) or changingNumber(posMatrix.y,posMatrix.y+dist.y))  {
-           posMatrix = vecfTrunc(posMatrix + dirNormaliced(dirToVec(dir)));
+           posMatrix = vecfTrunc(posMatrix) + dirNormaliced(dirToVec(dir));
             waiting = true;
            if (!way.empty()) way.pop();
         }

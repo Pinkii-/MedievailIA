@@ -19,10 +19,13 @@ class Npc : public Tile
 private:
     Control* c;
     Map* m;
-	std::vector<sf::Vector2f> vPosDestino;
+
+	std::vector<sf::Vector2f> vTargetDestinations;
+    sf::Vector2f TargetDestination;
+
     std::queue<Direction> way;
     std::list<Resource> preferences;
-	sf::Vector2f posDestino;
+	
     Direction dir;
     Resource goingTo;
     sf::Vector2f posMatrix;
@@ -30,6 +33,7 @@ private:
     float waitTime;
     bool waiting;
     int maxDistance;
+
 public:
     Npc();
     Npc(sf::Vector2f pos, int size, Control *con, Map *map);
@@ -45,7 +49,7 @@ public:
 	void resetWay();
     Resource getPreference();
     sf::Vector2f getMatPosition();
-	sf::Vector2f getPosDestino();
+	sf::Vector2f getTargetDestination();
     int getMaxDistance();
     Map* getMap();
     bool isOnDest(sf::Vector2i n);

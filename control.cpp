@@ -106,11 +106,11 @@ void Control::erasePropN(std::vector<Prop> &v,int n) {
 void Control::forceToUpdateObjective(sf::Vector2f pos) {
 	for (unsigned int i = 0; i < players.size();++i) {
 		std::vector<Npc*> npcs = players[i].getNpcs();
-		for (unsigned int j = 0; j < npcs.size(); ++j) if (npcs[j]->getPosDestino() == pos) npcs[j]->resetWay();
+		for (unsigned int j = 0; j < npcs.size(); ++j) if (npcs[j]->getTargetDestination() == pos) npcs[j]->resetWay();
 	}
 }
 
-Npc Control::getNpc(int player,int i) {
+Npc Control::getNpc(int player, int i) {
     return *players[player].getNpcs()[i];
 }
 
@@ -148,8 +148,8 @@ bool Control::npcOnProp(int j) {
                     //				 npc.setColor(getColor(npcs.size()));
                     //				 npcs.push_back(npc);
 
-                    players[p].addNpc();
-                    players[p].getNpcs()[players[p].getNpcs().size()-1]->setWaitTime(0.1f); // oh GOD
+                    //players[p].addNpc();
+                    //players[p].getNpcs()[players[p].getNpcs().size()-1]->setWaitTime(0.1f); // oh GOD
 					erasePropN(props[j],k);
                     return true;
                 }

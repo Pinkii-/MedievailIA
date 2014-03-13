@@ -1,6 +1,7 @@
 #include "util.h"
 #include <iostream>
-
+#include <stdio.h>
+#include <math.h>
 
 
 
@@ -33,8 +34,8 @@ sf::Vector2f dirNormaliced(sf::Vector2f v) {
 
 sf::Vector2i vecfToVeci(sf::Vector2f vc) {
     sf::Vector2i aux;
-    aux.x = int(vc.x);
-    aux.y = int(vc.y);
+    aux.x = int(round(vc.x));
+    aux.y = int(round(vc.y));
     return aux;
 }
 
@@ -49,8 +50,10 @@ bool changingNumber(float antes, float despues) {
 }
 
 sf::Vector2f vecfTrunc(sf::Vector2f vec) {
+    
     vec.x = int(vec.x);
     vec.y = int(vec.y);
+    
     return vec;
 }
 

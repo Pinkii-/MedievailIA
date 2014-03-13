@@ -53,9 +53,8 @@ void Npc::update(float delta) {
         else {
             std::list<Resource>::iterator it = preferences.begin();;
             while (way.empty() and it != preferences.end()) {
-				vPosDestino = c->getObjetiveNpc(*it);
-				if (!vPosDestino.empty()) {
-
+				vTargetDestinations = c->getObjetiveNpc(*it);
+				if (!vTargetDestinations.empty()) {
                     calculateWay();
                     if (!way.empty()) {
                         goingTo = *it;
@@ -87,7 +86,7 @@ void Npc::setMatPosition(sf::Vector2f pos) {
 }
 
 void Npc::setDesPosition(std::vector<sf::Vector2f> pos) {
-	vPosDestino = pos;
+	vTargetDestinations = pos;
 }
 
 void Npc::decrementSpeed() {
@@ -102,7 +101,7 @@ void Npc::calculateWay() { /// From ini to dest
     std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));
     std::vector<std::vector<Way> > camino(COLS, std::vector<Way>(ROWS));
     std::queue<sf::Vector2i> sinVisitar;
-	if (vPosDestino.size() == 0) std::cout << "LLorar" << std::endl;
+	if (vTargetDestinations.size() == 0) std::cout << "LLorar" << std::endl;
     visitado[int(posMatrix.x)][int(posMatrix.y)] = true;
     camino[int(posMatrix.x)][int(posMatrix.y)].dist = 0;
     sinVisitar.push(vecfToVeci(posMatrix));
@@ -147,7 +146,7 @@ void Npc::calculateWay() { /// From ini to dest
 
     if (isOnDest(sinVisitar.front())) {
         std::stack<Direction> aux;
-		sf::Vector2i pos = vecfToVeci(posDestino);
+		sf::Vector2i pos = vecfToVeci(TargetDestination);
 
         while (pos != vecfToVeci(posMatrix)) {
             aux.push(camino[pos.x][pos.y].dir);
@@ -184,8 +183,8 @@ sf::Vector2f Npc::getMatPosition() {
 	return posMatrix;
 }
 
-sf::Vector2f Npc::getPosDestino() {
-	return posDestino;
+sf::Vector2f Npc::getTargetDestination() {
+	return TargetDestination;
 }
 
 int Npc::getMaxDistance() {
@@ -198,9 +197,9 @@ Map* Npc::getMap() {
 
 bool Npc::isOnDest(sf::Vector2i n) {
     sf::Vector2f aux;
-	for (unsigned int i = 0; i < vPosDestino.size(); ++i) {
-		if (n == vecfToVeci(vPosDestino[i])) {
-			posDestino = vPosDestino[i];
+	for (unsigned int i = 0; i < vTargetDestinations.size(); ++i) {
+		if (n == vecfToVeci(vTargetDestinations[i])) {
+			TargetDestination = vTargetDestinations[i];
             return true;
         }
     }
@@ -211,7 +210,7 @@ bool Npc::isOnDest(sf::Vector2i n) {
 //    if (way.empty()) {
 //        waiting = true;
 //        return false;
-//    }
+//    }>>>>>>> origin/idiomas
 //    std::stack<Direction> aux = std::stack<Direction>(way);
 //    sf::Vector2f pos = absoluteValue(posMatrix);
 //    while (!aux.empty()) {

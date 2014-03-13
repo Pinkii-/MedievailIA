@@ -46,5 +46,5 @@ void Display::update(float deltaDraw, float deltaTime, sf::Vector2f cameraPos, s
     textos[0].setString("Fps " + sAux);
 	textos[1].setString("Updates: " + to_string(updates,6));
     textos[2].setString(to_string(cameraPos.x,3) + " " + to_string(cameraPos.y,3));
-    textos[3].setString(to_string(npc.x,3) + " " + to_string(npc.y,3));
+    //textos[3].setString(to_string(npc.x,3) + " " + to_string(npc.y,3));
 }

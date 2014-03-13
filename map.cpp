@@ -37,8 +37,8 @@ void Map::generateMap() {
 				matrix[i][j] = Terrain(p,TILE_SIZE);
 			}
 		}
-		std::vector<sf::Vector2i> islas (/*std::rand()%*/25);
-        for (unsigned int i = 0; i < islas.size(); ++i) {
+        int islands = 25;
+        for (unsigned int i = 0; i < islands; ++i) {
             int x = std::rand() % COLS;
             int y = std::rand() % ROWS;
             if (isWalkeable(sf::Vector2f(x,y))) {

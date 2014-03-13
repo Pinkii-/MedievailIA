@@ -105,7 +105,7 @@ void Player::updateDraw(sf::Vector2f cameraPos) {
 }
 
 void Player::addNpc() {
-	Npc* npc = new Npc(sf::Vector2f(3.f,3.f),TILE_SIZE, c, m);
+    Npc* npc = new Npc(buildings[0]->getMatPosition(),TILE_SIZE, c, m);
 	npcs.push_back(npc);
 }
 

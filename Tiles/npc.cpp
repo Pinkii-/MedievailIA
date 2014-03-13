@@ -24,7 +24,7 @@ Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
     posMatrix = pos;
     setPrinted(false);
     waiting = true;
-    speed = 1;
+    speed = 7;
     waitTime = 2;
     maxDistance = 0;
 

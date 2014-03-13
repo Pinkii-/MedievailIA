@@ -32,33 +32,22 @@ void Control::update(float deltaTime, Map &m) {
 }
 
 void Control::updateProp(float deltaTime,Map &m) {
+    //TODO a random generator of props on the map and check if is interacting with a NPC
     //TODO a random generator of props on the map
     //TODO a random generator of props on the map
-    //TODO a random generator of props on the map
-
-    //	if (std::rand()%1000 == 0 and props[0].size() == 0r) {
-    //		int x,y;
-    //		x = std::rand() % COLS;
-    //		y = std::rand() % ROWS;
-    //		if (m.isWalkeable(sf::Vector2f(x,y))  and std::abs(x-int(npcs[0].getMatPosition().x)) + std::abs(y-int(npcs[0].getMatPosition().y))  > 25) {
-    //			sf::Texture *text = &texturas[tStar];
-    //			Prop p = Prop(Star,text,sf::Vector2f(x,y),TILE_SIZE);
-    //			props[0].push_back(p);
-    //		}
-    //	}
 
     for (unsigned int i = 0; i < props.size(); ++i) {
-        if (props[i].empty() or props[i].size() > 0 and npcOnProp(i)) {
-            while (props[i].size() < 1 and std::rand()%10 == 0) {
-                int x,y;
-                x = std::rand() % COLS;
-                y = std::rand() % ROWS;
-                if (m.isWalkeable(sf::Vector2f(x,y))) {
-                    Prop p = Prop(Star+i,sf::Vector2f(x,y),TILE_SIZE);
-                    props[i].push_back(p);
-                }
+        if (!props[i].empty()) npcOnProp(i);
+        while (props[i].size() < 1 and std::rand()%10 == 0) {
+            int x,y;
+            x = std::rand() % COLS;
+            y = std::rand() % ROWS;
+            if (m.isWalkeable(sf::Vector2f(x,y))) {
+                Prop p = Prop(Star+i,sf::Vector2f(x,y),TILE_SIZE);
+                props[i].push_back(p);
             }
         }
+
     }
 }
 
@@ -100,14 +89,14 @@ void Control::erasePropN(std::vector<Prop> &v,int n) {
     Prop aux = v[n];
     v[n] = v[v.size()-1];
     v[v.size()-1]= aux;
-	v.pop_back();
+    v.pop_back();
 }
 
 void Control::forceToUpdateObjective(sf::Vector2f pos) {
-	for (unsigned int i = 0; i < players.size();++i) {
-		std::vector<Npc*> npcs = players[i].getNpcs();
-		for (unsigned int j = 0; j < npcs.size(); ++j) if (npcs[j]->getPosDestino() == pos) npcs[j]->resetWay();
-	}
+    for (unsigned int i = 0; i < players.size();++i) {
+        std::vector<Npc*> npcs = players[i].getNpcs();
+        for (unsigned int j = 0; j < npcs.size(); ++j) if (npcs[j]->getPosDestino() == pos) npcs[j]->resetWay();
+    }
 }
 
 Npc Control::getNpc(int player,int i) {
@@ -126,7 +115,7 @@ bool Control::npcOnProp(int j) {
                 if (npcs[i]->getMatPosition() == props[j][k].getMatPosition() and npcs[i]->getPreference() == props[j][k].getResource()) {
                     // TODO: Set the behavior between the npc and the prop
 
-					forceToUpdateObjective(props[j][k].getMatPosition());
+                    forceToUpdateObjective(props[j][k].getMatPosition());
                     //				 Npc npc(props[j][k].getMatPosition(),TILE_SIZE,this);
                     //				 npc.setWaitTime(std::min(int(npcs.size()),20)*0.1);
 
@@ -150,7 +139,7 @@ bool Control::npcOnProp(int j) {
 
                     players[p].addNpc();
                     players[p].getNpcs()[players[p].getNpcs().size()-1]->setWaitTime(0.1f); // oh GOD
-					erasePropN(props[j],k);
+                    erasePropN(props[j],k);
                     return true;
                 }
             }

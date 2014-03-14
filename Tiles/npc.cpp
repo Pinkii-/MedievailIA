@@ -30,6 +30,9 @@ Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
 
     initPreferences();
 	goingTo = *preferences.begin();
+
+    state = Searching;
+    amount = 0;
 }
 
 void Npc::initPreferences() {

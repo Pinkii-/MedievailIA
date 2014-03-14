@@ -29,6 +29,10 @@ enum Direction {
     Up, Right, Down, Left
 };
 
+enum npcState {
+    Searching, OnTheWay, Recolecting
+};
+
 struct Way {
     Direction dir;
     int dist;

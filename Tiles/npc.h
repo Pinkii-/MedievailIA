@@ -34,6 +34,9 @@ private:
     bool waiting;
     int maxDistance;
 
+    npcState state;
+    int amount;
+
 public:
     Npc();
     Npc(sf::Vector2f pos, int size, Control *con, Map *map);

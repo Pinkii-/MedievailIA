@@ -100,7 +100,9 @@ void Control::forceToUpdateObjective(sf::Vector2f pos) {
 }
 
 Npc Control::getNpc(int player, int i) {
-    return *players[player].getNpcs()[i];
+    std::cout << players.size() << " " << players[player].getNpcs().size() << std::endl;
+    Npc* npc = players[player].getNpcs()[i];
+    return *npc;
 }
 
 Player Control::getPlayer() {
@@ -116,29 +118,10 @@ bool Control::npcOnProp(int j) {
                     // TODO: Set the behavior between the npc and the prop
 
                     forceToUpdateObjective(props[j][k].getMatPosition());
-                    //				 Npc npc(props[j][k].getMatPosition(),TILE_SIZE,this);
-                    //				 npc.setWaitTime(std::min(int(npcs.size()),20)*0.1);
+                    players[p].getNpcs()[i]->setState(Returning);
 
-                    //				 std::cout << std::min(int(npcs.size()),25) << std::endl;
-
-                    ////				 if (npcs[i].getPreference() == Star) {
-                    ////					 npcs[i].setColor(sf::Color::Black);
-                    ////					 npcs[i].setPreference(BStar);
-                    ////					 npc.setPreference(Star);
-                    ////					 npc.setColor(sf::Color::Yellow);
-                    ////				 }
-                    ////				 else {
-                    ////					 npcs[i].setPreference(Star);
-                    ////					 npcs[i].setColor(sf::Color::Yellow);
-                    ////					 npc.setColor(sf::Color::Black);
-                    ////					 npc.setPreference(BStar);
-                    ////				 }
-
-                    //				 npc.setColor(getColor(npcs.size()));
-                    //				 npcs.push_back(npc);
-
-                    //players[p].addNpc();
-                    //players[p].getNpcs()[players[p].getNpcs().size()-1]->setWaitTime(0.1f); // oh GOD
+//                    players[p].addNpc();
+//                    players[p].getNpcs()[players[p].getNpcs().size()-1]->setWaitTime(0.1f); // oh GOD
 					erasePropN(props[j],k);
                     return true;
                 }

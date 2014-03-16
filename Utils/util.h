@@ -30,7 +30,7 @@ enum Direction {
 };
 
 enum npcState {
-    Searching, OnTheWay, Recolecting
+    Searching, OnTheWay, Recolecting, Returning
 };
 
 struct Way {

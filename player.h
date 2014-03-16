@@ -30,6 +30,7 @@ public:
     void updateDraw(sf::Vector2f cameraPos);
 	void addNpc();
     std::vector<Npc*> getNpcs();
+    std::vector<sf::Vector2f> getBase();
 };
 
 #endif // PLAYER_H

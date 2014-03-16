@@ -37,7 +37,7 @@ void Map::generateMap() {
 				matrix[i][j] = Terrain(p,TILE_SIZE);
 			}
 		}
-        int islands = 25;
+        int islands = 125;
         for (unsigned int i = 0; i < islands; ++i) {
             int x = std::rand() % COLS;
             int y = std::rand() % ROWS;

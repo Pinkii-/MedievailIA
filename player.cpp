@@ -1,6 +1,8 @@
 #include "player.h"
 #include "control.h"
 #include <stdio.h>
+#include <typeinfo>
+#include <typeindex>
 
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     for (int i= buildings.size()-1; i >= 0; --i) {
@@ -111,4 +113,11 @@ void Player::addNpc() {
 
 std::vector<Npc*> Player::getNpcs(){
     return npcs;
+}
+
+std::vector<sf::Vector2f> Player::getBase() {
+    std::vector<sf::Vector2f> aux;
+    for (unsigned int i = 0; i < buildings.size(); ++i) {
+        if (typeid(*buildings[i]) == typeid(Base)) aux.push_back(buildings[i]->getMatPosition());
+    }
 }

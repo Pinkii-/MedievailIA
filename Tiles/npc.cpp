@@ -13,23 +13,23 @@ Npc::Npc()
 }
 
 Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
-	this->setTexture(Textures::npc);
+    this->setTexture(Textures::npc);
 
     float scalex, scaley;
-	scalex =  size/float(this->getTexture()->getSize().x);
-	scaley =  size/float(this->getTexture()->getSize().y);
+    scalex =  size/float(this->getTexture()->getSize().x);
+    scaley =  size/float(this->getTexture()->getSize().y);
 
     this->setScale(scalex,scaley);
 
     posMatrix = pos;
     setPrinted(false);
     waiting = true;
-    speed = 7;
+    speed = 100;
     waitTime = 2;
-    maxDistance = 0;
+    maxDistance = 1;
 
     initPreferences();
-	goingTo = *preferences.begin();
+    goingTo = *preferences.begin();
 
     state = Searching;
     amount = 0;
@@ -42,9 +42,47 @@ void Npc::initPreferences() {
 }
 
 void Npc::update(float delta) {
-    waitTime -= delta;
-    bool going = true;
-    while (waiting and going and waitTime <= 0) {
+    if (waitTime >= 0) waitTime -= delta;
+    else {
+        if (state == Searching or state == Returning) updateSearching();
+        if (state == OnTheWay) updateMove(delta);
+    }
+}
+
+void Npc::updateSearching() {
+    //Searching
+    way = std::queue<Direction>();
+    std::list<Resource>::iterator it;
+    if (state == Returning) {
+        std::cout << "Pene" << std::endl;
+        vTargetDestinations = c->getPlayer().getBase();
+    }
+    else {
+        it = preferences.begin();;
+        while (way.empty() and it != preferences.end()) {
+            vTargetDestinations = c->getObjetiveNpc(*it);
+            if (!vTargetDestinations.empty()) {
+                calculateWay();
+                if (!way.empty()) {
+                    goingTo = *it;
+                    break;
+                }
+            }
+            ++it;
+        }
+    }
+    if ((it == preferences.end() or state == Returning) and way.empty()) {
+        if (maxDistance  != 0) {
+            ++maxDistance;
+            waitTime = 0.01;
+        }
+        else waitTime = 0.1;
+    }
+    else state = OnTheWay;
+}
+
+void Npc::updateMove(float delta) {
+    if (waiting and waitTime <= 0) {
         if(!way.empty()) {
             if (maxDistance  != 0) maxDistance = 1;
             dir = way.front();
@@ -53,32 +91,18 @@ void Npc::update(float delta) {
             posMatrix += dista;
             waiting = false;
         }
-        else {
-            std::list<Resource>::iterator it = preferences.begin();;
-            while (way.empty() and it != preferences.end()) {
-				vTargetDestinations = c->getObjetiveNpc(*it);
-				if (!vTargetDestinations.empty()) {
-                    calculateWay();
-                    if (!way.empty()) {
-                        goingTo = *it;
-                        break;
-                    }
-                }
-                ++it;
-            }
-            if (it == preferences.end() and way.empty()) {
-                if (maxDistance  != 0) ++maxDistance;
-                waitTime = 0.001;
-                going = false;
-            }
-        }
     }
-    if (going and waitTime <= 0) {
+    if (waitTime <= 0) {
         sf::Vector2f dist = dirToVec(dir)*speed*delta;
         if (changingNumber(posMatrix.x,posMatrix.x+dist.x) or changingNumber(posMatrix.y,posMatrix.y+dist.y))  {
             posMatrix = vecfTrunc(posMatrix) + dirNormaliced(dirToVec(dir));
             waiting = true;
-            if (!way.empty()) way.pop();
+            if (!way.empty()) {
+                way.pop();
+                if (way.empty()) {
+//                    state = Searching;
+                }
+            }
         }
         else posMatrix += dist;
     }
@@ -89,7 +113,7 @@ void Npc::setMatPosition(sf::Vector2f pos) {
 }
 
 void Npc::setDesPosition(std::vector<sf::Vector2f> pos) {
-	vTargetDestinations = pos;
+    vTargetDestinations = pos;
 }
 
 void Npc::decrementSpeed() {
@@ -104,7 +128,7 @@ void Npc::calculateWay() { /// From ini to dest
     std::vector<std::vector<bool> > visitado(COLS, std::vector<bool>(ROWS,false));
     std::vector<std::vector<Way> > camino(COLS, std::vector<Way>(ROWS));
     std::queue<sf::Vector2i> sinVisitar;
-	if (vTargetDestinations.size() == 0) std::cout << "LLorar" << std::endl;
+    if (vTargetDestinations.size() == 0) std::cout << "LLorar" << std::endl;
     visitado[int(posMatrix.x)][int(posMatrix.y)] = true;
     camino[int(posMatrix.x)][int(posMatrix.y)].dist = 0;
     sinVisitar.push(vecfToVeci(posMatrix));
@@ -112,7 +136,7 @@ void Npc::calculateWay() { /// From ini to dest
         sf::Vector2i visitando = sinVisitar.front();
         sinVisitar.pop();
         if (maxDistance != 0 and maxDistance < camino[visitando.x][visitando.y].dist) break;
-		int rand = std::rand()%4;
+        int rand = std::rand()%4;
         for (int i = 0+rand; i < 4+rand;++i) {
             sf::Vector2i aux = visitando;
             Direction d;
@@ -149,7 +173,7 @@ void Npc::calculateWay() { /// From ini to dest
 
     if (isOnDest(sinVisitar.front())) {
         std::stack<Direction> aux;
-		sf::Vector2i pos = vecfToVeci(TargetDestination);
+        sf::Vector2i pos = vecfToVeci(TargetDestination);
 
         while (pos != vecfToVeci(posMatrix)) {
             aux.push(camino[pos.x][pos.y].dir);
@@ -165,29 +189,34 @@ void Npc::calculateWay() { /// From ini to dest
 void Npc::setPreference(Resource p) {
     preferences.remove(p);
     preferences.push_front(p);
-    way = std::queue<Direction>();
+    state = Searching;
 }
 
 // If dist = 0, it means that the npc will try to reach any position of the map.
 // Otherwise, it will try to reach only the first "dist" tiles.
 void Npc::setMaxDistance(int dist) {
-	maxDistance = dist;
+    maxDistance = dist;
 }
 
 void Npc::resetWay() {
-	way = std::queue<Direction>();
+    state = Searching;
+}
+
+void Npc::setState(npcState s) {
+    std::cout << "Penis" << std::endl;
+    state = s;
 }
 
 Resource Npc::getPreference() {
-  return goingTo;
+    return goingTo;
 }
 
 sf::Vector2f Npc::getMatPosition() {
-	return posMatrix;
+    return posMatrix;
 }
 
 sf::Vector2f Npc::getTargetDestination() {
-	return TargetDestination;
+    return TargetDestination;
 }
 
 int Npc::getMaxDistance() {
@@ -200,9 +229,9 @@ Map* Npc::getMap() {
 
 bool Npc::isOnDest(sf::Vector2i n) {
     sf::Vector2f aux;
-	for (unsigned int i = 0; i < vTargetDestinations.size(); ++i) {
-		if (n == vecfToVeci(vTargetDestinations[i])) {
-			TargetDestination = vTargetDestinations[i];
+    for (unsigned int i = 0; i < vTargetDestinations.size(); ++i) {
+        if (n == vecfToVeci(vTargetDestinations[i])) {
+            TargetDestination = vTargetDestinations[i];
             return true;
         }
     }
@@ -233,6 +262,10 @@ bool Npc::isOnDest(sf::Vector2i n) {
 
 float Npc::getSpeed() {
     return speed;
+}
+
+npcState Npc::getState() {
+    return state;
 }
 
 // annie waits - Rockin' the suburs - Ben folds

@@ -42,6 +42,8 @@ public:
     Npc(sf::Vector2f pos, int size, Control *con, Map *map);
     void initPreferences();
     void update(float delta);
+    void updateSearching();
+    void updateMove(float delta);
     void setMatPosition(sf::Vector2f pos);
     void setDesPosition(std::vector<sf::Vector2f> pos);
     void decrementSpeed();
@@ -50,6 +52,7 @@ public:
     void setPreference(Resource p);
     void setMaxDistance(int dist);
 	void resetWay();
+    void setState(npcState s);
     Resource getPreference();
     sf::Vector2f getMatPosition();
 	sf::Vector2f getTargetDestination();
@@ -58,6 +61,7 @@ public:
     bool isOnDest(sf::Vector2i n);
     bool checkWay(Map &m);
     float getSpeed();
+    npcState getState();
 };
 
 #endif // NPC_H

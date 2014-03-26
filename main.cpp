@@ -7,7 +7,7 @@
 const int TILE_SIZE = 30;
 const float UISPACE = 15;
 
-int WIDTH = sf::VideoMode::getFullscreenModes()[0].width;
+int WIDTH = sf::VideoMode::getFullscreenModes()[0].width-1*TILE_SIZE;
 int HEIGHT = sf::VideoMode::getFullscreenModes()[0].height-3*TILE_SIZE;
 
 int ROWS = 50;

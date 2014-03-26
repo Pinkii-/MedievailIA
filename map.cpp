@@ -99,9 +99,6 @@ void Map::loadMap() {
 void Map::initDraw() {
     int sizei = matrix.size();
     int sizej = matrix[0].size();
-
-    //	cameraPos.x -= UISPACE;
-
     for (int i = 0; i < sizei; ++i) {
         for (int j = 0; j < sizej; ++j) {
             sf::Vector2f position;

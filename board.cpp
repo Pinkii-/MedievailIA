@@ -19,6 +19,7 @@ void Board::init() {
     cameraVel = 10;
     cameraWait = 0;
     view = sf::View (sf::FloatRect(UISPACE*TILE_SIZE, 0, win->getSize().x-UISPACE*TILE_SIZE, win->getSize().y));
+    view.setViewport(sf::FloatRect(UISPACE*TILE_SIZE/win->getSize().x, 0, 1, 1));
     win->setView(view);
     texturas.load();
     // creacion de estructuras de datos
@@ -56,7 +57,8 @@ void Board::updateCamera(float deltaTime) {
         else if(cameraPos.x >= COLS - sizex + UISPACE) cameraPos.x = COLS - sizex + UISPACE;
         if (cameraPos.y < 0) cameraPos.y = 0;
         else if(cameraPos.y >= ROWS - sizey) cameraPos.y = ROWS - sizey;
-        win->setView(sf::View(sf::FloatRect(UISPACE*TILE_SIZE+cameraPos.x*TILE_SIZE, cameraPos.y*TILE_SIZE, win->getSize().x-UISPACE*TILE_SIZE, win->getSize().y)));
+        view.reset(sf::FloatRect((UISPACE+cameraPos.x)*TILE_SIZE, cameraPos.y*TILE_SIZE, win->getSize().x-UISPACE*TILE_SIZE, win->getSize().y));
+        win->setView(view);
     }
     control.initDraw();
 }

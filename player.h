@@ -27,7 +27,7 @@ public:
     void update(float deltaTime);
     void updateNpcs(float deltaTime);
     void updateBuildings(float deltaTime);
-    void updateDraw(sf::Vector2f cameraPos);
+    void updateDraw();
 	void addNpc();
     std::vector<Npc*> getNpcs();
 };

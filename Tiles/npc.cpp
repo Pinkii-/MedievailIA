@@ -22,7 +22,6 @@ Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
     this->setScale(scalex,scaley);
 
     posMatrix = pos;
-    setPrinted(false);
     waiting = true;
     speed = 7;
     waitTime = 2;
@@ -37,7 +36,7 @@ Npc::Npc(sf::Vector2f pos, int size, Control* con, Map* map) : c(con), m(map) {
 
 void Npc::initPreferences() {
     for (int i = 0; i < NPROPS; ++i) {
-        preferences.push_back(Star+i);
+        preferences.push_back(Resource(Star+i));
     }
 }
 

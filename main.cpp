@@ -27,7 +27,7 @@ int main() {
 
     srand(time(0));
 
-    Board board;
+    Board board(&window);
     board.init();
     window.clear();
     window.draw(board);

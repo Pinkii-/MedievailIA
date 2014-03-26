@@ -15,5 +15,5 @@ Base::Base(sf::Vector2f pos, int size) {
 }
 
 void Base::update(float deltaTime){
-
+    (void) deltaTime;
 }

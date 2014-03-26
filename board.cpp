@@ -3,6 +3,7 @@
 
 
 void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    (void) states;
     target.draw(matrix);
 	ui.drawBefore(target);
 	target.draw(control);
@@ -10,12 +11,15 @@ void Board::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(displais);
 }
 
-Board::Board() {
+Board::Board(sf::RenderWindow* window) : win(window) {
 }
 
 void Board::init() {
     cameraPos = sf::Vector2f(0.0,0.0);
     cameraVel = 10;
+    cameraWait = 0;
+    view = sf::View (sf::FloatRect(UISPACE*TILE_SIZE, 0, win->getSize().x-UISPACE*TILE_SIZE, win->getSize().y));
+    win->setView(view);
     texturas.load();
     // creacion de estructuras de datos
     matrix = Map(COLS,ROWS);
@@ -25,8 +29,7 @@ void Board::init() {
     control.init(&matrix);
     displais.init();
     ui.init(this);
-    updateCamera(0); //despues de dibujar todo
-    cameraWait = 0;
+    updateCamera(0); //despues de dibujar todo 
 }
 
 void Board::update(float deltaTime) {
@@ -35,10 +38,10 @@ void Board::update(float deltaTime) {
 }
 
 void Board::updateD(float deltaTime,float deltaDraw) {
-	matrix.updateDraw(cameraPos);
-    control.updateDraw(cameraPos);
+    matrix.initDraw();
+    control.initDraw();
     ui.update();
-    displais.update(deltaDraw,deltaTime,cameraPos,control.getNpc(0,0).getMatPosition());
+    displais.update(deltaDraw,deltaTime,cameraPos);
 }
 
 void Board::updateCamera(float deltaTime) {
@@ -53,8 +56,9 @@ void Board::updateCamera(float deltaTime) {
         else if(cameraPos.x >= COLS - sizex + UISPACE) cameraPos.x = COLS - sizex + UISPACE;
         if (cameraPos.y < 0) cameraPos.y = 0;
         else if(cameraPos.y >= ROWS - sizey) cameraPos.y = ROWS - sizey;
+        win->setView(sf::View(sf::FloatRect(UISPACE*TILE_SIZE+cameraPos.x*TILE_SIZE, cameraPos.y*TILE_SIZE, win->getSize().x-UISPACE*TILE_SIZE, win->getSize().y)));
     }
-    control.updateDraw(cameraPos);
+    control.initDraw();
 }
 
 void Board::updateDirCamera(sf::Vector2f d){

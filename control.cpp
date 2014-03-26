@@ -4,12 +4,12 @@
 
 
 void Control::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    (void) states;
     for (unsigned int i= 0; i < props.size(); ++i) {
         for (unsigned int j=0; j < props[i].size(); ++j) {
-            if (props[i][j].isPrinted()) {
-                const Prop* prop = &props[i][j];
-                target.draw(*prop);
-            }
+            const Prop* prop = &props[i][j];
+            target.draw(*prop);
+
         }
     }
     for (unsigned int i = 0; i < players.size(); ++i) target.draw(players[i]);
@@ -27,11 +27,11 @@ void Control::init(Map* map) {
 }
 
 void Control::update(float deltaTime, Map &m) {
-    updateProp(deltaTime,m);
+    updateProp(m);
     for (unsigned int  i = 0; i < players.size(); ++i) players[i].update(deltaTime);
 }
 
-void Control::updateProp(float deltaTime,Map &m) {
+void Control::updateProp(Map &m) {
     //TODO a random generator of props on the map and check if is interacting with a NPC
     //TODO a random generator of props on the map
     //TODO a random generator of props on the map
@@ -43,7 +43,7 @@ void Control::updateProp(float deltaTime,Map &m) {
             x = std::rand() % COLS;
             y = std::rand() % ROWS;
             if (m.isWalkeable(sf::Vector2f(x,y))) {
-                Prop p = Prop(Star+i,sf::Vector2f(x,y),TILE_SIZE);
+                Prop p = Prop(Resource(Star+i),sf::Vector2f(x,y),TILE_SIZE);
                 props[i].push_back(p);
             }
         }
@@ -65,24 +65,18 @@ std::vector<sf::Vector2f> Control::getObjetiveNpc(Resource preference) {
 
 
 
-void Control::updateDraw(sf::Vector2f cameraPos) {
-    float sizex = WIDTH/TILE_SIZE;
-    float sizey = HEIGHT/TILE_SIZE;
-    //	cameraPos.x -= UISPACE;
+void Control::initDraw() {
     for (unsigned int i= 0; i < props.size(); ++i) {
         for (unsigned int j=0; j < props[i].size(); ++j) {
             sf::Vector2f posProp = props[i][j].getMatPosition();
-            if (posProp.x >= cameraPos.x-1 and posProp.x < cameraPos.x + sizex + 1 - UISPACE and posProp.y >= cameraPos.y-1 and posProp.y < cameraPos.y+sizey+1) {
-                sf::Vector2f position;
-                position.x = TILE_SIZE*(posProp.x+UISPACE-cameraPos.x);
-                position.y = TILE_SIZE*(posProp.y-cameraPos.y);
-                props[i][j].setPosition(position);
-                props[i][j].setPrinted(true);
-            }
-            else props[i][j].setPrinted(false);
+            sf::Vector2f position;
+            position.x = TILE_SIZE*(posProp.x+UISPACE);
+            position.y = TILE_SIZE*(posProp.y);
+            props[i][j].setPosition(position);
+
         }
     }
-    for (unsigned int i = 0; i < players.size(); ++i) players[i].updateDraw(cameraPos);
+    for (unsigned int i = 0; i < players.size(); ++i) players[i].updateDraw();
 }
 
 void Control::erasePropN(std::vector<Prop> &v,int n) {
@@ -93,10 +87,10 @@ void Control::erasePropN(std::vector<Prop> &v,int n) {
 }
 
 void Control::forceToUpdateObjective(sf::Vector2f pos) {
-	for (unsigned int i = 0; i < players.size();++i) {
-		std::vector<Npc*> npcs = players[i].getNpcs();
-		for (unsigned int j = 0; j < npcs.size(); ++j) if (npcs[j]->getTargetDestination() == pos) npcs[j]->resetWay();
-	}
+    for (unsigned int i = 0; i < players.size();++i) {
+        std::vector<Npc*> npcs = players[i].getNpcs();
+        for (unsigned int j = 0; j < npcs.size(); ++j) if (npcs[j]->getTargetDestination() == pos) npcs[j]->resetWay();
+    }
 }
 
 Npc Control::getNpc(int player, int i) {
@@ -139,7 +133,7 @@ bool Control::npcOnProp(int j) {
 
                     //players[p].addNpc();
                     //players[p].getNpcs()[players[p].getNpcs().size()-1]->setWaitTime(0.1f); // oh GOD
-					erasePropN(props[j],k);
+                    erasePropN(props[j],k);
                     return true;
                 }
             }

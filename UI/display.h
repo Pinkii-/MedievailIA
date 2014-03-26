@@ -17,7 +17,7 @@ private:
 public:
     Display();
     void init();
-    void update(float deltaDraw, float deltaTime, sf::Vector2f cameraPos, sf::Vector2f npc);
+    void update(float deltaDraw, float deltaTime, sf::Vector2f cameraPos);
 };
 
 #endif // DISPLAY_H

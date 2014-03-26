@@ -16,7 +16,7 @@ public:
 	Map(int cols, int rows);
     void generateMap();
     void loadMap();
-    void updateDraw(sf::Vector2f cameraPos);
+    void initDraw();
     bool isWalkeable(sf::Vector2f pos);
     sf::Vector2i getSize();
     Terrain getTerrain(int x, int y);

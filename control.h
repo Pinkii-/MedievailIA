@@ -18,8 +18,8 @@ public:
     Control();
     void init(Map *map);
     void update(float deltaTime, Map &m);
-    void updateProp(float deltaTime, Map &m);
-    void updateDraw(sf::Vector2f cameraPos);
+    void updateProp(Map &m);
+    void initDraw();
     void erasePropN(std::vector<Prop> &v,int n);
 	void forceToUpdateObjective(sf::Vector2f pos);
     std::vector<sf::Vector2f> getObjetiveNpc(Resource preference);

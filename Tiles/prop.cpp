@@ -7,7 +7,6 @@ Prop::Prop()
 Prop::Prop(Resource tipo, sf::Vector2f pos, int size) {
     this->tipo = tipo;
     posMatrix = pos;
-    setPrinted(false);
 
 	this->setTexture(Textures::star);
 

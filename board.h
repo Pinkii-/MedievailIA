@@ -19,13 +19,15 @@ private:
 	Textures texturas;
 	Interface ui;
     Display displais;
+    sf::RenderWindow* win;
+    sf::View view;
     sf::Vector2f cameraPos;
 	float cameraVel;
 	sf::Vector2f cameraDir;
 	float cameraWait;
     virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 public:
-    Board();   
+    Board(sf::RenderWindow *window);
     void init();
     void update(float deltaTime);
     void updateD(float deltaTime, float deltaDraw);

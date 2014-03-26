@@ -3,17 +3,14 @@
 #include <stdio.h>
 
 void Player::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    (void) states;
     for (int i= buildings.size()-1; i >= 0; --i) {
-        if (buildings[i]->isPrinted()) {
-            const Base* building = buildings[i];
-            target.draw(*building);
-        }
+        Base* building = buildings[i];
+        target.draw(*building);
     }
     for (int i= npcs.size()-1; i >= 0; --i) {
-        if (npcs[i]->isPrinted()) {
-            const Npc* npc = npcs[i];
-            target.draw(*npc);
-        }
+        const Npc* npc = npcs[i];
+        target.draw(*npc);
     }
 }
 
@@ -45,9 +42,9 @@ void Player::init(int nColor,Control* con, Map* map) {
 }
 
 void Player::buildingInit() {
-	sf::Vector2f pos = sf::Vector2f(3.0,3.0);
-	Base* base = new Base(pos,TILE_SIZE);
-	buildings.push_back(base);
+    sf::Vector2f pos = sf::Vector2f(3.0,3.0);
+    Base* base = new Base(pos,TILE_SIZE);
+    buildings.push_back(base);
 }
 
 void Player::npcInit() {
@@ -57,7 +54,7 @@ void Player::npcInit() {
     beta->setColor(sf::Color::White);
     beta->setPreference(Star);
     npcs.push_back(beta);
-//    Npc alfa(text,pos+sf::Vector2f(0,1),TILE_SIZE);
+    //    Npc alfa(text,pos+sf::Vector2f(0,1),TILE_SIZE);
     //    npcs.push_back(alfa);
 }
 
@@ -77,36 +74,26 @@ void Player::updateBuildings(float deltaTime) {
     }
 }
 
-void Player::updateDraw(sf::Vector2f cameraPos) {
-    float sizex = WIDTH/TILE_SIZE;
-    float sizey = HEIGHT/TILE_SIZE;
+void Player::updateDraw() {
     for (unsigned int i= 0; i < npcs.size(); ++i) {
         sf::Vector2f posNpc = npcs[i]->getMatPosition();
-        if (posNpc.x >= cameraPos.x-1 and posNpc.x < cameraPos.x + sizex + 1 - UISPACE and posNpc.y >= cameraPos.y-1 and posNpc.y < cameraPos.y+sizey+1) {
-            sf::Vector2f position;
-            position.x = TILE_SIZE*(posNpc.x+UISPACE-cameraPos.x);
-            position.y = TILE_SIZE*(posNpc.y-cameraPos.y);
-            npcs[i]->setPosition(position);
-            npcs[i]->setPrinted(true);
-        }
-        else npcs[i]->setPrinted(false);
+        sf::Vector2f position;
+        position.x = TILE_SIZE*(posNpc.x+UISPACE);
+        position.y = TILE_SIZE*(posNpc.y);
+        npcs[i]->setPosition(position);
     }
     for (unsigned int i= 0; i < buildings.size(); ++i) {
         sf::Vector2f posBuilding = buildings[i]->getMatPosition();
-        if (posBuilding.x >= cameraPos.x-1 and posBuilding.x < cameraPos.x + sizex + 1 - UISPACE and posBuilding.y >= cameraPos.y-1 and posBuilding.y < cameraPos.y+sizey+1) {
-            sf::Vector2f position;
-            position.x = TILE_SIZE*(posBuilding.x+UISPACE-cameraPos.x);
-            position.y = TILE_SIZE*(posBuilding.y-cameraPos.y);
-            buildings[i]->setPosition(position);
-            buildings[i]->setPrinted(true);
-        }
-        else buildings[i]->setPrinted(false);
+        sf::Vector2f position;
+        position.x = TILE_SIZE*(posBuilding.x+UISPACE);
+        position.y = TILE_SIZE*(posBuilding.y);
+        buildings[i]->setPosition(position);
     }
 }
 
 void Player::addNpc() {
     Npc* npc = new Npc(buildings[0]->getMatPosition(),TILE_SIZE, c, m);
-	npcs.push_back(npc);
+    npcs.push_back(npc);
 }
 
 std::vector<Npc*> Player::getNpcs(){

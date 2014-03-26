@@ -4,6 +4,7 @@
 #include "Npcdisplayer.hpp"
 
 void NpcDisplayer::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+    (void) states;
     target.draw(s);
     for (unsigned int i = 0; i < nTextosNpcDisplayer; ++i) {
         const sf::Text *aux = &texts[i];
@@ -11,11 +12,11 @@ void NpcDisplayer::draw(sf::RenderTarget &target, sf::RenderStates states) const
     }
 }
 
-NpcDisplayer::NpcDisplayer(): width(UISPACE*TILE_SIZE),height(100) {
+NpcDisplayer::NpcDisplayer(): height(100),width(UISPACE*TILE_SIZE) {
 }
 
 
-NpcDisplayer::NpcDisplayer(int position, Npc* npc): width(UISPACE*TILE_SIZE-10),height(100),n(npc) {
+NpcDisplayer::NpcDisplayer(int position, Npc* npc): n(npc),height(100),width(UISPACE*TILE_SIZE-10) {
     int x = 10;
     int y = 5;
 
